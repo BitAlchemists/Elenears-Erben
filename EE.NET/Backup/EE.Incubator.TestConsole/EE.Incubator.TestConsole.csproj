@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C42147DD-08EE-4833-BA2E-EB3405A0790C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EE.Incubator.TestConsole</RootNamespace>
+    <AssemblyName>EE.Incubator.TestConsole</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Third Party\Castle\Windsor-2.5.2\dotNet40\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Third Party\Castle\Windsor-2.5.2\dotNet40\Castle.Windsor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="EE.Game\Services\RandomMapGenerator.cs" />
+    <Compile Include="EE.Common\EnumHelper.cs" />
+    <Compile Include="EE.Game\Application\Console\IMapRenderer.cs" />
+    <Compile Include="EE.Game\Application\Console\MapRenderer.cs" />
+    <Compile Include="EE.Game\Application\Console\ConsoleApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EE.Common\EE.Common.csproj">
+      <Project>{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}</Project>
+      <Name>EE.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EE.Game\EE.Game.csproj">
+      <Project>{FB0C1197-8DB1-4E60-9042-AA463D019698}</Project>
+      <Name>EE.Game</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="3.5" />
+    </MonoDevelop>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="EE.Game\" />
+    <Folder Include="EE.Game\Services\" />
+    <Folder Include="EE.Common\" />
+    <Folder Include="EE.Game\Application\" />
+    <Folder Include="EE.Game\Application\Console\" />
+  </ItemGroup>
+</Project>

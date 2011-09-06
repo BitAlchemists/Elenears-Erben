@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Common", "EE.Common\EE.Common.csproj", "{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Incubator.TestConsole", "EE.Incubator.TestConsole\EE.Incubator.TestConsole.csproj", "{C42147DD-08EE-4833-BA2E-EB3405A0790C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Game", "EE.Game\EE.Game.csproj", "{FB0C1197-8DB1-4E60-9042-AA463D019698}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = EE.Common\EE.Common.csproj
+	EndGlobalSection
+EndGlobal

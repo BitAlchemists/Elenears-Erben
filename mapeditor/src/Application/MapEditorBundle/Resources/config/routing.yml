@@ -1,0 +1,7 @@
+mapeditor:
+    pattern:  /mapeditor/
+    defaults: { _controller: MapEditorBundle:MapEditor:index }
+
+map:
+    pattern: /mapeditor/map.:_format
+    defaults: { _controller: MapEditorBundle:MapEditor:map, _format: json }

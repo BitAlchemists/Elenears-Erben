@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Common", "EE.Common\EE.Common.csproj", "{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Game", "EE.Game\EE.Game.csproj", "{FB0C1197-8DB1-4E60-9042-AA463D019698}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EE.Incubator", "EE.Incubator", "{DEFDAE38-8340-42A4-A2FB-F060BF6AAEB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Incubator.TestConsole", "EE.Incubator.TestConsole\EE.Incubator.TestConsole.csproj", "{C42147DD-08EE-4833-BA2E-EB3405A0790C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EE.Incubator.Frontend", "EE.Incubator.TestConsole\EE.Incubator.Frontend\EE.Incubator.Frontend.csproj", "{45F09183-A48B-4683-8AE5-F09569412CE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45F09183-A48B-4683-8AE5-F09569412CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F09183-A48B-4683-8AE5-F09569412CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F09183-A48B-4683-8AE5-F09569412CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F09183-A48B-4683-8AE5-F09569412CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FCB565-B2C3-47DF-804D-9DB82ECAB622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0C1197-8DB1-4E60-9042-AA463D019698}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C42147DD-08EE-4833-BA2E-EB3405A0790C} = {DEFDAE38-8340-42A4-A2FB-F060BF6AAEB9}
+		{45F09183-A48B-4683-8AE5-F09569412CE2} = {DEFDAE38-8340-42A4-A2FB-F060BF6AAEB9}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = EE.Incubator.TestConsole\EE.Incubator.TestConsole.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$1.ResourceNamePolicy = MSBuild
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabWidth = 4
+		$4.inheritsSet = Mono
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
+		$0.StandardHeader = $5
+		$5.Text = @\n ${FileName}\n \n Author:\n      ${AuthorName} <${AuthorEmail}>\n \n Copyright (c) ${Year} ${CopyrightHolder}
+		$5.inheritsSet = Apache2License
+		$0.VersionControlPolicy = $6
+		$6.inheritsSet = Mono
+		$0.ChangeLogPolicy = $7
+		$7.UpdateMode = ProjectRoot
+		$7.inheritsSet = Mono
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
