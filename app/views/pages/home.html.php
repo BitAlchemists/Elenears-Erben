@@ -12,7 +12,7 @@ use lithium\data\Connections;
 $this->title('Willkommen');
 
 $self = $this;
-
+?>
 <h3>Willkommen!</h3>
 <ul>
 	<li>
