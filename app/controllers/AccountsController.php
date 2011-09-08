@@ -33,8 +33,8 @@ class AccountsController extends \lithium\action\Controller {
 		{
 		
 			//$this->request->data
-			$username = $this->request->data->username['username'];
 			var_dump($this->request->data);
+			$username = $this->request->data['username'];
 			echo "username: ".$username."<br/>";
 			$accounts = Accounts::all(array('conditions' => array('username' => true), 'limit' => 10));
 			var_dump($accounts->to());
