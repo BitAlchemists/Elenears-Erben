@@ -38,3 +38,6 @@ $self = $this;
 	<p>
 		<?php echo $this->html->link('News', 'http://elenear.net/wordpress'); ?>.
 	</p>
+	<p>
+		<?php echo $this->html->link('Impressum', array('controller' => 'pages', 'action' => 'impressum')); ?>.
+	</p>
