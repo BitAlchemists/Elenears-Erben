@@ -18,7 +18,7 @@
 <body class="app">
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->html->link('Elenears Erben', array('controller' => 'Pages', 'action' => 'home')); ?></h1>
+			<h1><?php echo $this->html->link('Elenears Erben', array('controller' => 'pages', 'action' => 'home')); ?></h1>
 			<h2>
 				Wir tragen das Licht weiter.
 			</h2>
