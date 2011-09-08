@@ -36,8 +36,8 @@ $self = $this;
 		<?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?>
 	</p>
 	<p>
-		<?php echo $this->html->link('News', 'http://elenear.net/wordpress'); ?>.
+		<?php echo $this->html->link('News', 'http://elenear.net/wordpress'); ?>
 	</p>
 	<p>
-		<?php echo $this->html->link('Impressum', array('controller' => 'pages', 'action' => 'impressum')); ?>.
+		<?php echo $this->html->link('Impressum', array('controller' => 'pages', 'action' => 'impressum')); ?>
 	</p>
