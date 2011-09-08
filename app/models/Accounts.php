@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Account extends \lithium\data\Model
+class Accounts extends \lithium\data\Model
 {
 
 }

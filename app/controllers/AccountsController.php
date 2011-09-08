@@ -23,17 +23,23 @@ namespace app\controllers;
  * For example, browsing to `/pages/about/company` will render
  * `/views/pages/about/company.html.php`.
  */
- use app\models\Account;
+ use app\models\Accounts;
  use lithium\net\http\Router;
  
-class AccountController extends \lithium\action\Controller {
+class AccountsController extends \lithium\action\Controller {
 	
 	public function create() {
 		if($this->request->data)
 		{
-			$account = Account::create($this->request->data);
-			$success = $account->save();
-			$this->redirect(array('controller' => 'account', 'action' => 'view'));
+		
+			//$this->request->data
+			$username = $this->request->data->username;
+			echo "username: ".$username."<br/>";
+			$accounts = Accounts::all(array('conditions' => array('username' => true), 'limit' => 10));
+			var_dump($accounts->to());
+			//$account = Account::create($this->request->data);
+			//$success = $account->save();
+			//$this->redirect(array('controller' => 'account', 'action' => 'view'));
 		}
 	}
 

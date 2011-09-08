@@ -6,3 +6,10 @@ git submodule init
 git submodule update
 cd libraries/lithium
 git checkout lithium-0.10
+
+
+#MongoDB installieren
+
+apt-get install mongodb
+pecl install mongo
+php.ini add: extension=mongo.so

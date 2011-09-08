@@ -3,6 +3,7 @@ Viel Spaß bei EE =)
 
 <?=$this->form->create(); ?>
 	<?=$this->form->field('username', array('label' => 'Benutzername')); ?>
-	<?=$this->form->field('username', array('label' => 'Passwort')); ?>
+	<?=$this->form->field('password', array('label' => 'Passwort')); ?>
 	<?=$this->form->submit('Weiter');?>
 <?=$this->form->end(); ?>
+
