@@ -37,9 +37,20 @@ class AccountsController extends \lithium\action\Controller {
 			echo "Type: ".gettype($accounts)."<br/>";
 			var_dump($accounts->data);
 			
+			if($accounts->data)
+			{
+				$userExists = true;
+				return comptact('userExists');
+			}
+			
+			$account = Accounts::create();
+			$account->username = $username;
+			$account->password = md5($this->request->data['password']);
+			$account->save();
+			
+			$this->redirect(array('controller' => 'accounts', 'action' => 'view'));
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
-			//$this->redirect(array('controller' => 'account', 'action' => 'view'));
 		}
 	}
 
