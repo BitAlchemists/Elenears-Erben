@@ -34,6 +34,8 @@ class AccountsController extends \lithium\action\Controller {
 			$username = $this->request->data['username'];
 			$accounts = Accounts::all(array('conditions' => array('username' => $username), 'limit' => 10));
 			var_dump($accounts->to('json'));
+			echo "Type: ".gettype($accounts)."<br/>";
+			
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 			//$this->redirect(array('controller' => 'account', 'action' => 'view'));
