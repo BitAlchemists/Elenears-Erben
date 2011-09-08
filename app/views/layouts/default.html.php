@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Lithium: the most rad php framework
  *
@@ -18,7 +18,7 @@
 <body class="app">
 	<div id="container">
 		<div id="header">
-			<h1>Elenears Erben</h1>
+			<h1><?php echo $self->html->link('Elenears Erben', array('controller' => 'Pages', 'action' => 'home')); ?></h1>
 			<h2>
 				Wir tragen das Licht weiter.
 			</h2>

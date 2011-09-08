@@ -1,4 +1,4 @@
-<?php
+ï»¿<?php
 /**
  * Lithium: the most rad php framework
  *
@@ -15,13 +15,13 @@ $self = $this;
 ?>
 <h3>Willkommen!</h3>
 	<p>
-		Die Kisten waren verstaut, das Vieh versperrt, draußen brannte die Welt. Die Götter hatten ihr Werk getan, und setzen sich nun wohlverdient zur Ruhe. Elenear loderte auf und ward sobald verbrannt.
+		Die Kisten waren verstaut, das Vieh versperrt, drauÃŸen brannte die Welt. Die GÃ¶tter hatten ihr Werk getan, und setzen sich nun wohlverdient zur Ruhe. Elenear loderte auf und ward sobald verbrannt.
 	</p>
 	<p>
-		Die meißten blieben.
+		Die meiÃŸten blieben.
 	</p>
 	<p>
-		Doch eine Handvoll Männer und Frauen machte sich auf den Weg. Auf den Weg ins Nichts. Die Welt hinter uns brannte und so konnten wir nur unsere Schiffe beladen, losfahren... und... hoffen. Hoffen, dass wir irgendwann auf Land stoßen würden, oder auf offener See verhungern oder gar... verdursten. Elenear liegt im sterben und das einzige was davon noch übrig ist, sind wir...	
+		Doch eine Handvoll MÃ¤nner und Frauen machte sich auf den Weg. Auf den Weg ins Nichts. Die Welt hinter uns brannte und so konnten wir nur unsere Schiffe beladen, losfahren... und... hoffen. Hoffen, dass wir irgendwann auf Land stoÃŸen wÃ¼rden, oder auf offener See verhungern oder gar... verdursten. Elenear liegt im sterben und das einzige was davon noch Ã¼brig ist, sind wir...	
 	</p>
 	<p>
 		Elenears Erben

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Lithium: the most rad php framework
  *
@@ -18,5 +18,5 @@ $self = $this;
 		Thomas Enenkel<br/>
 		Steudelgasse 28/28<br/>
 		1100 Wien<br/>
-		E-Mail: tomen (�t) elenear (dot) net
+		E-Mail: tomen (ät) elenear (dot) net
 	</p>
