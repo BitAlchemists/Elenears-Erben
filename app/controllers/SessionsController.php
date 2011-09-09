@@ -24,6 +24,8 @@ namespace app\controllers;
  * `/views/pages/about/company.html.php`.
  */
  use lithium\security\Auth;
+ use lithium\storage\Session;
+
  
 class SessionsController extends \lithium\action\Controller {
 	
