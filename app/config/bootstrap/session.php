@@ -60,7 +60,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
         return $ctrl;
     }
     return function() {
-        return new Response('Pages::home');
+        return new Response(array('controller' => 'pages', 'action' => 'home'));
     };
 });
 
