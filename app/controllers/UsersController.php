@@ -28,6 +28,11 @@ namespace app\controllers;
  
 class UsersController extends \lithium\action\Controller {
 	
+	public function index() {
+        $users = Users::all();
+        return compact('users');
+    }
+	
 	public function create() {
 		if($this->request->data)
 		{
@@ -48,7 +53,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->password = md5($this->request->data['password']);
 			$user->save();
 			
-			$this->redirect(array('controller' => 'users', 'action' => 'view'));
+			$this->redirect('Users::index');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}
