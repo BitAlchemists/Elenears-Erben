@@ -34,7 +34,8 @@ class SessionsController extends \lithium\action\Controller {
 	
 	public function index()
 	{
-		return;
+		$username = Session::read('username');
+		return compact('username');
 	}
 	
 	public function add() {

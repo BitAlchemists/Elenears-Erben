@@ -1,6 +1,3 @@
-<?php
-	$username = Session::read('username');
-	echo "<h3>Willkommen ".$username."!</h3>";
-?>
+<?= "<h3>Willkommen ".$username."!</h3>"; ?>
 Du bist eingeloggt.<br/>
 <?=$self->html->link('Ausloggen', array('controller' => 'sessions', 'action' => 'delete'));?>
