@@ -29,14 +29,9 @@ namespace app\controllers;
  
 class UsersController extends \lithium\action\Controller {
 	
-	public function index() {
-        $users = Users::all();
-        return compact('users');
-    }
-	
-	public function create() {
-	
+	public $publicActions = array('create');
 
+	public function create() {
 	
 		if($this->request->data)
 		{
@@ -55,7 +50,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->password = String::hash($this->request->data['password']);
 			$user->save();
 			
-			$this->redirect('Users::index');
+			$this->redirect('Users::l');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}
@@ -70,9 +65,6 @@ class UsersController extends \lithium\action\Controller {
 	
 	}
 
-	public function to_string() {
-		return "Hello World";
-	}
 }
 
 ?>

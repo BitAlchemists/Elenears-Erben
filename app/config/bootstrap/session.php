@@ -45,4 +45,21 @@ Session::config(array(
  	)
  ));
 
+ 
+ use lithium\action\Dispatcher;
+ 
+Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
+    $ctrl = $chain->next($self, $params, $chain);
+
+    if (Auth::check('default')) {
+        return $ctrl;
+    }
+    if (isset($ctrl->publicActions) && in_array($params['request']->action, $ctrl->publicActions)) {
+        return $ctrl;
+    }
+    return function() {
+        return new Response('Pages::home');
+    };
+});
+
 ?>
