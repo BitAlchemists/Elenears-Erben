@@ -47,6 +47,8 @@ Session::config(array(
 
  
  use lithium\action\Dispatcher;
+ use lithium\action\Response;
+
  
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
     $ctrl = $chain->next($self, $params, $chain);
