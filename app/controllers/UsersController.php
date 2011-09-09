@@ -53,7 +53,7 @@ class UsersController extends \lithium\action\Controller {
 			echo "Type: ".gettype($users)."<br/>";
 			var_dump($users->data);
 			
-			if($users->data)
+			if($users->count != 0)
 			{
 				$userExists = true;
 				return comptact('userExists');
