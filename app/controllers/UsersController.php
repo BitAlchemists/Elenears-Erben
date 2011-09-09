@@ -23,32 +23,32 @@ namespace app\controllers;
  * For example, browsing to `/pages/about/company` will render
  * `/views/pages/about/company.html.php`.
  */
- use app\models\Accounts;
+ use app\models\Users;
  use lithium\net\http\Router;
  
-class AccountsController extends \lithium\action\Controller {
+class UsersController extends \lithium\action\Controller {
 	
 	public function create() {
 		if($this->request->data)
 		{
 			$username = $this->request->data['username'];
-			$accounts = Accounts::all(array('conditions' => array('username' => $username), 'limit' => 10));
-			var_dump($accounts->to('json'));
-			echo "Type: ".gettype($accounts)."<br/>";
-			var_dump($accounts->data);
+			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
+			var_dump($users->to('json'));
+			echo "Type: ".gettype($users)."<br/>";
+			var_dump($users->data);
 			
-			if($accounts->data)
+			if($users->data)
 			{
 				$userExists = true;
 				return comptact('userExists');
 			}
 			
-			$account = Accounts::create();
-			$account->username = $username;
-			$account->password = md5($this->request->data['password']);
-			$account->save();
+			$user = Users::create();
+			$user->username = $username;
+			$user->password = md5($this->request->data['password']);
+			$user->save();
 			
-			$this->redirect(array('controller' => 'accounts', 'action' => 'view'));
+			$this->redirect(array('controller' => 'users', 'action' => 'view'));
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}

@@ -27,10 +27,10 @@ $self = $this;
 		Elenears Erben
 	</p>
 	<p>
-		<?php echo $self->html->link('Registrieren', array('controller' => 'accounts', 'action' => 'create')); ?>
+		<?php echo $self->html->link('Registrieren', array('controller' => 'users', 'action' => 'create')); ?>
 	</p>
 	<p>
-		<?php echo $self->html->link('Einloggen', array('controller' => 'accounts', 'action' => 'login')); ?>
+		<?php echo $self->html->link('Einloggen', array('controller' => 'user', 'action' => 'login')); ?>
 	</p>
 	<p>
 		<?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?>
