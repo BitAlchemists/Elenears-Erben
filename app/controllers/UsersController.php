@@ -61,7 +61,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->password = md5($this->request->data['password']);
 			$user->save();
 			
-			$this->redirect('Users::index');
+			//$this->redirect('Users::index');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}
