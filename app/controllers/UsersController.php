@@ -34,12 +34,14 @@ class UsersController extends \lithium\action\Controller {
     }
 	
 	public function create() {
+	
+		$users = Users::all();
+		echo "All users<br/>";
+		var_dump($users->to('json'));
+	
 		if($this->request->data)
 		{
 			$username = $this->request->data['username'];
-			$users = Users::all();
-			echo "All users<br/>";
-			var_dump($users->to('json'));
 			
 			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
 
