@@ -38,6 +38,7 @@ class UsersController extends \lithium\action\Controller {
 		$users = Users::all();
 		echo "All users<br/>";
 		var_dump($users->to('json'));
+		echo get_class($users);
 	
 		if($this->request->data)
 		{
