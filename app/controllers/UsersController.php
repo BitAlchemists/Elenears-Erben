@@ -25,6 +25,7 @@ namespace app\controllers;
  */
  use app\models\Users;
  use lithium\net\http\Router;
+ use lithium\util\String;
  
 class UsersController extends \lithium\action\Controller {
 	
