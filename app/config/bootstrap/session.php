@@ -61,7 +61,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
     }
     return function() {
         //return new Response(array('controller' => 'pages', 'action' => 'home'));
-		return new Response(array('location' => '/pages/home'));
+		return new Response(array('location' => '/game/pages/home'));
     };
 });
 
