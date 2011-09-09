@@ -16,7 +16,7 @@ $this->title('Willkommen');
 $self = $this;
 ?>
 <?php
-	$username = Sessions::read('username');
+	$username = Session::read('username');
 	if(is_string($username))
 	{
 		echo "<h3>Willkommen ".$username."!</h3>";
