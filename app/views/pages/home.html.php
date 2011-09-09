@@ -8,6 +8,8 @@
 
 use lithium\core\Libraries;
 use lithium\data\Connections;
+use lithium\storage\Session;
+
 
 $this->title('Willkommen');
 
