@@ -30,7 +30,7 @@ $self = $this;
 		<?php echo $self->html->link('Registrieren', array('controller' => 'users', 'action' => 'create')); ?>
 	</p>
 	<p>
-		<?php echo $self->html->link('Einloggen', array('controller' => 'user', 'action' => 'login')); ?>
+		<?php echo $self->html->link('Einloggen', array('controller' => 'users', 'action' => 'login')); ?>
 	</p>
 	<p>
 		<?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?>

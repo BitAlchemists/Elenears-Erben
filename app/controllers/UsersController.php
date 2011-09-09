@@ -68,14 +68,6 @@ class UsersController extends \lithium\action\Controller {
 	public function destroy(){
 	
 	}
-	
-	public function login(){
-	
-	}
-	
-	public function logout(){
-	
-	}
 
 	public function to_string() {
 		return "Hello World";
