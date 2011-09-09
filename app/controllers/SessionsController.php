@@ -29,10 +29,17 @@ class SessionsController extends \lithium\action\Controller {
 	
 	public function add() {
         if ($this->request->data && Auth::check('default', $this->request)) {
+			Session::write('username', $this->request->username);
             return $this->redirect('/');
         }
 		// Handle failed authentication attempts
 		echo "Failed<br/>";
+    }
+	
+	public function delete() {
+        Auth::clear('default');
+		Session::delete('username');
+        return $this->redirect('/');
     }
 	
 }

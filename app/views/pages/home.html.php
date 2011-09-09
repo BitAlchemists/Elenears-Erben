@@ -13,7 +13,17 @@ $this->title('Willkommen');
 
 $self = $this;
 ?>
-<h3>Willkommen!</h3>
+<?php
+	$username = Session::read('username');
+	if(is_string($username))
+	{
+		echo "<h3>Willkommen ".$username."!</h3>";
+	}
+	else
+	{
+		echo "<h3>Willkommen!</h3>";
+	}
+?>
 	<p>
 		Die Kisten waren verstaut, das Vieh versperrt, draußen brannte die Welt. Die Götter hatten ihr Werk getan, und setzen sich nun wohlverdient zur Ruhe. Elenear loderte auf und ward sobald verbrannt.
 	</p>
@@ -29,8 +39,19 @@ $self = $this;
 	<p>
 		<?php echo $self->html->link('Registrieren', array('controller' => 'users', 'action' => 'create')); ?>
 	</p>
+	
 	<p>
-		<?php echo $self->html->link('Einloggen', array('controller' => 'sessions', 'action' => 'add')); ?>
+		<?php 
+			if(Auth::check('default'))
+			{
+				echo $self->html->link('Ausloggen', array('controller' => 'sessions', 'action' => 'delete')); ?>
+			}
+			else
+			{
+				echo $self->html->link('Einloggen', array('controller' => 'sessions', 'action' => 'add')); ?>
+			}
+		?>
+		
 	</p>
 	<p>
 		<?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?>
