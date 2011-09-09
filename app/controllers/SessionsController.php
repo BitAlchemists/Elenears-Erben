@@ -38,12 +38,19 @@ class SessionsController extends \lithium\action\Controller {
 	}
 	
 	public function add() {
-        if ($this->request->data && Auth::check('default', $this->request)) {
-			Session::write('username', $this->request->data->username);
-            return $this->redirect('/');
+        if ($this->request->data) {
+			if(Auth::check('default', $this->request))
+			{
+				Session::write('username', $this->request->data->username);
+				return $this->redirect('/');
+			}
+			else
+			{
+				echo "Failed<br/>";
+			}
         }
 		// Handle failed authentication attempts
-		echo "Failed<br/>";
+
     }
 	
 	public function delete() {
