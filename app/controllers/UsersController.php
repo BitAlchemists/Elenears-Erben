@@ -37,8 +37,16 @@ class UsersController extends \lithium\action\Controller {
 		if($this->request->data)
 		{
 			$username = $this->request->data['username'];
-			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
+			$users = Users::all();
+			echo "All users<br/>";
 			var_dump($users->to('json'));
+			
+			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
+
+			echo "All users with username ".$username."<br/>";
+			var_dump($users->to('json'));
+
+
 			echo "Type: ".gettype($users)."<br/>";
 			var_dump($users->data);
 			
