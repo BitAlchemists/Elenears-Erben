@@ -48,6 +48,7 @@ class GamesController extends \lithium\action\Controller {
 			$borderlane = array($waterfield, $waterfield, $waterfield, $waterfield, $waterfield);
 			$midlane = array($waterfield, $landfield, $landfield, $landfield, $waterfield);
 			$game->map = array(xSize => 5, ySize => 5, data => array($borderlane, $midlane, $midlane, $midlane, $borderlane));
+			$game->avatars = array();
 			$game->save();
 			
 			$this->redirect('Games::index');
@@ -82,7 +83,7 @@ class GamesController extends \lithium\action\Controller {
 	{
 		if(!$this->avatarForSessionUser($gameId))
 		{
-			return $this->redirect(array('controller' => 'games', 'action' => 'join'));
+			return $this->redirect(array('controller' => 'games', 'action' => 'join', 'args' => array($gameId)));
 		}
 	
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
@@ -91,9 +92,27 @@ class GamesController extends \lithium\action\Controller {
 		return compact('game', 'map');
 	}
 	
-	public function join() {
+	public function join($gameId) {
         if ($this->request->data) {
+			$avatarname = $this->request->data['avatarname'];
+			$game = Games::first(array('conditions' => array('_id' => $gameId)));
 			
+			//check if the avatarName is free
+			foreach($game->avatars as $avatar)
+			{
+				if($avatarname == $avatar->name)
+				{
+					$avatarExists = true;
+					return compact('avatarExists');
+				}
+			}
+			
+			//the avatarName is free, we can use it
+			$avatar['name'] = $avatarname;
+			$avatar['userid'] = Session::read('user._id');
+			$game->avatars[] = $avatar;
+			$game->save();
+			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
 		// Handle failed authentication attempts
 
