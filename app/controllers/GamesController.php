@@ -77,23 +77,15 @@ class GamesController extends \lithium\action\Controller {
 		return compact('games');
 	}
 	
+	public function view($gameId)
+	{
+		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		return compact('game');
+	}
+	
 	public function join() {
         if ($this->request->data) {
-			if(Auth::check('default', $this->request))
-			{
-				$username = $this->request->data['username'];
-				$user = Users::first(array('conditions' => array('username' => $username)));
-				
-				Session::write('user.username', $username);
-				Session::write('user._id', $user->_id);
-				Session::write('user.isAdmin', ($user->isAdmin != 0));
-								
-				return $this->redirect('Users::home');
-			}
-			else
-			{
-				echo "Failed<br/>";
-			}
+			
         }
 		// Handle failed authentication attempts
 
