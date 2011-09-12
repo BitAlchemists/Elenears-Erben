@@ -71,19 +71,22 @@ class UsersController extends \lithium\action\Controller {
 	
 	public function home()
 	{
-		$username = Session::read('username');
-		echo "Username: ".$username."<br/>";
-		return compact('username');
+		$username = Session::read('user.username');
+		$isAdmin = Session::read('user.isAdmin');
+		return compact('username', 'isAdmin');
 	}
 	
 	public function login() {
         if ($this->request->data) {
 			if(Auth::check('default', $this->request))
 			{
-				echo "Success<br/>";
-				Session::write('username', $this->request->data['username']);
-				var_dump($this->request->data);
-				echo "Username: ".$this->request->data['username']."<br/>";
+				$username = $this->request->data['username'];
+				$user = Users::first(array('conditions' => array('username' => $username)));
+				
+				Session::write('user.username', $username);
+				Session::write('user._id', $user->_id);
+				Session::write('user.isAdmin', ($user->isAdmin != 0));
+								
 				return $this->redirect('Users::home');
 			}
 			else
