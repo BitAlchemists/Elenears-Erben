@@ -24,6 +24,7 @@ namespace app\controllers;
  * `/views/pages/about/company.html.php`.
  */
 use app\models\Games;
+use app\models\Users;
 use lithium\net\http\Router;
 use lithium\storage\Session;
 
@@ -79,7 +80,13 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function view($gameId)
 	{
+		if(!$this->sessionUserHasAvatar($gameId))
+		{
+			return $this->redirect(array('controller' => 'games', 'action' => 'join'));
+		}
+	
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		
 		$map = $game->map->data->to('json');
 		return compact('game', 'map');
 	}
@@ -97,6 +104,27 @@ class GamesController extends \lithium\action\Controller {
 		Session::delete('username');
         return $this->redirect('/');
     }
+	
+	function avatarForSessionUser($gameId)
+	{
+		$userId = Session::read('user._id');
+		if(!$userId)
+		{
+			return false;
+		}
+		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		
+		foreach($avatar in $game->avatars)
+		{
+			if($avatar->userId == $userId)
+			{
+				return $avatar;
+			}
+		}
+		
+		return null;
+	}
+
 }
 
 ?>
