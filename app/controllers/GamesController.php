@@ -58,11 +58,16 @@ class GamesController extends \lithium\action\Controller {
 		//return $this->render(array('layout' => false));
 
 	
-	public function remove(){
+	public function remove($gameId){
 		if(!Session::read('user.isAdmin'))
 		{
 			$this->redirect('/');
 		}
+		
+		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		$game->delete();
+		
+		$this->redirect('Games::index');
 	}
 
 	
