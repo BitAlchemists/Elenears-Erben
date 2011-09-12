@@ -80,7 +80,8 @@ class GamesController extends \lithium\action\Controller {
 	public function view($gameId)
 	{
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		return compact('game');
+		$map = $game->map->to('json');
+		return compact('game', 'map');
 	}
 	
 	public function join() {
