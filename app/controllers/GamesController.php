@@ -114,7 +114,7 @@ class GamesController extends \lithium\action\Controller {
 		}
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
 		
-		foreach($avatar in $game->avatars)
+		foreach($game->avatars in $avatar)
 		{
 			if($avatar->userId == $userId)
 			{
