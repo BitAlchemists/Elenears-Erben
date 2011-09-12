@@ -112,7 +112,8 @@ class GamesController extends \lithium\action\Controller {
 			$avatar['userid'] = Session::read('user._id');
 			$game->avatars[] = $avatar;
 			$game->save();
-			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
+			echo "joined game";
+			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
 		// Handle failed authentication attempts
 
