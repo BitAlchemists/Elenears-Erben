@@ -66,7 +66,7 @@ class UsersController extends \lithium\action\Controller {
 	}
 
 	
-	public function index()
+	public function home()
 	{
 		$username = Session::read('username');
 		return compact('username');
