@@ -80,7 +80,7 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function view($gameId)
 	{
-		if(!$this->sessionUserHasAvatar($gameId))
+		if(!$this->avatarForSessionUser($gameId))
 		{
 			return $this->redirect(array('controller' => 'games', 'action' => 'join'));
 		}
