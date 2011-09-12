@@ -32,7 +32,7 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function add() {
 	
-		if(!Session::read('isAdmin'))
+		if(!Session::read('user.isAdmin'))
 		{
 			$this->redirect('/');
 		}
@@ -59,7 +59,7 @@ class GamesController extends \lithium\action\Controller {
 
 	
 	public function remove(){
-		if(!Session::read('isAdmin'))
+		if(!Session::read('user.isAdmin'))
 		{
 			$this->redirect('/');
 		}
