@@ -50,7 +50,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->password = String::hash($this->request->data['password']);
 			$user->save();
 			
-			$this->redirect('Users::l');
+			$this->redirect('Users::home');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}
@@ -69,6 +69,7 @@ class UsersController extends \lithium\action\Controller {
 	public function home()
 	{
 		$username = Session::read('username');
+		echo "Username: ".$username."<br/>";
 		return compact('username');
 	}
 	
@@ -77,8 +78,8 @@ class UsersController extends \lithium\action\Controller {
 			if(Auth::check('default', $this->request))
 			{
 				Session::write('username', $this->request->data->username);
-				echo "Username: ".$this->request->data->username;
-				return $this->redirect('/');
+				echo "Username: ".$this->request->data->username."<br/>";
+				return $this->redirect('Users::home');
 			}
 			else
 			{
