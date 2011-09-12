@@ -29,7 +29,7 @@ namespace app\controllers;
  
 class UsersController extends \lithium\action\Controller {
 	
-	public $publicActions = array('create', 'add');
+	public $publicActions = array('create', 'login');
 
 	public function create() {
 	
