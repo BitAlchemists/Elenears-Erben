@@ -86,8 +86,10 @@ class UsersController extends \lithium\action\Controller {
 				Session::write('user.username', $username);
 				Session::write('user._id', $user->_id);
 				Session::write('user.isAdmin', ($user->isAdmin != 0));
-								
-				return $this->redirect('Users::home');
+					
+				var_dump($user);
+					
+				//return $this->redirect('Users::home');
 			}
 			else
 			{
