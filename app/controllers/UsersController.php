@@ -81,10 +81,10 @@ class UsersController extends \lithium\action\Controller {
 			if(Auth::check('default', $this->request))
 			{
 				echo "Success<br/>";
-				Session::write('username', $this->request->data->username);
+				Session::write('username', $this->request->data['username']);
 				var_dump($this->request->data);
 				echo "Username: ".$this->request->data['username']."<br/>";
-				//return $this->redirect('Users::home');
+				return $this->redirect('Users::home');
 			}
 			else
 			{
