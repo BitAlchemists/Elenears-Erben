@@ -23,10 +23,11 @@ namespace app\controllers;
  * For example, browsing to `/pages/about/company` will render
  * `/views/pages/about/company.html.php`.
  */
- use app\models\Users;
- use lithium\net\http\Router;
- use lithium\util\String;
- use lithium\security\Auth;
+use app\models\Users;
+use lithium\net\http\Router;
+use lithium\util\String;
+use lithium\security\Auth;
+use lithium\storage\Session;
 
  
 class UsersController extends \lithium\action\Controller {
