@@ -47,11 +47,11 @@ $self = $this;
 		<?php 
 			if(Auth::check('default'))
 			{
-				echo $self->html->link('Ausloggen', array('controller' => 'sessions', 'action' => 'delete'));
+				echo $self->html->link('Ausloggen', array('controller' => 'users', 'action' => 'logout'));
 			}
 			else
 			{
-				echo $self->html->link('Einloggen', array('controller' => 'sessions', 'action' => 'add'));
+				echo $self->html->link('Einloggen', array('controller' => 'users', 'action' => 'login'));
 			}
 		?>
 		
