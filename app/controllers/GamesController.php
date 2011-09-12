@@ -68,8 +68,8 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function index()
 	{
-		$username = Session::read('username');
-		return compact('username');
+		$games = Games::all();
+		return compact('games');
 	}
 	
 	public function join() {
