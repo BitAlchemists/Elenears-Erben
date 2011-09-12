@@ -1,4 +1,4 @@
-<?php if ($avatarExists): ?>
+<?php if (isset($avatarExists) && $avatarExists): ?>
 	Ein Avatar mit diesem Namen existiert bereits. Bitte probiere einen anderen Namen.
 <?php endif; ?>
 
