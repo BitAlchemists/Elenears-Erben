@@ -29,36 +29,7 @@ namespace app\controllers;
  
 class SessionsController extends \lithium\action\Controller {
 	
-	public $publicActions = array('add');
 
-	
-	public function index()
-	{
-		$username = Session::read('username');
-		return compact('username');
-	}
-	
-	public function add() {
-        if ($this->request->data) {
-			if(Auth::check('default', $this->request))
-			{
-				Session::write('username', $this->request->data->username);
-				return $this->redirect('/');
-			}
-			else
-			{
-				echo "Failed<br/>";
-			}
-        }
-		// Handle failed authentication attempts
-
-    }
-	
-	public function delete() {
-        Auth::clear('default');
-		Session::delete('username');
-        return $this->redirect('/');
-    }
 	
 }
 

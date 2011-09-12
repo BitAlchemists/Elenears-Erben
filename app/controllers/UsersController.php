@@ -29,7 +29,7 @@ namespace app\controllers;
  
 class UsersController extends \lithium\action\Controller {
 	
-	public $publicActions = array('create');
+	public $publicActions = array('create', 'add');
 
 	public function create() {
 	
@@ -65,6 +65,35 @@ class UsersController extends \lithium\action\Controller {
 	
 	}
 
+	
+	public function index()
+	{
+		$username = Session::read('username');
+		return compact('username');
+	}
+	
+	public function login() {
+        if ($this->request->data) {
+			if(Auth::check('default', $this->request))
+			{
+				Session::write('username', $this->request->data->username);
+				echo "Username: ".$this->request->data->username;
+				return $this->redirect('/');
+			}
+			else
+			{
+				echo "Failed<br/>";
+			}
+        }
+		// Handle failed authentication attempts
+
+    }
+	
+	public function logout() {
+        Auth::clear('default');
+		Session::delete('username');
+        return $this->redirect('/');
+    }
 }
 
 ?>
