@@ -133,7 +133,7 @@ class GamesController extends \lithium\action\Controller {
 	function avatarForSessionUser($gameId)
 	{
 		$userId = Session::read('user._id');
-		echo "Checking user with id ".$userid."<br/>";
+		echo "Checking user with id ".$userId."<br/>";
 		if(!$userId)
 		{
 			return false;
