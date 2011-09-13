@@ -123,13 +123,13 @@ class GamesController extends \lithium\action\Controller {
 			$avatar['userid'] = Session::read('user._id');
 			//echo "Pre Game data: <br/>";
 			//var_dump($game->data());
-			$avatars = $game->data('avatars');
+			$avatars = $game->avatars->data();
 			echo "Pre Avatars: <br/>";
 			var_dump($avatars->data());
-			$avatars->append($avatar);
+			$avatars[] = $avatar;
 			echo "<br/>Post Avatars: <br/>";
 			var_dump($avatars->data());
-			$game->avatars = $avatars;
+			$game->avatars = new DocumentSet(array('data' => $avatars));
 			//echo "<br/>Post Game data: <br/>";
 			//var_dump($game->data());
 			//echo "new game->avatars dump: <br/>";
