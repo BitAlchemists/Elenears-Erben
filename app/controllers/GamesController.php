@@ -124,11 +124,11 @@ class GamesController extends \lithium\action\Controller {
 			//echo "Pre Game data: <br/>";
 			//var_dump($game->data());
 			$avatars = $game->avatars->data();
-			echo "Pre Avatars: <br/>";
-			var_dump($avatars->data());
+			//echo "Pre Avatars: <br/>";
+			//var_dump($avatars->data());
 			$avatars[] = $avatar;
-			echo "<br/>Post Avatars: <br/>";
-			var_dump($avatars->data());
+			//echo "<br/>Post Avatars: <br/>";
+			//var_dump($avatars->data());
 			$game->avatars = new DocumentSet(array('data' => $avatars));
 			//echo "<br/>Post Game data: <br/>";
 			//var_dump($game->data());
@@ -136,8 +136,14 @@ class GamesController extends \lithium\action\Controller {
 			//var_dump($game->avatars);
 			//echo "<br/>";
 			
-			$game->save();
-			echo "joined game";
+			if($game->save())
+			{
+				echo "joined game";
+			}
+			else
+			{
+				echo "failed joining";
+			}
 			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
 		// Handle failed authentication attempts
