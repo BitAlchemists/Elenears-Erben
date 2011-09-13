@@ -132,7 +132,7 @@ class GamesController extends \lithium\action\Controller {
 			//var_dump($game->avatars);
 			//echo "<br/>";
 			
-			//$game->save();
+			$game->save();
 			echo "joined game";
 			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
