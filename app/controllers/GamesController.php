@@ -95,16 +95,7 @@ class GamesController extends \lithium\action\Controller {
 	}
 	
 	public function join($gameId) {
-	
-			//$game = Games::first(array('conditions' => array('_id' => $gameId)));
-			//echo "game type: ".gettype($game)."<br/>";
-			//echo "game dump: <br/>";
-			//var_dump($game);
-			//echo "<br/>";
-			//echo "game->avatars type: ".gettype($game->avatars)."<br/>";
-			//echo "game->avatars dump: <br/>";
-			//var_dump($game->avatars);
-			//echo "<br/>";
+
 	
         if ($this->request->data) {
 			$avatarname = $this->request->data['avatarname'];
@@ -123,30 +114,11 @@ class GamesController extends \lithium\action\Controller {
 			//the avatarName is free, we can use it
 			$avatar['name'] = $avatarname;
 			$avatar['userid'] = Session::read('user._id');
-			//echo "Pre Game data: <br/>";
-			//var_dump($game->data());
 			$avatars = $game->avatars->data();
-			//echo "Pre Avatars: <br/>";
-			//var_dump($avatars->data());
 			$avatars[count($avatars)] = $avatar;
-			//echo "<br/>Post Avatars: <br/>";
-			//var_dump($avatars->data());
-			$game->avatars = $avatars;// new DocumentSet(array('data' => $avatars, 'model' => ));
-			//echo "<br/>Post Game data: <br/>";
-			//var_dump($game->data());
-			//echo "new game->avatars dump: <br/>";
-			//var_dump($game->avatars);
-			//echo "<br/>";
-			
-			if($game->save())
-			{
-				echo "joined game";
-			}
-			else
-			{
-				echo "failed joining";
-			}
-			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
+			$game->avatars = $avatars;
+
+			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
 		// Handle failed authentication attempts
 
@@ -161,15 +133,17 @@ class GamesController extends \lithium\action\Controller {
 	function avatarForSessionUser($gameId)
 	{
 		$userId = Session::read('user._id');
+		echo "Checking user with id ".$userid."<br/>";
 		if(!$userId)
 		{
 			return false;
 		}
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		
+		$game->avatars->find(array('conditions' => array('userid')));
 		foreach($game->avatars as $avatar)
 		{
-			if($avatar->data('userId') == $userId)
+			echo "Checking against ".$avatar->userid."<br/>";
+			if($avatar->userid == $userId)
 			{
 				return $avatar;
 			}
