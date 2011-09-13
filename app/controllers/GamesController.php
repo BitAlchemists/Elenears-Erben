@@ -125,7 +125,12 @@ class GamesController extends \lithium\action\Controller {
 			$avatars = $game->data('avatars');
 			$avatars[] = $avatar;
 			$game->set(array('avatars' => $avatars));
-			$game->save();
+			
+			echo "new game->avatars dump: <br/>";
+			var_dump($game->avatars);
+			echo "<br/>";
+			
+			//$game->save();
 			echo "joined game";
 			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
