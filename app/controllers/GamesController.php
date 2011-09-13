@@ -83,17 +83,10 @@ class GamesController extends \lithium\action\Controller {
 	public function view($gameId)
 	{
 		$avatar = $this->avatarForSessionUser($gameId);
-	
-		if($avatar == null)
-		{
-			echo "You dont have an avatar<br/>";
-			//return $this->redirect(array('controller' => 'games', 'action' => 'join', 'args' => array($gameId)));
-		}
-	
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		
 		$map = $game->map->data->to('json');
-		return compact('game', 'map');
+		
+		return compact('game', 'map', 'avatar');
 	}
 	
 	public function join($gameId) {
@@ -135,7 +128,6 @@ class GamesController extends \lithium\action\Controller {
 	function avatarForSessionUser($gameId)
 	{
 		$userId = Session::read('user._id');
-		echo "Checking user with id ".$userId."<br/>";
 		if(!$userId)
 		{
 			return false;
@@ -144,10 +136,8 @@ class GamesController extends \lithium\action\Controller {
 
 		foreach($game->avatars as $avatar)
 		{
-			echo "Checking against ".$avatar->userid."<br/>";
 			if($avatar->userid == $userId)
 			{
-				echo "Found your avatar";
 				return $avatar;
 			}
 		}
