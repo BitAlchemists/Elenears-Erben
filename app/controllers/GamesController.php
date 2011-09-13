@@ -113,6 +113,8 @@ class GamesController extends \lithium\action\Controller {
 			$avatars[count($avatars)] = $avatar;
 			$game->avatars = $avatars;
 
+			$game->save();
+
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
 		// Handle failed authentication attempts
