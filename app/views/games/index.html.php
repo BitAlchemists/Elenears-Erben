@@ -6,6 +6,8 @@ use lithium\storage\Session;
 
 ?>
 
+<?=$this->html->link('Spiel erstellen', array('controller' => 'games', 'action' => 'add'));?><br/>
+
 <?php foreach($games as $game): ?>
 <article>
 	<p>
