@@ -121,17 +121,17 @@ class GamesController extends \lithium\action\Controller {
 			//the avatarName is free, we can use it
 			$avatar['name'] = $avatarname;
 			$avatar['userid'] = Session::read('user._id');
-			echo "Pre Game data: <br/>";
-			var_dump($game->data());
+			//echo "Pre Game data: <br/>";
+			//var_dump($game->data());
 			$avatars = $game->data('avatars');
-			echo "Pre Avatars: <br/>";
-			var_dump($avatars);
+			//echo "Pre Avatars: <br/>";
+			//var_dump($avatars);
 			$avatars->append($avatar);
-			echo "Post Avatars: <br/>";
-			var_dump($avatars);
+			//echo "Post Avatars: <br/>";
+			//var_dump($avatars);
 			$game->avatars = $avatars;
-			echo "Post Game data: <br/>";
-			var_dump($game->data());
+			//echo "Post Game data: <br/>";
+			//var_dump($game->data());
 			//echo "new game->avatars dump: <br/>";
 			//var_dump($game->avatars);
 			//echo "<br/>";
