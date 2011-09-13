@@ -66,9 +66,17 @@ class UsersController extends \lithium\action\Controller {
 
 	
 	public function destroy(){
-	
+		$userId = Session::read('user._id');
+		Users::remove(array('_id' => $userId));
+		Auth::clear('default');
+		$this->redirect('/');
 	}
 
+	public function index()
+	{
+		$users = Users::all();
+		return compact('users');
+	}
 	
 	public function home()
 	{
@@ -103,7 +111,7 @@ class UsersController extends \lithium\action\Controller {
 	
 	public function logout() {
         Auth::clear('default');
-		Session::delete('username');
+	Session::clear();
         return $this->redirect('/');
     }
 }
