@@ -95,21 +95,13 @@ class GamesController extends \lithium\action\Controller {
 	public function join($gameId) {
 	
 			$game = Games::first(array('conditions' => array('_id' => $gameId)));
-			echo "game type: ".gettype($game)."<br/>";
-			echo "game dump: <br/>";
-			var_dump($game);
-			echo "<br/>";
-			echo "game->data type: ".gettype($game->data)."<br/>";
-			echo "game->data dump: <br/>";
-			var_dump($game->data);
-			echo "<br/>";			
+			//echo "game type: ".gettype($game)."<br/>";
+			//echo "game dump: <br/>";
+			//var_dump($game);
+			//echo "<br/>";
 			echo "game->avatars type: ".gettype($game->avatars)."<br/>";
 			echo "game->avatars dump: <br/>";
 			var_dump($game->avatars);
-			echo "<br/>";
-			echo "game->avatars->data type: ".gettype($game->avatars->data)."<br/>";
-			echo "game->avatars->data  dump: <br/>";
-			var_dump($game->avatars->data );
 			echo "<br/>";
 	
         if ($this->request->data) {
@@ -130,8 +122,11 @@ class GamesController extends \lithium\action\Controller {
 			$avatar['name'] = $avatarname;
 			$avatar['userid'] = Session::read('user._id');
 			
+			$avatars = $game->avatars;
+			$avatars[] = $avatar;
+			$game->avatars = $avatars;
 			//$game->avatars = $avatar;
-			//$game->save();
+			$game->save();
 			echo "joined game";
 			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
