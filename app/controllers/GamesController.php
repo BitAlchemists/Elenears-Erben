@@ -48,7 +48,7 @@ class GamesController extends \lithium\action\Controller {
 			$borderlane = array($waterfield, $waterfield, $waterfield, $waterfield, $waterfield);
 			$midlane = array($waterfield, $landfield, $landfield, $landfield, $waterfield);
 			$game->map = array(xSize => 5, ySize => 5, data => array($borderlane, $midlane, $midlane, $midlane, $borderlane));
-			$game->avatars = array();
+			$game->avatars = array('dummy');
 			$game->save();
 			
 			$this->redirect('Games::index');
