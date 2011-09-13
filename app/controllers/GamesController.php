@@ -82,7 +82,9 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function view($gameId)
 	{
-		if(!$this->avatarForSessionUser($gameId))
+		$avatar = $this->avatarForSessionUser($gameId);
+	
+		if($avatar == null)
 		{
 			echo "You dont have an avatar<br/>";
 			//return $this->redirect(array('controller' => 'games', 'action' => 'join', 'args' => array($gameId)));
@@ -139,12 +141,13 @@ class GamesController extends \lithium\action\Controller {
 			return false;
 		}
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		$game->avatars->find(array('conditions' => array('userid')));
+
 		foreach($game->avatars as $avatar)
 		{
 			echo "Checking against ".$avatar->userid."<br/>";
 			if($avatar->userid == $userId)
 			{
+				echo "Found your avatar";
 				return $avatar;
 			}
 		}
