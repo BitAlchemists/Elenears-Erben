@@ -53,6 +53,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->password = String::hash($this->request->data['password']);
 			$user->save();
 			
+			Auth::check('default', $this->request);
 			$this->redirect('Users::home');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();

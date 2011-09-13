@@ -4,9 +4,13 @@ use lithium\storage\Session;
 
 	$isAdmin = Session::read('user.isAdmin');
 
-?>
+	if($isAdmin)
+	{
+		echo $this->html->link('Spiel erstellen', array('controller' => 'games', 'action' => 'add'));
+	}
+	
 
-<?=$this->html->link('Spiel erstellen', array('controller' => 'games', 'action' => 'add'));?><br/>
+?><br/>
 
 <?php foreach($games as $game): ?>
 <article>

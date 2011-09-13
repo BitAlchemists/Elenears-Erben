@@ -1,8 +1,8 @@
 <?php
 	if($avatar == null)
 	{
-		echo "Du hast noch keinen Avatar für dieses Spiel. ";
-		echo $this->html->link('[Jetzt beitreten]', 'Users::join');
+		echo "Du hast noch keinen Avatar fÃ¼r dieses Spiel. ";
+		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'games', 'action' => 'join', 'args' => array($game->_id)));
 		echo "<br/>";
 	}
 ?>
