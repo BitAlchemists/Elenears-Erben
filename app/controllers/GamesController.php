@@ -27,6 +27,7 @@ use app\models\Games;
 use app\models\Users;
 use lithium\net\http\Router;
 use lithium\storage\Session;
+use \lithium\data\collection\DocumentSet;
 
  
 class GamesController extends \lithium\action\Controller {
