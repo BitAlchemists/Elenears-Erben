@@ -10,7 +10,7 @@
 <h3><?= $game->name ?></h3>
 
 Map:<br/>
-<?php var_dump($map); ?>
+<?php echo($map); ?>
 
 <h3>Avatare:</h3>
 <?php
