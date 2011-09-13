@@ -126,7 +126,7 @@ class GamesController extends \lithium\action\Controller {
 			$avatars = $game->data('avatars');
 			echo "Pre Avatars: <br/>";
 			var_dump($avatars);
-			$avatars[] = $avatar;
+			$avatars->append($avatar);
 			echo "Post Avatars: <br/>";
 			var_dump($avatars);
 			$game->avatars = $avatars;
