@@ -169,7 +169,7 @@ class GamesController extends \lithium\action\Controller {
 		
 		foreach($game->avatars as $avatar)
 		{
-			if($avatar->data()['userId'] == $userId)
+			if($avatar->data('userId') == $userId)
 			{
 				return $avatar;
 			}
