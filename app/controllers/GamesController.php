@@ -127,11 +127,11 @@ class GamesController extends \lithium\action\Controller {
 			//echo "Pre Avatars: <br/>";
 			//var_dump($avatars);
 			$avatars->append($avatar);
-			//echo "Post Avatars: <br/>";
-			//var_dump($avatars);
+			echo "<br/>Post Avatars: <br/>";
+			var_dump($avatars->data());
 			$game->avatars = $avatars;
-			//echo "Post Game data: <br/>";
-			//var_dump($game->data());
+			echo "<br/>Post Game data: <br/>";
+			var_dump($game->data());
 			//echo "new game->avatars dump: <br/>";
 			//var_dump($game->avatars);
 			//echo "<br/>";
