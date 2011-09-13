@@ -94,15 +94,15 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function join($gameId) {
 	
-			$game = Games::first(array('conditions' => array('_id' => $gameId)));
+			//$game = Games::first(array('conditions' => array('_id' => $gameId)));
 			//echo "game type: ".gettype($game)."<br/>";
 			//echo "game dump: <br/>";
 			//var_dump($game);
 			//echo "<br/>";
-			echo "game->avatars type: ".gettype($game->avatars)."<br/>";
-			echo "game->avatars dump: <br/>";
-			var_dump($game->avatars);
-			echo "<br/>";
+			//echo "game->avatars type: ".gettype($game->avatars)."<br/>";
+			//echo "game->avatars dump: <br/>";
+			//var_dump($game->avatars);
+			//echo "<br/>";
 	
         if ($this->request->data) {
 			$avatarname = $this->request->data['avatarname'];
