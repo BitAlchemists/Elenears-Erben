@@ -124,7 +124,7 @@ class GamesController extends \lithium\action\Controller {
 			
 			$avatars = $game->data('avatars');
 			$avatars[] = $avatar;
-			$game->set(array('avatars' => $avatars));
+			$game->avatars = $avatars;
 			
 			//echo "new game->avatars dump: <br/>";
 			//var_dump($game->avatars);
