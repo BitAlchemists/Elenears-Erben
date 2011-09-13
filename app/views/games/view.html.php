@@ -7,5 +7,10 @@
 Map:<br/>
 <?php var_dump($map); ?>
 
-Avatars:<br/>
-<?php var_dump($game->avatars) ?>
+<h3>Avatare:</h3>
+<?php
+	foreach($game->avatars as $avatar)
+	{
+		echo "<p>".$avatar->name."</p>";
+	}
+?>
