@@ -110,8 +110,9 @@ class GamesController extends \lithium\action\Controller {
 			//the avatarName is free, we can use it
 			$avatar['name'] = $avatarname;
 			$avatar['userid'] = Session::read('user._id');
-			$game->avatars->data[] = $avatar;
-			$game->save();
+			var_dump($game->avatars);
+			//$game->avatars = $avatar;
+			//$game->save();
 			echo "joined game";
 			//return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         }
