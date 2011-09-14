@@ -15,7 +15,7 @@ class Tick extends \lithium\console\Command {
 	 * @return void
 	 */
 	public function run() {
-		return $this->out('ticking');
+		$this->out('ticking');
 	
 		$games = Games::all();
 		$this->out($games->count().' games live');
