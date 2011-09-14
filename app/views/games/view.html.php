@@ -16,6 +16,6 @@ Map:<br/>
 <?php
 	foreach($game->avatars as $avatar)
 	{
-		echo "<p>".$avatar->userid." - ".$avatar->name."</p>";
+		echo "<p>".$avatar->name." - ".$avatar->age."</p>";
 	}
 ?>
