@@ -3,7 +3,7 @@
 namespace app\extensions\command;
 
 use app\models\Games;
-
+require __DIR__ . '../../config/bootstrap/connections.php';
 /**
  * The EE Heart
  */
