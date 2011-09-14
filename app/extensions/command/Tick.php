@@ -3,6 +3,7 @@
 namespace app\extensions\command;
 
 use app\models\Games;
+require dirname(dirname(__DIR__)).'/config/bootstrap/libraries.php';
 require dirname(dirname(__DIR__)).'/config/bootstrap/connections.php';
 /**
  * The EE Heart
