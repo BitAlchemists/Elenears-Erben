@@ -1,5 +1,9 @@
 ﻿#Setup
 
+sudo apt-get install apache2 php5 libapache2-mod-php5 php5-cli mongodb pecl git
+
+#Projekt auschecken
+
 git clone git@github.com:BitAlchemists/Elenears-Erben
 cd Elenears-Erben
 git submodule init
@@ -7,9 +11,17 @@ git submodule update
 cd libraries/lithium
 git checkout lithium-0.10
 
+#Für Apache2 konfigurieren
+sudo ln -s /path/to/Elenears-Erben/app/webroot/ /var/www/game
+#in /etc/apache2/sites-enabled/000-default unter dem passenden Directory-Tag: 
+	Options FollowSymLinks
+	AllowOverride All
+#mod-rewrite enablen:
+sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
 
 #MongoDB installieren
 
-apt-get install mongodb
-pecl install mongo
-php.ini add: extension=mongo.so
+sudo apt-get install mongodb
+sudo pecl install mongo
+#/etc/php5/apache2/php.ini add:
+extension=mongo.so
