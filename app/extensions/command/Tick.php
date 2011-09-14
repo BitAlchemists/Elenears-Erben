@@ -18,6 +18,7 @@ class Tick extends \lithium\console\Command {
 		return $this->out('ticking');
 	
 		$games = Games::all();
+		$this->out($games->count().' games live');
 		
 		foreach($games as $game)
 		{
