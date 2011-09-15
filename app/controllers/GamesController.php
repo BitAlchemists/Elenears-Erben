@@ -92,7 +92,7 @@ class GamesController extends \lithium\action\Controller {
 	public function join($gameId) {
 
 	
-        if ($this->request->data) {
+        	if ($this->request->data) {
 			$avatarname = $this->request->data['avatarname'];
 			$game = Games::first(array('conditions' => array('_id' => $gameId)));
 			
@@ -107,8 +107,7 @@ class GamesController extends \lithium\action\Controller {
 			}
 			
 			//the avatarName is free, we can use it
-			$avatar['name'] = $avatarname;
-			$avatar['userid'] = Session::read('user._id');
+			$avatar = array('name' => $avatarname, 'userid' => Session::read('user._id'));
 			$avatars = $game->avatars->data();
 			$avatars[count($avatars)] = $avatar;
 			$game->avatars = $avatars;
@@ -116,7 +115,7 @@ class GamesController extends \lithium\action\Controller {
 			$game->save();
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
-        }
+        	}
 		// Handle failed authentication attempts
 
     }
