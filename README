@@ -25,3 +25,5 @@ sudo apt-get install mongodb
 sudo pecl install mongo
 #/etc/php5/apache2/php.ini add:
 extension=mongo.so
+#/etc/php5/cli/php.ini add:
+extension=mongo.so
