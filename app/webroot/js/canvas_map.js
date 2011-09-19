@@ -20,9 +20,9 @@ var map2DFramework = function(container){
 		
 		
 		images.grasland = new Image();   // Create new img element  
-		images.grasland.src = 'field_grasland.png'; // Set source path  
+		images.grasland.src = 'http://elenear.net/game/img/field_grasland.png'; // Set source path  
 		images.water = new Image();   // Create new img element  
-		images.water.src = 'field_water.png'; // Set source path  
+		images.water.src = 'http://elenear.net/game/img/field_water.png'; // Set source path  
 		
 	}
 	
