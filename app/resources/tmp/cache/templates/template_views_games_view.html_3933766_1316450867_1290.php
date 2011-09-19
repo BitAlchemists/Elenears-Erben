@@ -7,7 +7,7 @@
 	}
 ?>
 
-<h3><?= $game->name ?></h3>
+<h3><?php echo $h($game->name); ?></h3>
 
 Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
