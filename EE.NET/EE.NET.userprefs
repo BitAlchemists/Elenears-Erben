@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" ctype="Workspace" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="EE.Incubator.TestConsole/EE.Game/BattleServices/BattleService.cs" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="EE.Incubator.TestConsole/EE.Game/MapServices/HeightMapMapManipulator.cs" ctype="Workbench">
     <Files>
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Controllers/HomeController.cs" Line="22" Column="1" />
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Views/Web.config" Line="1" Column="1" />
@@ -8,32 +8,36 @@
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Web.config" Line="86" Column="11" />
       <File FileName="EE.Incubator.TestConsole/Main.cs" Line="1" Column="1" />
       <File FileName="EE.Incubator.TestConsole/EE.Game/Application/Console/MapRenderer.cs" Line="1" Column="1" />
-      <File FileName="EE.Incubator.TestConsole/ConsoleApplication.cs" Line="131" Column="66" />
+      <File FileName="EE.Incubator.TestConsole/ConsoleApplication.cs" Line="96" Column="34" />
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Global.asax.cs" Line="17" Column="27" />
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Views/Home/Index.aspx" Line="12" Column="1" />
       <File FileName="EE.Incubator.TestConsole/EE.Incubator.Frontend/Views/Home/Map.aspx" Line="11" Column="1" />
       <File FileName="EE.Game/Model/Troop.cs" Line="12" Column="6" />
-      <File FileName="EE.Incubator.TestConsole/EE.Game/BattleServices/BattleService.cs" Line="81" Column="15" />
+      <File FileName="EE.Incubator.TestConsole/EE.Game/BattleServices/BattleService.cs" Line="77" Column="24" />
       <File FileName="EE.Game/Model/Army.cs" Line="1" Column="1" />
       <File FileName="EE.Incubator.TestConsole/EE.Game/BattleServices/TroopBattleData.cs" Line="16" Column="21" />
       <File FileName="EE.Incubator.TestConsole/EE.Game/BattleServices/ArmyBattleData.cs" Line="14" Column="11" />
+      <File FileName="EE.Incubator.TestConsole/EE.Game/MapServices/RandomMapGenerator.cs" Line="1" Column="1" />
+      <File FileName="EE.Incubator.TestConsole/EE.Game/MapServices/WaterEdgeMapManipulator.cs" Line="1" Column="1" />
+      <File FileName="EE.Incubator.TestConsole/EE.Game/MapServices/HeightMapMapManipulator.cs" Line="108" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="EE.Incubator" expanded="True">
-            <Node name="EE.Incubator.Frontend" expanded="True">
-              <Node name="Controllers" expanded="True" />
-            </Node>
-            <Node name="EE.Incubator.TestConsole" expanded="True" selected="True">
-              <Node name="References" expanded="True" />
+            <Node name="EE.Incubator.TestConsole" expanded="True">
               <Node name="EE.Game" expanded="True">
-                <Node name="BattleServices" expanded="True" />
+                <Node name="MapServices" expanded="True">
+                  <Node name="HeightMapMapManipulator.cs" selected="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
-          <Node name="EE.Game" expanded="True">
-            <Node name="Model" expanded="True" />
+          <Node name="EE.Common" expanded="True">
+            <Node name="Application" expanded="True">
+              <Node name="Console" expanded="True" />
+            </Node>
+            <Node name="Services" expanded="True" />
           </Node>
         </State>
       </Pad>

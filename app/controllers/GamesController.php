@@ -46,9 +46,18 @@ class GamesController extends \lithium\action\Controller {
 			$game->name = $gamename;
 			$waterfield['type'] = 0;
 			$landfield['type'] = 1;
-			$borderlane = array($waterfield, $waterfield, $waterfield, $waterfield, $waterfield);
-			$midlane = array($waterfield, $landfield, $landfield, $landfield, $waterfield);
-			$game->map = array(xSize => 5, ySize => 5, data => array($borderlane, $midlane, $midlane, $midlane, $borderlane));
+			$game->map = array(xSize => 10, ySize => 10, data => array(
+array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
+array($waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield),
+array($waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield),
+array($waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
+array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
+array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
+array($waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
+array($waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
+array($waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$landfield ,$waterfield),
+array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield)
+));
 			$game->avatars = array();
 			$game->save();
 			

@@ -96,9 +96,9 @@ namespace EE.Incubator.TestConsole
 					renderer.WithNumbers = true;
 					renderer.Render(map);
 					
-					//System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-					//string json = serializer.Serialize(map);
-                    //Console.WriteLine(json);
+					System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+					string json = serializer.Serialize(map);
+                    Console.WriteLine(json);
 				}
 			});
 			

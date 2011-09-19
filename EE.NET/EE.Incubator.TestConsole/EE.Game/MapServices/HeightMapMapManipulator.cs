@@ -155,9 +155,9 @@ namespace EE.Incubator.TestConsole.EE.Game.Services
 		private int GenerateRisingValue()
 		{
 			int caseValue = RandomNumberGenerator.Instance.Next(0,10);	
-			if(caseValue <= 5)
+			if(caseValue <= 3)
 				return 0;
-			else if( caseValue == 6)
+			else if( caseValue == 9)
 				return -1;
 			else return 1;
 		}
