@@ -7,7 +7,7 @@
 	}
 ?>
 
-<h3><?php echo $h($game->name); ?></h3>
+<h3><?= $game->name ?></h3>
 
 Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
@@ -27,7 +27,8 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 					}	
 				);
 				map.test();
-				map.drawMap();
+				setTimeout("map.drawMap()",500); //we redraw after a half second to be sure, that images are already loadedsetTimeout("map.drawMap()",500); //we redraw after a half second to be sure, that images are already loaded
+
 			})
 		</script> 
 <!--		TE: Manas Umrahmung für die Map
