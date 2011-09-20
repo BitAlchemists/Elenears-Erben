@@ -53,7 +53,7 @@ class UsersController extends \lithium\action\Controller {
 			$user->salt = Password::salt();
 			$user->password = Password::hash($this->request->data['password'], $user->salt);
 			$user->save();
-			var_dump($user->data());
+			//var_dump($user->data());
 			
 			Auth::check('default', $this->request);
 			//$this->redirect('Users::home');
