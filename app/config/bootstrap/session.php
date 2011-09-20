@@ -45,6 +45,7 @@ Session::config(array(
  		'model' => 'Users',
  		'fields' => array('username', 'password'),
 		'filters' => array(function($data){
+			$username = $date['username'];
 			$user = Users::first(array('conditions' => array('username' => $username)));
 			echo "Password: " . $data['password'] . "<br/>";
 			echo "Salt: " . $user->salt . "<br/>";
