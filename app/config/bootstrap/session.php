@@ -47,8 +47,8 @@ Session::config(array(
 		//we overwrite the password-hashing method and use our custom method instead
 		'filters' => array('password' => function($data){return $data;},
 		function($data){
-			$username = $data['username'];
-			$user = Users::first(array('conditions' => array('username' => $username)));
+			$data['username'] = strtolower($data['username']);
+			$user = Users::first(array('conditions' => array('username' => $data['username'])));
 			$data['password'] = Password::hash($data['password'], $user->salt);
 			return $data;
 		})

@@ -49,13 +49,15 @@ class UsersController extends \lithium\action\Controller {
 			}
 			
 			$user = Users::create();
-			$user->username = $username;
+			$user->username = strtolower($username);
+			$user->displayName = $username;
 			$user->salt = Password::salt();
 			$user->password = Password::hash($this->request->data['password'], $user->salt);
 			$user->save();
 			//var_dump($user->data());
 			
 			Auth::check('default', $this->request);
+			_login($username);
 			$this->redirect('Users::home');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
@@ -91,13 +93,9 @@ class UsersController extends \lithium\action\Controller {
         if ($this->request->data) {
 			if(Auth::check('default', $this->request))
 			{
-				$username = $this->request->data['username'];
-				$user = Users::first(array('conditions' => array('username' => $username)));
+				$username = strtolower($this->request->data['username']);
+				_login($username);
 				
-				Session::write('user.username', $username);
-				Session::write('user._id', $user->_id);
-				Session::write('user.isAdmin', ($user->isAdmin != 0));
-					
 				return $this->redirect('Users::home');
 			}
 			else
@@ -108,6 +106,15 @@ class UsersController extends \lithium\action\Controller {
 		// Handle failed authentication attempts
 
     }
+	
+	function _login($username)
+	{
+		$user = Users::first(array('conditions' => array('username' => $username)));
+			
+		Session::write('user.username', $user->displayName);
+		Session::write('user._id', $user->_id);
+		Session::write('user.isAdmin', ($user->isAdmin != 0));
+	}
 	
 	public function logout() {
         Auth::clear('default');
