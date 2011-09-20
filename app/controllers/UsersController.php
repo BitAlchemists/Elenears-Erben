@@ -25,7 +25,7 @@ namespace app\controllers;
  */
 use app\models\Users;
 use lithium\net\http\Router;
-use lithium\util\String;
+use lithium\security\Password;
 use lithium\security\Auth;
 use lithium\storage\Session;
 
@@ -50,7 +50,8 @@ class UsersController extends \lithium\action\Controller {
 			
 			$user = Users::create();
 			$user->username = $username;
-			$user->password = String::hash($this->request->data['password']);
+			$user->salt = Password::salt();
+			$user->password = Password::hash($this->request->data['password'], $user->salt);
 			$user->save();
 			
 			Auth::check('default', $this->request);

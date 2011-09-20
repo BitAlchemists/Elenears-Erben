@@ -36,12 +36,18 @@ Session::config(array(
  * @see lithium\security\Auth
  */
  use lithium\security\Auth;
+ use lithium\security\Password;
+ use app\models\Users;
 
  Auth::config(array(
  	'default' => array(
  		'adapter' => 'Form',
  		'model' => 'Users',
- 		'fields' => array('username', 'password')
+ 		'fields' => array('username', 'password'),
+		'filters' => array('password' => function($data){
+			$user = Models::first('username' => $data['username']);
+			$data['password'] = Password::hash($data['password'], $user->salt);
+		}
  	)
  ));
 
