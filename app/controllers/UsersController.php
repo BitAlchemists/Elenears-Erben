@@ -56,7 +56,7 @@ class UsersController extends \lithium\action\Controller {
 			var_dump($user->data());
 			
 			Auth::check('default', $this->request);
-			$this->redirect('Users::home');
+			//$this->redirect('Users::home');
 			//$account = Account::create($this->request->data);
 			//$success = $account->save();
 		}
