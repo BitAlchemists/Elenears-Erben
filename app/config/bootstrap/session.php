@@ -45,8 +45,9 @@ Session::config(array(
  		'model' => 'Users',
  		'fields' => array('username', 'password'),
 		'filters' => array(function($data){
-			$user = Users::first(array('conditions' => array('username' => $data['username'])));
-			echo "First user: " . $user->data();
+			$username = $data['username'];
+			$user = Users::first(array('conditions' => array('username' => $username)));
+			echo "First user '" . $username . ": "; var_dump($user);
 			$data['password'] = Password::hash($data['password'], $user->salt);
 			return $data;
 		})
