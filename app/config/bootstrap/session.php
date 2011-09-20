@@ -45,10 +45,11 @@ Session::config(array(
  		'model' => 'Users',
  		'fields' => array('username', 'password'),
 		'filters' => array(function($data){
-			$username = $data['username'];
 			$user = Users::first(array('conditions' => array('username' => $username)));
-			echo "First user '" . $username . ": "; var_dump($user);
+			echo "Password: " . $data['password'] . "<br/>";
+			echo "Salt: " . $user->salt . "<br/>";
 			$data['password'] = Password::hash($data['password'], $user->salt);
+			echo "Hash: " . $data['password'] . "<br/>";
 			return $data;
 		})
  	)
