@@ -20,7 +20,7 @@ $self = $this;
 	$username = Session::read('user.username');
 	if(is_string($username))
 	{
-		echo "<h3>Willkommen ".$username."!</h3>";
+		echo "<h3>Willkommen ".$h($username)."!</h3>";
 	}
 	else
 	{

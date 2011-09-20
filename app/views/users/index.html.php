@@ -2,6 +2,6 @@
 
     <ul>
         <?php foreach ($users as $user) { ?>
-            <li><?=$user->username; ?></li>
+            <li><?php echo $h($user->username); ?></li>
         <?php } ?>
     </ul>
