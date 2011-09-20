@@ -45,7 +45,7 @@ Session::config(array(
  		'model' => 'Users',
  		'fields' => array('username', 'password'),
 		'filters' => array(function($data){
-			$username = $date['username'];
+			$username = $data['username'];
 			$user = Users::first(array('conditions' => array('username' => $username)));
 			var_dump($user);
 			echo "Password: " . $data['password'] . "<br/>";
