@@ -47,12 +47,13 @@ Session::config(array(
 		'filters' => array(function($data){
 			$username = $date['username'];
 			$user = Users::first(array('conditions' => array('username' => $username)));
+			var_dump($user);
 			echo "Password: " . $data['password'] . "<br/>";
 			echo "Salt: " . $user->salt . "<br/>";
 			$data['password'] = Password::hash($data['password'], $user->salt);
 			echo "Hash: " . $data['password'] . "<br/>";
 			return $data;
-		})
+		}, 'password' => function($data){return $data;})
  	)
  ));
 
