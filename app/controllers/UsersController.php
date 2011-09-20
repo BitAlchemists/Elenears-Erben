@@ -38,7 +38,8 @@ class UsersController extends \lithium\action\Controller {
 	
 		if($this->request->data)
 		{
-			$username = $this->request->data['username'];
+			$displayName = $this->request->data['username'];
+			$username = strtolower($displayName);
 			
 			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
 			
@@ -49,8 +50,8 @@ class UsersController extends \lithium\action\Controller {
 			}
 			
 			$user = Users::create();
-			$user->username = strtolower($username);
-			$user->displayName = $username;
+			$user->username = $username;
+			$user->displayName = $displayName;
 			$user->salt = Password::salt();
 			$user->password = Password::hash($this->request->data['password'], $user->salt);
 			$user->save();
