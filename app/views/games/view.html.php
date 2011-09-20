@@ -50,6 +50,6 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
 	foreach($game->avatars as $avatar)
 	{
-		echo "<p>".$h(a$vatar->name)." - ".$h($avatar->age)."</p>";
+		echo "<p>".$h($avatar->name)." - ".$h($avatar->age)."</p>";
 	}
 ?>
