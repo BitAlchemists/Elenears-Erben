@@ -19,7 +19,9 @@ class Tick extends \lithium\console\Command {
 		
 		foreach($games as $key => $game)
 		{
-			//var_dump($game);
+			$game->tickCount++;
+			$game->save();
+		/*	//var_dump($game);
 			$this->out('manipulating game: '.$game->name);
 			foreach($game->avatars as $avatar)
 			{
@@ -37,7 +39,7 @@ class Tick extends \lithium\console\Command {
 			else
 			{
 				$this->out('saving failed');
-			}
+			}*/
 
 		}
 		//https://github.com/UnionOfRAD/lithium/issues/42
