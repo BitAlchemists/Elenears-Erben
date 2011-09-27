@@ -95,24 +95,24 @@ dd {
 
 /*--- Top-Nav ---*/
 
-  ul#top-nav{
+  div#top-nav{
     margin: 0; padding: 0.8em;
     background-color: #222;
   }
-  ul#top-nav li {
+  div#top-nav li {
     list-style: none;
     display: inline;
     margin: 0.4em; padding: 0;
     color:#CCC;
   }
 
-  ul#top-nav a, {
+  div#top-nav a {
     padding: 0.2em 1em;
     text-decoration: none;
     color:#CCC;
   }
 
-  ul#top-nav a:hover {
+  div#top-nav a:hover {
     color: white; background-color: gray;
   }
 
