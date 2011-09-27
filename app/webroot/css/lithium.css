@@ -138,12 +138,14 @@ dd {
 	display:inline-block;
 	width:57%;
 	padding: 5px;
+    vertical-align:top;
   }
   
   #about{
 	display:inline-block;
 	width:40%;
 	padding: 5px;
+    vertical-align:top;
   }
   
   #news{
