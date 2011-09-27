@@ -134,15 +134,20 @@ dd {
 	z-index: 1000;
   }
   
-  #news-container{
+  #teaser{
 	display:inline-block;
-	width:64%;
+	width:47%;
   }
   
-  #about-container{
+  #about{
 	display:inline-block;
-	width:35%
+	width:47%
   }
+  
+  #news{
+  
+  }
+  
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;
