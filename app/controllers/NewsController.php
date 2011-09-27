@@ -23,22 +23,28 @@ namespace app\controllers;
  * For example, browsing to `/pages/about/company` will render
  * `/views/pages/about/company.html.php`.
  */
- use app\models\News;
+use app\models\News;
+use lithium\storage\Session;
+use lithium\net\http\Router;
  
-class PagesController extends \lithium\action\Controller {
+class NewsController extends \lithium\action\Controller {
 
-	public $publicActions = array('view');
-
-	public function view() {
-		$path = func_get_args() ?: array('home');
-		
-		if($path == 'home')
+	public function create() {
+	
+		$isAdmin = Session::read('user.isAdmin');
+		if(!isAdmin)
 		{
-			$news = News::all();
-			$this->_render['data']['news'] = $news;
+			return $this->redirect('/');
 		}
-		
-		return $this->render(array('template' => join('/', $path), 'layout' => 'public'));
+	
+		if($this->request->data)
+		{
+			$news = News::create($this->request->data);
+			$news->author = Session::read('user.username');
+			$news->date = date("d.m.Y");
+			$news->save();
+			$this->redirect('/');
+		}
 	}
 }
 

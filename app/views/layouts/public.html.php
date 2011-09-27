@@ -53,7 +53,7 @@ use lithium\security\Auth;
 	</div>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->html->link('Elenears Erben', '/'); ?></h1>
+			<h1><?php echo $this->html->link('Elenears Erben', '/'); ?> - Alpha!</h1>
 			<h2>Wir tragen das Licht weiter.</h2>
 		</div>
 		<div id="content">

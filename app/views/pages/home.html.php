@@ -44,4 +44,13 @@ $this->title('Willkommen');
 		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');?>
 	<p>
 	</p>
-
+	<h3>News</h3>
+	<?php 
+		foreach($this->news as $newsEntry)
+		{
+			echo "<h4>" . $h($newsEntry->title) . "</h4>";
+			echo "on " . $newsEntry->date . " by " . $h($newsEntry->author) . "<br/>";
+			echo $h($newsEntry->text);
+		}
+	
+	?>
