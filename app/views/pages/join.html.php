@@ -6,12 +6,6 @@
  * @license       http://opensource.org/licenses/bsd-license.php The BSD License
  */
 
-use lithium\core\Libraries;
-use lithium\data\Connections;
-use lithium\storage\Session;
-use lithium\security\Auth;
-use lithium\util\String;
-
 
 $this->title('Mach mit!');
 

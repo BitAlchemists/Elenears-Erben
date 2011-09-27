@@ -23,6 +23,7 @@ use lithium\security\Auth;
 			<ul>
 				<li><?php echo $this->html->link('Home', '/'); ?></li>
 				<li><?php echo $this->html->link('Mach mit!', array('controller' => 'pages', 'action' => 'join')); ?></li>
+				<li><?php echo $this->html->link('Roadmap', array('controller' => 'pages', 'action' => 'roadmap')); ?></li>
 				<li><?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?></li>		
 				<li><?php echo $this->html->link('Impressum', array('controller' => 'pages', 'action' => 'impressum')); ?></li>
 			</ul>
