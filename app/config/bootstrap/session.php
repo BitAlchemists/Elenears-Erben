@@ -71,7 +71,7 @@ Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
     }
     return function() {
         //return new Response(array('controller' => 'pages', 'action' => 'home'));
-		return new Response(array('location' => '/game/pages/home')); //TE: dont know why it works no other way for now =(
+		return new Response(array('location' => '/alpha/pages/home')); //TE: dont know why it works no other way for now =(
     };
 });
 
