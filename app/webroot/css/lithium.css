@@ -126,6 +126,13 @@ dd {
 	padding-right: 5px;
   }
 
+  #top-nav-left, #top-nav-right {
+	position: absolute;
+	white-space: nowrap;
+	top: 0;
+	height: 30px;
+	z-index: 1000;
+  }
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;
