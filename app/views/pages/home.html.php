@@ -41,7 +41,7 @@ $this->title('Willkommen');
 	</p>
 	<h3>Was ist Elenears Erben?</h3>
 		Elenears Erben ist ist ein Open Source Projekt, in dem wir gemeinschaftlich ein mittelalterliches Browsergame erschaffen. Wirtschaft, Diplomatie und Krieg sind die Säulen, auf denen wir eines der vielschichtigsten Browsergames aufbauen wollen. Das Spiel ist derzeit in der Alpha-Phase: Das heisst, es gibt noch nicht sehr viel zu sehen. Während unsere Entwickler fleissig damit beschäftigt sind, die erste Beta-Version zu erstellen, diskutieren wir derzeit primär auf Facebook über neue Features.<br/>
-		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');
+		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');?>
 	<p>
 	</p>
 
