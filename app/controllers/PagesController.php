@@ -32,7 +32,7 @@ class PagesController extends \lithium\action\Controller {
 	public function view() {
 		$path = func_get_args() ?: array('home');
 		
-		if($path == 'home')
+		if($path[0] == 'home')
 		{
 			$news = News::all();
 			$this->set(compact('news'));
