@@ -9,7 +9,8 @@
 use lithium\core\Libraries;
 use lithium\data\Connections;
 use lithium\storage\Session;
- use lithium\security\Auth;
+use lithium\security\Auth;
+use lithium\util\String;
 
 
 $this->title('Willkommen');

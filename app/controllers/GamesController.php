@@ -48,15 +48,15 @@ class GamesController extends \lithium\action\Controller {
 			$landfield['type'] = 1;
 			$game->map = array(xSize => 10, ySize => 10, data => array(
 array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
-array($waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield),
-array($waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield),
-array($waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
-array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
 array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
 array($waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
-array($waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
-array($waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$landfield ,$waterfield),
-array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield)
+array($waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield),
+array($waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield),
+array($waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield),
+array($waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield),
+array($waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield),
+array($landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ),
+array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
 ));
 			$game->avatars = array();
 			$game->save();
@@ -95,7 +95,15 @@ array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$w
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
 		$map = $game->map->data->to('json');
 		
-		return compact('game', 'map', 'avatar');
+		$visibleUnits = '[]';
+
+		if(isset($avatar))
+		{
+//var_dump($avatar->units->to('json'));
+			$visibleUnits = $avatar->units->to('json');
+		}
+
+		return compact('game', 'map', 'avatar', 'visibleUnits');
 	}
 	
 	public function join($gameId) {
@@ -114,9 +122,10 @@ array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$w
 					return compact('avatarExists');
 				}
 			}
-			
 			//the avatarName is free, we can use it
-			$avatar = array('name' => $avatarname, 'userid' => Session::read('user._id'));
+
+			
+			$avatar = array('name' => $avatarname, 'userid' => Session::read('user._id'), 'units' => array(array('type' => '0', 'xPos' => 5, 'yPos' => 1, 'count' => 5)));
 			$avatars = $game->avatars->data();
 			$avatars[count($avatars)] = $avatar;
 			$game->avatars = $avatars;
@@ -143,7 +152,6 @@ array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$w
 			return false;
 		}
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-
 		foreach($game->avatars as $avatar)
 		{
 			if($avatar->userid == $userId)

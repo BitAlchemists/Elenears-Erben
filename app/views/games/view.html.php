@@ -21,9 +21,10 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				map = new map2DFramework( document.getElementById('map') );
 				map.loadMap(
 					{ 
-						xSize:10,
-						ySize:10,
-						data:<?php echo($map); ?>
+						"xSize":10,
+						"ySize":10,
+						"data":<?php echo($map); ?>,
+						"units":<?php echo($visibleUnits); ?>
 					}	
 				);
 				map.test();
