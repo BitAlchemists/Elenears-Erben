@@ -15,7 +15,6 @@ use lithium\util\String;
 
 $this->title('Willkommen');
 
-$self = $this;
 ?>
 <?php
 	$username = Session::read('user.username');
@@ -40,34 +39,9 @@ $self = $this;
 	<p>
 		Elenears Erben
 	</p>
+	<h3>Was ist Elenears Erben?</h3>
+		Elenears Erben ist ist ein Open Source Projekt, in dem wir gemeinschaftlich ein mittelalterliches Browsergame erschaffen. Wirtschaft, Diplomatie und Krieg sind die Säulen, auf denen wir eines der vielschichtigsten Browsergames aufbauen wollen. Das Spiel ist derzeit in der Alpha-Phase: Das heisst, es gibt noch nicht sehr viel zu sehen. Während unsere Entwickler fleissig damit beschäftigt sind, die erste Beta-Version zu erstellen, diskutieren wir derzeit primär auf Facebook über neue Features.<br/>
+		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');
 	<p>
-		<?php 
-			if(!Auth::check('default'))
-			{
-				echo $self->html->link('Registrieren', array('controller' => 'users', 'action' => 'create')); 
-			}
-		?>
 	</p>
-	
-	<p>
-		<?php 
-			if(Auth::check('default'))
-			{
-				echo $self->html->link('Ausloggen', array('controller' => 'users', 'action' => 'logout'));
-			}
-			else
-			{
-				echo $self->html->link('Einloggen', array('controller' => 'users', 'action' => 'login'));
-			}
-		?>
-		
-	</p>
-	<p>
-		<?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?>
-	</p>
-	<p>
-		<?php echo $this->html->link('News', 'http://elenear.net/wordpress'); ?>
-	</p>
-	<p>
-		<?php echo $this->html->link('Impressum', array('controller' => 'pages', 'action' => 'impressum')); ?>
-	</p>
+

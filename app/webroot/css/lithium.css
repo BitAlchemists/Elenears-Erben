@@ -95,28 +95,36 @@ dd {
 
 /*--- Top-Nav ---*/
 
-  ul.top-nav{
+  ul#top-nav{
     margin: 0; padding: 0.8em;
-    text-align: center;
     background-color: #222;
   }
-  ul.top-nav li {
+  ul#top-nav li {
     list-style: none;
     display: inline;
     margin: 0.4em; padding: 0;
     color:#CCC;
   }
 
-  ul.top-nav a, ul.top-navspan {
+  ul#top-nav a, {
     padding: 0.2em 1em;
     text-decoration: none;
     color:#CCC;
   }
 
-  ul.top-nav a:hover {
+  ul#top-nav a:hover {
     color: white; background-color: gray;
   }
 
+  #top-nav-left{
+	left: 0;
+	padding-left: 4px;
+  }
+  
+  #top-nav-right{
+	right: 0;
+	padding-right: 5px;
+  }
 
 /*--- Header ---*/
 #header h1 {
@@ -125,7 +133,7 @@ dd {
 }
 #header h2 {
 	width: 70%;
-	margin: .5em .5em 2em 0;
+	margin: .5em .5em 1em 0;
 	color: #666;
 	font-size: 22px;
 	line-height: 28px;
