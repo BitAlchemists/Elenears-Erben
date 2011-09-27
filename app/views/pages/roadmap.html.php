@@ -35,7 +35,7 @@ $this->title('Roadmap');
 	</p>
 	<h4>0.3</h4>
 	<p>
-		Mit Version 0.3 erhalten Spieler erstmals wirtschaftliche Mittel in die Hand. Der Abbau von Holz und Stein sowie das Sammeln von Nahrung ermöglichen das eigene Wachstum. Kämpfe ermöglichen es, das eigene Revier genau abzustecken.
+		Mit Version 0.3 erhalten Spieler in der ersten offiziellen Beta-Version erstmals wirtschaftliche Mittel in die Hand. Der Abbau von Holz und Stein sowie das Sammeln von Nahrung ermöglichen das eigene Wachstum. Kämpfe ermöglichen es, das eigene Revier genau abzustecken.
 		<ul>
 			<li>Wirtschaft: Sammeln von Holz, Stein und Nahrung</li>
 			<li>Lager: Es können nun beliebig viele Lager aufgeschlagen werden. In Lagern vermehren sich Einwohner, solange es Nahrung gibt</li>
