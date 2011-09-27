@@ -16,6 +16,9 @@ use lithium\util\String;
 $this->title('Willkommen');
 
 ?>
+<div id="about-container">
+
+
 <?php
 	$username = Session::read('user.username');
 	if(is_string($username))
@@ -44,6 +47,8 @@ $this->title('Willkommen');
 		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');?>
 	<p>
 	</p>
+</div>
+<div id="news-container">
 	<h3>News</h3>
 	<?php 
 		foreach($news as $newsEntry)
@@ -54,3 +59,4 @@ $this->title('Willkommen');
 		}
 	
 	?>
+</div>

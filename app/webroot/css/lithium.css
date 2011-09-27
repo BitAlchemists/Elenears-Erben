@@ -133,6 +133,16 @@ dd {
 	height: 30px;
 	z-index: 1000;
   }
+  
+  #news-container{
+	display:inline-block;
+	width:64%;
+  }
+  
+  #about-container{
+	display:inline-block;
+	width:35%
+  }
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;
