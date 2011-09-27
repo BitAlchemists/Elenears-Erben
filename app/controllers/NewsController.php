@@ -32,7 +32,7 @@ class NewsController extends \lithium\action\Controller {
 	public function create() {
 	
 		$isAdmin = Session::read('user.isAdmin');
-		if(!isAdmin)
+		if(!$isAdmin)
 		{
 			return $this->redirect('/');
 		}

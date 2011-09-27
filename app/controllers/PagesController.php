@@ -35,7 +35,7 @@ class PagesController extends \lithium\action\Controller {
 		if($path == 'home')
 		{
 			$news = News::all();
-			$this->_render['data']['news'] = $news;
+			$this->set(compact('news'));
 		}
 		
 		return $this->render(array('template' => join('/', $path), 'layout' => 'public'));
