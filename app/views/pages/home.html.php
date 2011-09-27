@@ -46,7 +46,7 @@ $this->title('Willkommen');
 	</p>
 	<h3>News</h3>
 	<?php 
-		foreach($this->news as $newsEntry)
+		foreach($news as $newsEntry)
 		{
 			echo "<h4>" . $h($newsEntry->title) . "</h4>";
 			echo "on " . $newsEntry->date . " by " . $h($newsEntry->author) . "<br/>";
