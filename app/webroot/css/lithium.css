@@ -136,16 +136,18 @@ dd {
   
   #teaser{
 	display:inline-block;
-	width:47%;
+	width:59%;
+	padding: 5px;
   }
   
   #about{
 	display:inline-block;
-	width:47%
+	width:40%;
+	padding: 5px;
   }
   
   #news{
-  
+	padding: 5px;
   }
   
 /*--- Header ---*/

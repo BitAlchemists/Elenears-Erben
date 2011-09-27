@@ -31,13 +31,13 @@ $this->title('Willkommen');
 	}
 ?>
 	<p>
-		Die Kisten waren verstaut, das Vieh versperrt, draußen brannte die Welt. Die Götter hatten ihr Werk getan, und setzen sich nun wohlverdient zur Ruhe. Elenear loderte auf und ward sobald verbrannt.
+		Die Kisten waren verstaut, das Vieh versperrt, draussen brannte die Welt. Die Götter hatten ihr Werk getan, und setzen sich nun wohlverdient zur Ruhe. Elenear loderte auf und ward sobald verbrannt.
 	</p>
 	<p>
 		Die meisten blieben.
 	</p>
 	<p>
-		Doch eine Handvoll Männer und Frauen machte sich auf den Weg. Auf den Weg ins Nichts. Die Welt hinter uns brannte und so konnten wir nur unsere Schiffe beladen, losfahren... und... hoffen. Hoffen, dass wir irgendwann auf Land stoßen würden, oder auf offener See verhungern oder gar... verdursten. Elenear liegt im sterben und das Einzige was davon noch übrig ist, sind wir...	
+		Doch eine Handvoll Männer und Frauen machte sich auf den Weg. Auf den Weg ins Nichts. Die Welt hinter uns brannte und so konnten wir nur unsere Schiffe beladen, losfahren... und... hoffen. Hoffen, dass wir irgendwann auf Land stoßen würden, oder auf offener See verhungern oder gar... verdursten. Elenear liegt im Sterben und das Einzige was davon noch übrig ist, sind wir...	
 	</p>
 	<p>
 		Elenears Erben
