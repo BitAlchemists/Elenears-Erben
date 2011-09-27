@@ -17,7 +17,7 @@ body {
 	font-size: 14px;
 	line-height: 1.5em;
 	color: #0d0d0d;
-	background-color: #fff;
+	background-color: #ffffe0;
 }
 #container {
 	position: relative;
@@ -92,6 +92,32 @@ dt {
 dd {
 	margin-left: 1em;
 }
+
+/*--- Top-Nav ---*/
+
+  ul.top-nav{
+    margin: 0; padding: 0.8em;
+    text-align: center;
+    background-color: #222;
+  }
+  ul.top-nav li {
+    list-style: none;
+    display: inline;
+    margin: 0.4em; padding: 0;
+    color:#CCC;
+  }
+
+  ul.top-nav a, ul.top-navspan {
+    padding: 0.2em 1em;
+    text-decoration: none;
+    color:#CCC;
+  }
+
+  ul.top-nav a:hover {
+    color: white; background-color: gray;
+  }
+
+
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;

@@ -29,7 +29,7 @@ class PagesController extends \lithium\action\Controller {
 
 	public function view() {
 		$path = func_get_args() ?: array('home');
-		return $this->render(array('template' => join('/', $path)));
+		return $this->render(array('template' => join('/', $path), 'layout' => 'public'));
 	}
 }
 
