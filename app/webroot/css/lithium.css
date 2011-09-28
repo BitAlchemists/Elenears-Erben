@@ -152,6 +152,14 @@ dd {
 	padding: 5px;
   }
   
+  #audio-container{
+    position:fixed;
+    right:0;
+    top:22px;
+    z-index:500;
+  }
+  
+  
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;
