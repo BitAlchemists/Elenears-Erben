@@ -8,3 +8,4 @@ rm lithium-0.10
 cd ..
 wget https://github.com/UnionOfRAD/li3_bot/zipball/master
 unzip master -d app -o
+rm master
