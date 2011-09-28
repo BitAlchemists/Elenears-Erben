@@ -60,7 +60,7 @@ use lithium\net\http\Media;
 	
 	<div id="audio-container">
 		<audio controls="false" loop="loop" autoplay="autoplay" onEnded="this.currentTime = 0; this.play();">
-      <source src="<?php echo Media::path('audio/music/Dulcimer_Dance-Forest_Elves.ogg','generic');?>" type="audio/ogg" />
+      <source src="<?php echo $this->url('audio/music/Dulcimer_Dance-Forest_Elves.ogg');?>" type="audio/ogg" />
     </audio>
     <div>
       <a href="http://www.youtube.com/watch?v=MrBRJRt2i-c">Dulcimer Dance</a> by <a href="http://www.youtube.com/user/ForestElves">※~Forest Elves~※</a>
