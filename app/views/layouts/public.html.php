@@ -22,6 +22,7 @@ use lithium\security\Auth;
 		<div id="top-nav-left">
 			<ul>
 				<li><?php echo $this->html->link('Home', '/'); ?></li>
+				<li><?php echo $this->html->link('Community', array('controller' => 'pages', 'action' => 'community')); ?></li>
 				<li><?php echo $this->html->link('Mach mit!', array('controller' => 'pages', 'action' => 'join')); ?></li>
 				<li><?php echo $this->html->link('Roadmap', array('controller' => 'pages', 'action' => 'roadmap')); ?></li>
 				<li><?php echo $this->html->link('Forum', 'http://elenear.net/phpbb'); ?></li>		
