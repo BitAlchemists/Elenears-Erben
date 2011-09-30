@@ -157,6 +157,8 @@ dd {
     right:0;
     top:22px;
     z-index:500;
+    background:-moz-linear-gradient(#222222, lime, #FFFFE0 );
+    opacity:0.9;
   }
   
   
@@ -359,6 +361,4 @@ input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, but
 }
 input, textarea {
 	-moz-box-shadow: inset 0 0 3px rgba(0,0,0,.1);
-	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.1);
-	box-shadow: inset 0 0 3px rgba(0,0,0,.1);
-}
+	-webkit-box-shad
