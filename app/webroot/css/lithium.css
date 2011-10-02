@@ -361,4 +361,7 @@ input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover, but
 }
 input, textarea {
 	-moz-box-shadow: inset 0 0 3px rgba(0,0,0,.1);
-	-webkit-box-shad
+	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.1);
+	box-shadow: inset 0 0 3px rgba(0,0,0,.1);
+}
+
