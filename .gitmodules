@@ -4,3 +4,6 @@
 [submodule "app/libraries/li3_bot"]
 	path = app/libraries/li3_bot
 	url = https://github.com/UnionOfRAD/li3_bot.git
+[submodule "app/libraries/li3_docs"]
+	path = app/libraries/li3_docs
+	url = git://github.com/UnionOfRAD/li3_docs.git

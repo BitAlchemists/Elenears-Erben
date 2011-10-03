@@ -120,7 +120,7 @@ class UsersController extends \lithium\action\Controller {
 	
 	public function logout() {
         Auth::clear('default');
-	Session::clear();
+		Session::clear();
         return $this->redirect('/');
     }
 }
