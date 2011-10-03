@@ -61,9 +61,7 @@ class GamesController extends \lithium\action\Controller {
 			$this->redirect('/');
 		}
 		
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		$game->delete();
-		
+		Games::remove(array('_id' => $gameId));
 		$this->redirect('Games::index');
 	}
 
@@ -132,20 +130,7 @@ class GamesController extends \lithium\action\Controller {
 	function avatarForSessionUser($gameId)
 	{
 		$userId = Session::read('user._id');
-		if(!$userId)
-		{
-			return false;
-		}
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		foreach($game->avatars as $avatar)
-		{
-			if($avatar->userid == $userId)
-			{
-				return $avatar;
-			}
-		}
-		
-		return null;
+		return Games::avatar(comapact('userId', 'gameId'));
 	}
 
 }
