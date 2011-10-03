@@ -20,7 +20,7 @@ class Games extends \lithium\data\Model
 			
 			//if the game is just being created, we add a map and avatars 
 			if(!isset($document->_id)) {
-				$game->map = $self->_generateMap();
+				$game->map = $self::_generateMap();
 				$game->avatars = array();
 			}
 			
@@ -29,7 +29,7 @@ class Games extends \lithium\data\Model
 		});
 	}
 
-	function _generateMap()
+	static function _generateMap()
 	{
 		$waterfield['type'] = 0;
 		$landfield['type'] = 1;
