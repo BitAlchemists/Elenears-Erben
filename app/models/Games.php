@@ -18,7 +18,7 @@ class Games extends \lithium\data\Model
 		Games::applyFilter('save', function($self, $params, $chain) {
 			$game = $params['entity'];
 			
-			//if the game is just being created, we add a map and avatars
+			//if the game is just being created, we add a map and avatars 
 			if(!isset($document->_id)) {
 				$game->map = static::_generateMap();
 				$game->avatars = array();
