@@ -11,6 +11,41 @@ namespace app\models;
 class Games extends \lithium\data\Model
 {
 
+	public static function __init($options = array()) {
+		parent::__init($options);
+		$self = static::_instance(__CLASS__);
+		
+		Games::applyFilter('save', function($self, $params, $chain) {
+			$game = $params['entity'];
+			
+			//if the game is just being created, we add a map and avatars
+			if(!isset($document->_id)) {
+				$game->map = static::_generateMap();
+				$game->avatars = array();
+			}
+			
+			$params['entity'] = $game;
+			return $chain->next($self, $params, $chain);
+		});
+	}
+
+	static function _generateMap()
+	{
+		$waterfield['type'] = 0;
+		$landfield['type'] = 1;
+		return array(xSize => 10, ySize => 10, data => array(
+			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
+			array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
+			array($waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
+			array($waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield),
+			array($waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield),
+			array($waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield),
+			array($waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield),
+			array($waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield),
+			array($landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ),
+			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
+		));
+	}
 }
 
 ?>

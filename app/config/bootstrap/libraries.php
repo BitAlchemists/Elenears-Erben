@@ -120,7 +120,7 @@ Libraries::add('app', array('default' => true));
 /**
  * Add some plugins:
  */
-Libraries::add('li3_docs');
+//Libraries::add('li3_docs'); //currently mismatches with tag lithium-0.10... readd once we are on master
 Libraries::add('li3_bot');
 
 ?>
