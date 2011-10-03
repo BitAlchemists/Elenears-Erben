@@ -58,10 +58,12 @@ use lithium\net\http\Media;
 		</div>
 	</div>
 	
+	<!-- refactoring for community-support
 	<div id="audio-container">
 		<audio controls="false" loop="loop" autoplay="autoplay" onEnded="this.currentTime = 0; this.play();">
       <source src="<?php echo $this->url('audio/music/Dulcimer_Dance-Forest_Elves.ogg');?>" type="audio/ogg" />
     </audio>
+	-->
     <div>
       <a href="http://www.youtube.com/watch?v=MrBRJRt2i-c">Dulcimer Dance</a> by <a href="http://www.youtube.com/user/ForestElves">※~Forest Elves~※</a>
       <div xmlns:cc="http://creativecommons.org/ns#" about="http://creativecommons.org"><a rel="cc:attributionURL" property="cc:attributionName" href="http://creativecommons.org">Creative Commons</a> / <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></div>
