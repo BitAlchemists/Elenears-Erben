@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
@@ -19,6 +19,7 @@ use lithium\net\http\Media;
 	<title>Elenears Erben > <?php echo $this->title(); ?></title>
 	<?php echo $this->html->style(array('debug', 'lithium')); ?>
 	<?php echo $this->scripts(); ?>
+	<?php echo $this->html->script(array('ga.js')); ?>
 	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
 </head>
 <body class="app">
@@ -65,7 +66,7 @@ use lithium\net\http\Media;
     </audio>
 	-->
     <div>
-      <a href="http://www.youtube.com/watch?v=MrBRJRt2i-c">Dulcimer Dance</a> by <a href="http://www.youtube.com/user/ForestElves">※~Forest Elves~※</a>
+      <a href="http://www.youtube.com/watch?v=MrBRJRt2i-c">Dulcimer Dance</a> by <a href="http://www.youtube.com/user/ForestElves">?~Forest Elves~?</a>
       <div xmlns:cc="http://creativecommons.org/ns#" about="http://creativecommons.org"><a rel="cc:attributionURL" property="cc:attributionName" href="http://creativecommons.org">Creative Commons</a> / <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></div>
     </div>
 	</div>

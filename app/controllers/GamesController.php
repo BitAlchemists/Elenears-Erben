@@ -130,7 +130,7 @@ class GamesController extends \lithium\action\Controller {
 	function avatarForSessionUser($gameId)
 	{
 		$userId = Session::read('user._id');
-		return Games::avatar(comapact('userId', 'gameId'));
+		return Games::avatar(compact('userId', 'gameId'));
 	}
 
 }

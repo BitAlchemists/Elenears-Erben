@@ -17,7 +17,8 @@ ErrorHandler::apply('lithium\action\Dispatcher::run', array(), function($info, $
 	));
 
 	Media::render($response, compact('info', 'params'), array(
-		'controller' => '_errors',
+		'library' => 'app',
+                'controller' => '_errors',
 		'template' => 'development',
 		'layout' => 'error',
 		'request' => $params['request']
