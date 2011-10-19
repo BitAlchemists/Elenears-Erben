@@ -60,19 +60,33 @@ Session::config(array(
  use lithium\action\Response;
 
  
+/**
+ * This filter checks if the user is authenticated.
+ * 
+ * Unauthenticated users will only be allowed to view actions markeed as publicAction by the 
+ * controller. If the user is not allowed to view the page, he is redirected to the landing page
+ */
 Dispatcher::applyFilter('_callable', function($self, $params, $chain) {
-    $ctrl = $chain->next($self, $params, $chain);
+	$ctrl = $chain->next($self, $params, $chain);
 
-    if (Auth::check('default')) {
-        return $ctrl;
-    }
-    if (isset($ctrl->publicActions) && in_array($params['request']->action, $ctrl->publicActions)) {
-        return $ctrl;
-    }
-    return function() {
-        //return new Response(array('controller' => 'pages', 'action' => 'home'));
-		return new Response(array('location' => '/alpha/pages/home')); //TE: dont know why it works no other way for now =(
-    };
+	//if the user is authenticated he is allowed to do anything
+	if (Auth::check('default')) {
+		return $ctrl;
+	}
+    	
+	//unauthenticated users may only perform public actions
+	if (isset($ctrl->publicActions) && in_array($params['request']->action, $ctrl->publicActions)) {
+		return $ctrl;
+	}
+	
+
+	return function($request) {
+		return new Response(array(
+			'location' => array('controller' => 'pages', 'action' => 'home'),
+			'request' => $request		
+		));
+	};
+
 });
 
 ?>

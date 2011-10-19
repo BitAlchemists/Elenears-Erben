@@ -51,13 +51,16 @@ class Games extends \lithium\data\Model
 		
 		$userId = $params['userId'];
 		$gameId = $params['gameId'];
-		
+		echo "GameID '{$gameId}'<br/>";
+		echo "UserID '{$userId}'<br/>";
 		if(!$userId || !$gameId)
 		{
 			return null;
 		}
 		
 		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		var_dump($game->data());
+
 		foreach($game->avatars as $avatar)
 		{
 			if($avatar->userid == $userId)
