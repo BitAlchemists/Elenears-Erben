@@ -21,6 +21,8 @@ use lithium\net\http\Media;
 	<?php echo $this->scripts(); ?>
 	<?php echo $this->html->script(array('ga.js')); ?>
 	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
+	
+	<link href="https://plus.google.com/118204036021426288668/" rel="publisher" />
 </head>
 <body class="app">
 	<div id="top-nav">

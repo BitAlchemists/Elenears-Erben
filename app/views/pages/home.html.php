@@ -48,9 +48,9 @@ $this->title('Willkommen');
 </div>
 <div id="about">
 	<h3>Was ist Elenears Erben?</h3>
-		Elenears Erben ist ist ein Open Source Projekt, in dem wir gemeinschaftlich ein mittelalterliches Browsergame erschaffen. Wirtschaft, Diplomatie und Krieg sind die Säulen, auf denen wir eines der vielschichtigsten Browsergames aufbauen wollen. Das Spiel ist derzeit in der Alpha-Phase: Das heisst, es gibt noch nicht sehr viel zu sehen. Während unsere Entwickler fleissig damit beschäftigt sind, die erste Beta-Version zu erstellen, diskutieren wir derzeit primär auf Facebook über neue Features.<br/>
-		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');?>
 	<p>
+		Elenears Erben ist ist ein Open Source Projekt, in dem wir gemeinschaftlich ein mittelalterliches Browsergame erschaffen. Wirtschaft, Diplomatie und Krieg sind die Säulen, auf denen wir eines der vielschichtigsten Browsergames aufbauen wollen. Das Spiel ist derzeit in der Alpha-Phase: Das heisst, es gibt noch nicht sehr viel zu sehen. Während unsere Entwickler fleissig damit beschäftigt sind, die erste Beta-Version zu erstellen, diskutieren wir derzeit primär auf Facebook über neue Features.<br/>
+		Besuche unsere <?php echo $this->html->link('Facebook-Gruppe', 'http://www.facebook.com/groups/163490240349780/');?> oder <a href="https://plus.google.com/118204036021426288668/?prsrc=3" style="text-decoration: none; color: #333;"><div style="display: inline-block;"><span style="float: left; font: bold 13px/16px arial,sans-serif; margin-right: 4px; margin-top: 7px;">Elenears Erben</span><span style="float: left; font: 13px/16px arial,sans-serif; margin-right: 11px; margin-top: 7px;">auf</span><div style="float: left;"><img src="https://ssl.gstatic.com/images/icons/gplus-32.png" width="32" height="32" style="border: 0;"/></div><div style="clear: both"></div></div></a>.
 	</p>
 </div>
 <div id="news">
