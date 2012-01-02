@@ -43,7 +43,7 @@ class UsersController extends \lithium\action\Controller {
 			$username = strtolower($displayName);
 			
 			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
-			
+			var_dump($users->data());
 			if($users->count() != 0)
 			{
 				$userExists = true;
@@ -53,8 +53,7 @@ class UsersController extends \lithium\action\Controller {
 			$user = Users::create();
 			$user->username = $username;
 			$user->displayName = $displayName;
-			$user->salt = Password::salt();
-			$user->password = Password::hash($this->request->data['password'], $user->salt);
+			$user->password = Password::hash($this->request->data['password']);
 			$user->save();
 			//var_dump($user->data());
 			
@@ -92,7 +91,7 @@ class UsersController extends \lithium\action\Controller {
 	}
 	
 	public function login() {
-        if ($this->request->data) {
+	        if ($this->request->data) {
 			if(Auth::check('default', $this->request))
 			{
 				$username = strtolower($this->request->data['username']);
@@ -104,10 +103,9 @@ class UsersController extends \lithium\action\Controller {
 			{
 				echo "Failed<br/>";
 			}
-        }
-		// Handle failed authentication attempts
-
-    }
+	        }
+		// TODO: Handle failed authentication attempts
+	}
 	
 	function _login($username)
 	{
@@ -119,10 +117,10 @@ class UsersController extends \lithium\action\Controller {
 	}
 	
 	public function logout() {
-        Auth::clear('default');
+		Auth::clear('default');
 		Session::clear();
-        return $this->redirect('/');
-    }
+		return $this->redirect('/');
+	}
 }
 
 ?>
