@@ -1,3 +1,7 @@
 ﻿app/resources/*
 app/libraries/
 *~
+
+.settings.xml
+app/.settings.xml
+
