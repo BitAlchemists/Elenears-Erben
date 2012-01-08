@@ -33,7 +33,7 @@ class Games extends \lithium\data\Model
 	{
 		$waterfield['type'] = 0;
 		$landfield['type'] = 1;
-		return array(xSize => 10, ySize => 10, data => array(
+		return array('xSize' => 10, 'ySize' => 10, 'data' => array(
 			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
 			array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
 			array($waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
