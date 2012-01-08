@@ -43,7 +43,6 @@ class UsersController extends \lithium\action\Controller {
 			$username = strtolower($displayName);
 			
 			$users = Users::all(array('conditions' => array('username' => $username), 'limit' => 10));
-			var_dump($users->data());
 			if($users->count() != 0)
 			{
 				$userExists = true;
@@ -55,7 +54,6 @@ class UsersController extends \lithium\action\Controller {
 			$user->displayName = $displayName;
 			$user->password = Password::hash($this->request->data['password']);
 			$user->save();
-			//var_dump($user->data());
 			
 			Auth::check('default', $this->request);
 			$this->_login($username);
