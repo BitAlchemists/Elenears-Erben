@@ -99,7 +99,7 @@ class UsersController extends \lithium\action\Controller {
 			}
 			else
 			{
-				echo "Failed<br/>";
+				throw new \exception('login failed because of unknown cause');
 			}
 	        }
 		// TODO: Handle failed authentication attempts
