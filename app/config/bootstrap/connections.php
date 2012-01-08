@@ -40,22 +40,22 @@ use lithium\data\Connections;
 /**
  * Uncomment this configuration to use MongoDB as your default database.
  */
-/*
  Connections::add('default', array(
  	'type' => 'MongoDb',
  	'host' => 'localhost',
  	'database' => 'game'
  ));
-*/
 /**
  * Uncomment this configuration to use CouchDB as your default database.
  */
+/*
  Connections::add('default', array(
  	'type' => 'http',
  	'adapter' => 'CouchDb',
  	'host' => 'localhost',
  	'database' => 'elenear'
  ));
+*/
 
 /**
  * Uncomment this configuration to use MySQL as your default database.
