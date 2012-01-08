@@ -38,9 +38,9 @@ var map2DFramework = function(container){
 		
 		
 		images.grasland = new Image();   // Create new img element  
-		images.grasland.src = 'http://elenear.net/alpha/img/field_grasland.png'; // Set source path  
+		images.grasland.src = '/img/field_grasland.png'; // Set source path  
 		images.water = new Image();   // Create new img element  
-		images.water.src = 'http://elenear.net/alpha/img/field_water.png'; // Set source path  
+		images.water.src = '/img/field_water.png'; // Set source path  
 		
 	};
 	
