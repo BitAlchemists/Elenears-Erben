@@ -1,6 +1,8 @@
 ﻿app/resources/*
+/app/resources/tmp/cache/templates/*
 app/libraries/
 *~
+
 .settings.xml
 app/.settings.xml
 
