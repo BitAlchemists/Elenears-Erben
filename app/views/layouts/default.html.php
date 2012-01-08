@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
@@ -7,9 +7,7 @@
  * @author        Tommi Enenkel
  */
 
-?>
-
-<!doctype html>
+?><!doctype html>
 <html>
 <head>
 	<?php echo $this->html->charset();?>
@@ -19,6 +17,7 @@
 	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
 </head>
 <body class="app">
+	<?php echo $this->_render( 'element', 'navigation_top' );?>
 	<div id="container">
 		<div id="header">
 			<h1><?php echo $this->html->link('Elenears Erben', array('controller' => 'users', 'action' => 'home')); ?></h1>
