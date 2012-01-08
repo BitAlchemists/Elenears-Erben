@@ -13,6 +13,10 @@
  * @see lithium\action\Dispatcher
 */
 
+if (!extension_loaded('mongo')) {
+    throw new Exception('You need to install the php mongoDB extension and load it via php.ini');
+}
+
 /**
  * If you're sharing a single Lithium core install or other libraries among multiple
  * applications, you may need to manually set things like `LITHIUM_LIBRARY_PATH`. You can do that in
