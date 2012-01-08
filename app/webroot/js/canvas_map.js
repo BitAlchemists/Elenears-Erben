@@ -14,6 +14,8 @@ var map2DFramework = function(container){
 	var mapData;
 	var map = [];
 	var images = {};
+	images.fields = {};
+	images.units = {};
 	this.fieldSize = 30;
 	
 	var init = function(){
@@ -35,12 +37,16 @@ var map2DFramework = function(container){
         layer.style.position = 'absolute';
 		container.appendChild(layer);
 		map[1] = layer.getContext('2d');
+		map[1].fillStyle = "green";  
+		map[1].strokeStyle = "black";  
 		
 		
-		images.grasland = new Image();   // Create new img element  
-		images.grasland.src = '/img/field_grasland.png'; // Set source path  
-		images.water = new Image();   // Create new img element  
-		images.water.src = '/img/field_water.png'; // Set source path  
+		images.fields.grasland = new Image();   // Create new img element  
+		images.fields.grasland.src = '/img/field_grasland.png'; // Set source path  
+		images.fields.water = new Image();   // Create new img element  
+		images.fields.water.src = '/img/field_water.png'; // Set source path  
+		images.units.type0 = new Image();   // Create new img element  
+		images.units.type0.src = '/img/units/baddie_Ninja.png'; // Set source path  
 		
 	};
 	
@@ -53,15 +59,26 @@ var map2DFramework = function(container){
 		this.drawMap();
 	};
 	
+	this.clearLayer = function( n ){
+		map[n].clearRect(0,0,600,600);
+	}
+	
 	this.drawMap = function(){
+		this.clearLayer(0);
+		this.clearLayer(1);
 		var fields = mapData.data;
-		var field,xLength,yLength;
+		var field,xLength,yLength,unitsLength;
+		var x;
 		xLength = fields.length;
-		for(var x = 0; x < xLength; x++){
+		for(x = 0; x < xLength; x++){
 			yLength = fields[x].length;
 			for(var y = 0; y < yLength; y++){
 				this.drawField(x,y);
 			}
+		}
+		unitsLength = mapData.units.length;
+		for(x = 0; x < unitsLength; x++){
+			this.drawUnit( mapData.units[x] );
 		}
 	};
 	
@@ -93,10 +110,10 @@ var map2DFramework = function(container){
 		var image;
 		switch( mapData.data[x][y].type ){
 			case 0:
-				image = images.water;
+				image = images.fields.water;
 				break;
 			case 1:
-				image = images.grasland;
+				image = images.fields.grasland;
 				break;
 		}
 		map[0].drawImage(
@@ -108,6 +125,21 @@ var map2DFramework = function(container){
 		);
 	};
 	
+	this.drawUnit = function(unit){
+		var image;
+		switch( unit.type ){
+			default:
+				image = images.units.type0;
+				break;
+		}
+		map[1].drawImage(
+			image,
+			Math.round( unit.yPos) * this.fieldSize,
+			Math.round( unit.xPos) * this.fieldSize,
+			this.fieldSize,
+			this.fieldSize
+		);
+	}
 	
 	init();
 	
