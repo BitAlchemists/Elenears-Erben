@@ -111,7 +111,7 @@ class UsersController extends \lithium\action\Controller {
 			
 		Session::write('user.username', $user->displayName);
 		Session::write('user._id', $user->_id);
-		Session::write('user.isAdmin', ($user->isAdmin != 0));
+		Session::write('user.isAdmin', !empty($user->isAdmin));
 	}
 	
 	public function logout() {
