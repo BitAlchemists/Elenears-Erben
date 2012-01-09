@@ -7,12 +7,23 @@
  * @author        Tommi Enenkel
  */
 
+use lithium\net\http\Media;
+
 ?><!doctype html>
 <html>
 <head>
 	<?php echo $this->html->charset();?>
 	<title>Elenears Erben > <?php echo $this->title(); ?></title>
 	<?php echo $this->html->style(array('debug', 'lithium')); ?>
+
+	<script type="text/javascript">
+		var EE = {
+			basePaths : {
+				image : '<?php echo $this->path(Media::asset('', 'image')); ?>'
+			}
+		};
+	</script>
+
 	<?php echo $this->scripts(); ?>
 	<?php echo $this->html->link('Icon', null, array('type' => 'icon')); ?>
 </head>

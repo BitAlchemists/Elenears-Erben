@@ -7,3 +7,6 @@
 [submodule "app/libraries/li3_docs"]
 	path = app/libraries/li3_docs
 	url = git://github.com/UnionOfRAD/li3_docs.git
+[submodule "libraries/caat"]
+	path = libraries/caat
+	url = git://github.com/hyperandroid/CAAT.git

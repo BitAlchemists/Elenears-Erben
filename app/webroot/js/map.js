@@ -42,11 +42,11 @@ var map2DFramework = function(container){
 		
 		
 		images.fields.grasland = new Image();   // Create new img element  
-		images.fields.grasland.src = '/img/field_grasland.png'; // Set source path  
+		images.fields.grasland.src = EE.basePaths.image + 'field_grasland.png'; // Set source path  
 		images.fields.water = new Image();   // Create new img element  
-		images.fields.water.src = '/img/field_water.png'; // Set source path  
+		images.fields.water.src = EE.basePaths.image + 'field_water.png'; // Set source path  
 		images.units.type0 = new Image();   // Create new img element  
-		images.units.type0.src = '/img/units/baddie_Ninja.png'; // Set source path  
+		images.units.type0.src = EE.basePaths.image + 'units/baddie_Ninja.png'; // Set source path  
 		
 	};
 	

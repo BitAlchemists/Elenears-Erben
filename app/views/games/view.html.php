@@ -21,7 +21,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
 	$this->scripts($this->html->script('jquery-1.4.2.js'));
 	$this->scripts($this->html->script('jquery.event.drag-2.0.js'));
-	$this->scripts($this->html->script('canvas_map.js'));
+	$this->scripts($this->html->script('map.js'));
 ?>
 		<script type="text/javascript"> 
 			var map;
