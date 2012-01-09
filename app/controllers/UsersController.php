@@ -90,19 +90,22 @@ class UsersController extends \lithium\action\Controller {
 	
 	public function login() {
 	        if ($this->request->data) {
+
+			$username = strtolower($this->request->data['username']);
+			$this->request->data['username'] = $username;
+
 			if(Auth::check('default', $this->request))
 			{
-				$username = strtolower($this->request->data['username']);
 				$this->_login($username);
 				
 				return $this->redirect('Users::home');
 			}
 			else
 			{
-				throw new \exception('login failed because of unknown cause');
+				$failed = true;
 			}
-	        }
-		// TODO: Handle failed authentication attempts
+		}
+		return compact ('failed');	
 	}
 	
 	function _login($username)

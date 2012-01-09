@@ -40,6 +40,10 @@ use lithium\data\Connections;
 /**
  * Uncomment this configuration to use MongoDB as your default database.
  */
+if (!extension_loaded('mongo')) {
+    throw new Exception('You need to install the php mongoDB extension and load it via php.ini');
+}
+
  Connections::add('default', array(
  	'type' => 'MongoDb',
  	'host' => 'localhost',

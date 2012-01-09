@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
@@ -6,6 +6,10 @@
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
+
+	if(isset($failed)) {
+		echo "Du konntest leider nicht eingeloggt werden. Bitte probiere es erneut.<br/>";
+	}
 
 ?>
 
