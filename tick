@@ -1,0 +1,3 @@
+echo "Ticking..."
+cd /usr/local/Elenears-Erben
+php -f /usr/local/Elenears-Erben/libraries/lithium/console/lithium.php -- tick

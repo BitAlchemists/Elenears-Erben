@@ -27,7 +27,8 @@ class Tick extends \lithium\console\Command {
 		{
 			$game->tickCount++;
 			$game->save();
-		/*	//var_dump($game);
+			$this->out("'".$game->name."' has now seen ".$game->tickCount." ticks.");
+	
 			$this->out('manipulating game: '.$game->name);
 			foreach($game->avatars as $avatar)
 			{
@@ -36,7 +37,7 @@ class Tick extends \lithium\console\Command {
 				$avatar->age++;
 				$this->out('new age: '.$avatar->age);
 			}
-			$game->avatars = $game->avatars;
+			//$game->avatars = $game->avatars;
 
 			if($game->save())
 			{
@@ -45,7 +46,7 @@ class Tick extends \lithium\console\Command {
 			else
 			{
 				$this->out('saving failed');
-			}*/
+			}
 
 		}
 		//https://github.com/UnionOfRAD/lithium/issues/42
