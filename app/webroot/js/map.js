@@ -93,6 +93,7 @@ CAAT.modules.initialization.init= function( width, height, runHere, imagesURL, o
                  * curtains.
                  * just perform a director.setScene(0) to play first director's scene.
                  */
+/*
                 director.easeIn(
                         0,
                         CAAT.Scene.prototype.EASE_SCALE,
@@ -100,7 +101,7 @@ CAAT.modules.initialization.init= function( width, height, runHere, imagesURL, o
                         false,
                         CAAT.Actor.prototype.ANCHOR_CENTER,
                         new CAAT.Interpolator().createElasticOutInterpolator(2.5, .4) );
-
+*/
                 CAAT.loop(60);
 
             }
@@ -109,12 +110,16 @@ CAAT.modules.initialization.init= function( width, height, runHere, imagesURL, o
 };
 
 function MapRenderer(director) {
-	var selectedField = null;
+	var selection = null;
 	this.director = director;
 	this.map = null;
 	var images = {};
 	images.water = new CAAT.SpriteImage().initialize(director.getImage('water'),1,1);
 	images.grasland = new CAAT.SpriteImage().initialize(director.getImage('grasland'),1,1);
+	images.hunter = new CAAT.SpriteImage().initialize(director.getImage('hunter'),1,1);
+
+	var fieldLength = 50;
+
 
 	this.loadMap = function(map) {
 		this.map = map;
@@ -149,179 +154,60 @@ function MapRenderer(director) {
 	* function to select on-screen actors.
 	* @param e
 	*/
-	var mouseClick= function( e ) {
-		if ( selectedField ) {
-			selectedField.setAlpha(1);
+	var onDeselect = function ( e ) {
+		if(selection)	{
+			selection.setAlpha(1);
+		}
+		selection = null;
+	};
+
+	var onSelectUnit = function( e ) {
+		if ( selection ) {
+			selection.setAlpha(1);
 		}
 		this.setAlpha(.5);
-		selectedField = this;
+		selection = this;
 	};
 
 	this.drawMap = function(node) {
-		var fieldLength = 50;
-		var fieldOffset = 5;
 
-	        var background = new CAAT.ShapeActor().
-			setShape(CAAT.ShapeActor.prototype.SHAPE_RECTANGLE).
+	        var mapContainer = new CAAT.ActorContainer().
 			setLocation(0,0).
-			setSize(500,500).
-			setFillStyle('rgb(0,0,0)');
-		node.addChild(background);
+			setSize(500,500);
+			//setFillStyle('rgb(0,0,0)');
+		node.addChild(mapContainer);
 
 		for(var y = 0; y < this.map.fields.length; y++) {
 			var fieldRow = this.map.fields[y];
 			for(var x = 0; x < fieldRow.length; x++) {
 				var field = fieldRow[x];
 
-				var fieldActor = new CAAT.Actor().
-					setLocation(x*fieldLength + (x+1)*fieldOffset, y*fieldLength + (y+1)*fieldOffset).
-					setSize(fieldLength, fieldLength);
-				fieldActor.mouseClick = mouseClick;
-				setFieldStyle(fieldActor, field);
-
-				background.addChild(fieldActor);
+				this.drawField(field, mapContainer, x, y);
 			}
 		}
 
+		for(var i = 0; i < this.map.units.length; i++) {
+			this.drawUnit(this.map.units[i], mapContainer);
+		}
+
 	};
+
+	this.drawField = function(field, container, x, y) {
+		var fieldActor = new CAAT.Actor().
+			setLocation(x*fieldLength, y*fieldLength).
+			setSize(fieldLength, fieldLength);
+		setFieldStyle(fieldActor, field);
+		container.addChild(fieldActor);
+		fieldActor.mouseClick = onDeselect;
+	};
+
+	this.drawUnit = function(unit, container) {
+		var unitActor = new CAAT.Actor().
+			setLocation(unit.xPos * fieldLength, unit.yPos * fieldLength).
+			setBackgroundImage(images.hunter.getRef(), true);
+		container.addChild(unitActor);
+		unitActor.mouseClick = onSelectUnit;
+	}
 
 	return this;
 }
-
-var map2DFramework = function(container){
-	
-	var container = container;
-	var mapData;
-	var map = [];
-	var images = {};
-	images.fields = {};
-	images.units = {};
-	this.fieldSize = 30;
-	
-	var init = function(){
-        container.style.width = '600px';
-        container.style.height = '600px';
-		var layer = document.createElement('canvas');
-        layer.width = 600;
-		layer.height = 600;
-        layer.style.position = 'absolute';
-		container.appendChild(layer);
-		map[0] = layer.getContext('2d');
-		
-		map[0].fillStyle = "green";  
-		map[0].strokeStyle = "black";  
-		
-		layer = document.createElement('canvas');
-        layer.width = 600;
-		layer.height = 600;
-        layer.style.position = 'absolute';
-		container.appendChild(layer);
-		map[1] = layer.getContext('2d');
-		map[1].fillStyle = "green";  
-		map[1].strokeStyle = "black";  
-		
-		
-		images.fields.grasland = new Image();   // Create new img element  
-		images.fields.grasland.src = EE.basePaths.image + 'field_grasland.png'; // Set source path  
-		images.fields.water = new Image();   // Create new img element  
-		images.fields.water.src = EE.basePaths.image + 'field_water.png'; // Set source path  
-		images.units.type0 = new Image();   // Create new img element  
-		images.units.type0.src = EE.basePaths.image + 'units/baddie_Ninja.png'; // Set source path  
-		
-	};
-	
-	this.test = function(){
-		console.log(map);
-	};
-	
-	this.loadMap = function(input){
-		mapData = input;
-		this.drawMap();
-	};
-	
-	this.clearLayer = function( n ){
-		map[n].clearRect(0,0,600,600);
-	}
-	
-	this.drawMap = function(){
-		this.clearLayer(0);
-		this.clearLayer(1);
-		var fields = mapData.fields;
-		var field,xLength,yLength,unitsLength;
-		var x;
-		xLength = fields.length;
-		for(x = 0; x < xLength; x++){
-			yLength = fields[x].length;
-			for(var y = 0; y < yLength; y++){
-				this.drawField(x,y);
-			}
-		}
-		unitsLength = mapData.units.length;
-		for(x = 0; x < unitsLength; x++){
-			this.drawUnit( mapData.units[x] );
-		}
-	};
-	
-	this.drawField = function(x,y){
-		this.drawImageField(x,y);
-	};
-	
-	this.drawBasicField = function(x,y){
-		var oldFillStyle = map[0].fillStyle;
-		switch( mapData.fields[x][y].type ){
-			case 0:
-				map[0].fillStyle = 'blue';
-				break;
-			case 1:
-				map[0].fillStyle = 'green';
-				break;
-		}
-		map[0].fillRect(
-			(y) * this.fieldSize,
-			Math.round( x) * this.fieldSize,
-			this.fieldSize,
-			this.fieldSize
-		);
-					
-		map[0].fillStyle = oldFillStyle;
-	};
-	
-	this.drawImageField = function(x,y){
-		var image;
-		switch( mapData.fields[x][y].type ){
-			case 0:
-				image = images.fields.water;
-				break;
-			case 1:
-				image = images.fields.grasland;
-				break;
-		}
-		map[0].drawImage(
-			image,
-			(y) * this.fieldSize,
-			Math.round( x) * this.fieldSize,
-			this.fieldSize,
-			this.fieldSize
-		);
-	};
-	
-	this.drawUnit = function(unit){
-		var image;
-		switch( unit.type ){
-			default:
-				image = images.units.type0;
-				break;
-		}
-		map[1].drawImage(
-			image,
-			Math.round( unit.yPos) * this.fieldSize,
-			Math.round( unit.xPos) * this.fieldSize,
-			this.fieldSize,
-			this.fieldSize
-		);
-	}
-	
-	init();
-	
-	return this;
-};

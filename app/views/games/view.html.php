@@ -65,7 +65,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				[
 					{'id':'grasland', 	'url': EE.basePaths.image + 'field_grasland.png'},
 					{'id':'water', 	'url': EE.basePaths.image + 'field_water.png'},
-					{'id':'hunters',	'url': EE.basePaths.image + 'units/baddie_Ninja.png'}
+					{'id':'hunter',	'url': EE.basePaths.image + 'units/baddie_Ninja.png'}
 				],
 
 				/*
