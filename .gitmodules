@@ -10,3 +10,6 @@
 [submodule "libraries/caat"]
 	path = libraries/caat
 	url = git://github.com/hyperandroid/CAAT.git
+[submodule "libraries/javascript-astar"]
+	path = libraries/javascript-astar
+	url = git://github.com/bgrins/javascript-astar.git

@@ -20,9 +20,11 @@
 Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
 	$this->scripts($this->html->script('jquery-1.4.2.js'));
-	$this->scripts($this->html->script('jquery.event.drag-2.0.js'));
+	//$this->scripts($this->html->script('jquery.event.drag-2.0.js'));
 	$this->scripts($this->html->script('caat.js'));
 	$this->scripts($this->html->script('map.js'));
+	$this->scripts($this->html->script('graph.js'));
+	$this->scripts($this->html->script('astar.js'));
 ?>
 	<script type="text/javascript"> 
 		var map1;
@@ -40,11 +42,10 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		* @param director
 		*/
 		function createScenes(director) {
-
-              	var scene=              director.createScene();
-			var mapRenderer = new MapRenderer(director);
-			mapRenderer.loadMap(mapData);
-			mapRenderer.drawMap(scene);
+			var mapView = new MapView(director);
+			var mapController = new MapController(mapView);
+			mapController.loadMap(mapData);
+			mapController.presentMap();
 		};
 
 		jQuery(document).ready(function(){

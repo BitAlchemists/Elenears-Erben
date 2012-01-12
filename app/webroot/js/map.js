@@ -109,21 +109,24 @@ CAAT.modules.initialization.init= function( width, height, runHere, imagesURL, o
     );
 };
 
-function MapRenderer(director) {
-	var selection = null;
+var ActorType = { FIELD : 1, UNIT : 2 };
+var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
+
+
+function MapView(director) {
+      	var scene = director.createScene();
+	this.delegate = null;
 	this.director = director;
 	this.map = null;
 	var images = {};
+	this.fieldActors = null;
 	images.water = new CAAT.SpriteImage().initialize(director.getImage('water'),1,1);
 	images.grasland = new CAAT.SpriteImage().initialize(director.getImage('grasland'),1,1);
 	images.hunter = new CAAT.SpriteImage().initialize(director.getImage('hunter'),1,1);
+	var astarMap = null;	
 
 	var fieldLength = 50;
 
-
-	this.loadMap = function(map) {
-		this.map = map;
-	}
 
 	var setFieldStyle = function(actor, field) {
 
@@ -150,64 +153,150 @@ function MapRenderer(director) {
 		actor.setBackgroundImage(image.getRef(),true);
 	}
 
-	/**
-	* function to select on-screen actors.
-	* @param e
-	*/
-	var onDeselect = function ( e ) {
-		if(selection)	{
-			selection.setAlpha(1);
-		}
-		selection = null;
-	};
-
-	var onSelectUnit = function( e ) {
-		if ( selection ) {
-			selection.setAlpha(1);
-		}
-		this.setAlpha(.5);
-		selection = this;
-	};
-
-	this.drawMap = function(node) {
+	this.drawMap = function(map) {
 
 	        var mapContainer = new CAAT.ActorContainer().
 			setLocation(0,0).
 			setSize(500,500);
-			//setFillStyle('rgb(0,0,0)');
-		node.addChild(mapContainer);
+		scene.addChild(mapContainer);
 
-		for(var y = 0; y < this.map.fields.length; y++) {
-			var fieldRow = this.map.fields[y];
+		this.fieldActors = [];
+
+		for(var y = 0; y < map.fields.length; y++) {
+			var fieldRow = map.fields[y];
+			this.fieldActors[y] = [];
 			for(var x = 0; x < fieldRow.length; x++) {
 				var field = fieldRow[x];
 
-				this.drawField(field, mapContainer, x, y);
+				var fieldActor = this.createFieldActor(field, x, y);
+				mapContainer.addChild(fieldActor);
+				this.fieldActors[y][x] = fieldActor;
 			}
 		}
 
-		for(var i = 0; i < this.map.units.length; i++) {
-			this.drawUnit(this.map.units[i], mapContainer);
+		for(var i = 0; i < map.units.length; i++) {
+			this.drawUnit(map.units[i], mapContainer);
 		}
 
 	};
 
-	this.drawField = function(field, container, x, y) {
+	this.createFieldActor= function(field, x, y) {
 		var fieldActor = new CAAT.Actor().
 			setLocation(x*fieldLength, y*fieldLength).
 			setSize(fieldLength, fieldLength);
 		setFieldStyle(fieldActor, field);
-		container.addChild(fieldActor);
-		fieldActor.mouseClick = onDeselect;
+		fieldActor.mouseClick = this.delegate.onSelectField;
+		fieldActor.mouseEnter = this.delegate.onHoverField;
+		fieldActor.actorType = ActorType.FIELD;
+		fieldActor.fieldPosition = new FieldPosition(x, y);
+		return fieldActor;
 	};
 
 	this.drawUnit = function(unit, container) {
 		var unitActor = new CAAT.Actor().
 			setLocation(unit.xPos * fieldLength, unit.yPos * fieldLength).
-			setBackgroundImage(images.hunter.getRef(), true);
+			setBackgroundImage(images.hunter.getRef(), true).
+			setAlpha(0.8);
 		container.addChild(unitActor);
-		unitActor.mouseClick = onSelectUnit;
+		unitActor.mouseClick = this.delegate.onSelectUnit;
+		unitActor.actorType = ActorType.UNIT;
+		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
+	};
+
+	this.setHighlightField = function(x,y,highlight) {
+		var alpha = 1.0;
+		if(highlight) {
+			alpha = 0.5;
+		}
+
+		this.fieldActors[y][x].setAlpha(alpha);
+	};
+
+	return this;
+}
+
+function MapController(view) {
+	this.view = view;
+	view.delegate = this;
+	var astarMap = null;
+	this.map = null;
+	var selection = null;
+	var currentRoute = null;
+
+	this.loadMap = function(map) {
+		this.map = map;
+
+		//calc the astarMap
+		astarMap = [];
+		for(var y = 0; y < map.fields.length; y++) {
+			var fieldRow = map.fields[y];
+			astarMap[y] = [];
+			for(var x = 0; x < fieldRow.length; x++) {
+				var field = fieldRow[x];
+				var weight = 0;
+				
+				switch(field.type) {
+				case 0: // water
+					weight = 1;
+					break;
+				case 1: //grasland
+					weight = 0;
+					break;
+				}	
+
+				astarMap[y][x] = weight;
+			}
+		}
 	}
+	
+	this.presentMap = function() {
+		this.view.drawMap(this.map);
+	}
+
+
+	this.onSelectField = function ( e ) {
+		if(selection)	{
+			selection.deselect();
+		}
+		this.deselect = function() { };
+		selection = this;
+	};
+
+	this.onHoverField = function ( e ) {
+		if(selection) {
+			if(selection.actorType == ActorType.UNIT) {
+				//unhighlight the current route
+				if(currentRoute) {
+					for(var i = 0; i < currentRoute.length; i++) {
+						var node = currentRoute[i]
+						view.setHighlightField(node.y, node.x, false);
+					}
+				}
+				//find the new route
+
+				var graph = new Graph(astarMap);
+				var start = graph.nodes[selection.fieldPosition.y][selection.fieldPosition.x];
+				var end = graph.nodes[this.fieldPosition.y][this.fieldPosition.x];
+				currentRoute = astar.search(graph.nodes, start, end);
+
+				//highlight the new route
+					for(var i = 0; i < currentRoute.length; i++) {
+						var node = currentRoute[i]
+						view.setHighlightField(node.y, node.x, true);
+					}
+			}
+		}
+	}
+
+	this.onSelectUnit = function( e ) {
+		if ( selection ) {
+			selection.deselect();
+		}
+		this.deselect = function() { this.setAlpha(0.8); };
+		this.setAlpha(1.0);
+		selection = this;
+	};
+
 
 	return this;
 }
