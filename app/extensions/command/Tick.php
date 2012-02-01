@@ -25,10 +25,6 @@ class Tick extends \lithium\console\Command {
 		
 		foreach($games as $key => $game)
 		{
-			$game->tickCount++;
-			$game->save();
-			$this->out("'".$game->name."' has now seen ".$game->tickCount." ticks.");
-	
 			$this->out('manipulating game: '.$game->name);
 			foreach($game->avatars as $avatar)
 			{
