@@ -9,29 +9,50 @@
 
 namespace app\controllers;
 
+use app\models\Games;
+use app\models\Avatars;
+use lithium\storage\Session;
  
 class AvatarsController extends \lithium\action\Controller {
 
 	public function join($gameId) {
         	if ($this->request->data) {
 			$avatarname = $this->request->data['avatarname'];
-			$game = Games::first(array('conditions' => array('_id' => $gameId)));
-			
-			//check if the avatarName is free
-			foreach($game->avatars as $avatar)
-			{
-				if($avatarname == $avatar->name)
-				{
-					$avatarExists = true;
-					return compact('avatarExists');
-				}
-			}
-			//the avatarName is free, we can use it
+			$game = Games::first($gameId);
 
+			if($game == null) {
+				echo "maeh 1<br/>";
+				//return $this->redirect('/');
+			}			
+
+			//check if the player does have an avatar already
+			$avatar = Avatars::first(
+				array(
+					'game_id' => $gameId,
+					'user_id' => $userId
+				)			
+			);
+			if($avatar != null) {
+				echo "maeh 2<br/>";
+				var_dump($avatar->data());
+				//return $this->redirect('/');
+			}
+
+			//check if the avatarName is free
+			$avatar = Avatars::first(array('name' => $avatarname));
+
+			if($avatar != null)
+			{
+				$avatarExists = true;
+				return compact('avatarExists');
+			}
+
+			//the avatar's name is free, we can use it
 			
-			$avatar = array(
+			$avatar = Avatars::create(array(
 				'name' => $avatarname, 
-				'user_id' => Session::read('user._id'), 
+				'user_id' => Session::read('user._id'),
+				'game_id' => $gameId,
 				'units' => array(
 					array(
 						'type' => '0', 
@@ -39,21 +60,41 @@ class AvatarsController extends \lithium\action\Controller {
 						'yPos' => 1, 
 						'count' => 5)
 					)
-				);
-			$avatars = $game->avatars->data();
-			$avatars[count($avatars)] = $avatar;
-			$game->avatars = $avatars;
+				)
+			);
 
-			$game->save();
+			$avatar->save();
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         	}
 	}
 
-	public function leave() {
-		Auth::clear('default');
-		Session::delete('username');
-		return $this->redirect('/');
+	public function leave($avatarId) {
+
+		if($this->request->data)
+		{
+			$avatar = Avatars::first($avatarId);
+
+			//does this avatar exist?
+			if($avatar == null) {
+				return $this->redirect('/');
+			}
+
+			// does this avatar belong to the user?
+			if($avatar->user_id != Session::read('user_id')) {
+				return $this->redirect('/');
+			}
+
+			if($this->request->data['confirmation'] != 'löschen')  {
+				return array('confirmationFailed' => true);
+			}
+
+			$gameId = $avatar->game_id;
+
+			$avatar->delete();
+
+			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
+		}
 	}
 
 }

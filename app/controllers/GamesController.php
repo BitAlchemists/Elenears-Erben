@@ -11,6 +11,7 @@ namespace app\controllers;
 
 
 use app\models\Games;
+use app\models\Avatars;
 use app\models\Users;
 use lithium\net\http\Router;
 use lithium\storage\Session;
@@ -60,8 +61,10 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function view($gameId)
 	{
-		$avatar = $this->avatarForSessionUser($gameId);
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		$user_id = Session::read('user._id');
+		$avatar = Avatars::first(compact('user_id', 'game_id'));
+
+		$game = Games::first($gameId);
 		$map = $game->map->data->to('json');
 		
 		$visibleUnits = '[]';
@@ -75,11 +78,6 @@ class GamesController extends \lithium\action\Controller {
 		return compact('game', 'map', 'avatar', 'visibleUnits');
 	}
 	
-	function avatarForSessionUser($gameId)
-	{
-		$userId = Session::read('user._id');
-		return Games::avatar(compact('userId', 'gameId'));
-	}
 
 }
 

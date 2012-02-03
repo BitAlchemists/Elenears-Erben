@@ -9,9 +9,16 @@
 
 ?>
 
+<?php
+	if($confirmationFailed == true) {
+		echo $h('Bitte schreibe "löschen" in das Bestätigungsfeld.');
+	}
+?>
+
 	Um Deinen Avatar zu löschen, klicke bitte auf 'Bestätigen'.
 
-<?=$this->form->create(); ?>
+<?=$this->form->create(); ?>	
+	<?=$this->form->field('confirmation', array('label' => 'Schreibe "löschen"'));?>
 	<?=$this->form->submit('Bestätigen');?>
 <?=$this->form->end(); ?>
 

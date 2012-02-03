@@ -55,29 +55,7 @@ class Games extends \lithium\data\Model
 			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
 		));
 	}
-	
-	public static function avatar($params = array()) {
-		
-		$userId = $params['userId'];
-		$gameId = $params['gameId'];
-		if(!$userId || !$gameId)
-		{
-			return null;
-		}
-		
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		//var_dump($game->data());
 
-		foreach($game->avatars as $avatar)
-		{
-			if($avatar->userid == $userId)
-			{
-				return $avatar;
-			}
-		}
-		
-		return null;
-	}
 }
 
 ?>

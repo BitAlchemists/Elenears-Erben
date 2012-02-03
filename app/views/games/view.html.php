@@ -6,15 +6,15 @@
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel, Daniel Fahlke
  */
- 
+
 	if($avatar == null) {
 		echo "Du hast noch keinen Avatar für dieses Spiel.";
-		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'avatars', 'action' => 'add', 'args' => array($game->_id)));
+		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'avatars', 'action' => 'join', 'args' => array($game->_id)));
 		echo "<br/>";
 	}
 	else {
 		echo "Möchtest Du Deinen Avatar löschen?";
-		echo $this->html->link('[Jetzt löschen]', array('controller' => 'avatars', 'action' => 'remove', 'args' => array($game->_id)));
+		echo $this->html->link('[Jetzt loschen]', array('controller' => 'avatars', 'action' => 'leave', 'args' => array($avatar->_id)));
 		echo "<br/>";
 	}
 ?>
@@ -80,34 +80,12 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				createScenes
 			);
 
-/*
-				map1 = new map2DFramework( document.getElementById('map') );
-				map1.loadMap(mapData);
-				map1.test();
-				setTimeout("map1.drawMap()",500); //we redraw after a half second to be sure, that images are already loadedsetTimeout("map.drawMap()",500); //we redraw after a half second to be sure, that images are already loaded
-*/
 
-
-			});
+		});
 
 
 		</script> 
-<!--		TE: Manas Umrahmung fÃ¼r die Map
-<style type="text/css"> 
-			div{
-				border: 1px #000 solid;
-				min-height: 10px;
-				min-width: 10px;
-				display: inline-block;
-			}
-			#map canvas{
-				position:absolute;
-			}
-		</style>  -->
 
-		<button onclick="map1.drawMap();">Karte zeigen</button>
-		<br/> 
-		<div id="map" style="width: 800; height: 600px;"></div> 
 <h3>Avatare:</h3>
 <?php
 	foreach($game->avatars as $avatar)
