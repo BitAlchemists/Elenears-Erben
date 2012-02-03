@@ -12,6 +12,7 @@ namespace app\controllers;
 
 use app\models\Games;
 use app\models\Avatars;
+use app\models\Agents;
 use app\models\Users;
 use lithium\net\http\Router;
 use lithium\storage\Session;
@@ -36,11 +37,6 @@ class GamesController extends \lithium\action\Controller {
 			$this->redirect('Games::index');
 		}
 	}
-
-			//return $this->render(array('template' => join('/', $path)));
-
-		//return $this->render(array('layout' => false));
-
 	
 	public function remove($gameId){
 		if(!Session::read('user.isAdmin'))
@@ -51,7 +47,6 @@ class GamesController extends \lithium\action\Controller {
 		Games::remove(array('_id' => $gameId));
 		$this->redirect('Games::index');
 	}
-
 	
 	public function index()
 	{
@@ -67,13 +62,7 @@ class GamesController extends \lithium\action\Controller {
 		$game = Games::first($gameId);
 		$map = $game->map->data->to('json');
 		
-		$visibleUnits = '[]';
-
-		if(isset($avatar))
-		{
-//var_dump($avatar->units->to('json'));
-			$visibleUnits = $avatar->units->to('json');
-		}
+		$visibleUnits = Agents::all()->to('json');
 
 		return compact('game', 'map', 'avatar', 'visibleUnits');
 	}

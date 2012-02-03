@@ -18,6 +18,21 @@ class Games extends \lithium\data\Model
 			'conditions' => array(),
 			'fields'     => array(),
 			'order'      => null,
+			'limit'      => null),
+		'Agents' => array(
+			'class' => 'Agents',
+			'key'       => 'game_id',
+			'conditions' => array(),
+			'fields'     => array(),
+			'order'      => null,
+			'limit'      => null),
+		'Mobs' => array(
+			'class' => 'Agents',
+			'name' => 'Agents',
+			'key'       => 'game_id',
+			'conditions' => array('owner_id' => null),
+			'fields'     => array(),
+			'order'      => null,
 			'limit'      => null)
 	);
 
@@ -56,6 +71,27 @@ class Games extends \lithium\data\Model
 		));
 	}
 
+	public function freeHabitableField() {
+		$xPos = 5;
+		$yPos = 5;
+		return compact('xPos', 'yPos');
+	}
 }
+
+
+/*
+Games::finder('mobs', function($self, $params, $chain){
+
+    $defaults = array(
+        'owner_id' => null
+    );
+
+    // Merge with supplied params
+    $params['options']['conditions'] = $defaults + (array) $params['options']['conditions'];
+
+    // Do a bit of reformatting
+    return $chain->next($self, $params, $chain);
+});
+*/
 
 ?>

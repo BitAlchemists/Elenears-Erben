@@ -2,13 +2,14 @@
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
- * @copyright     Copyright 2011, Elenears Erben (http://elenear.net)
+ * @copyright     Copyright 2011-2012, Elenears Erben (http://elenear.net)
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
 namespace app\extensions\command;
 
 use app\models\Games;
+use app\models\Agents;
 /**
  * The EE Heart
  */
@@ -26,7 +27,7 @@ class Tick extends \lithium\console\Command {
 		foreach($games as $key => $game)
 		{
 			$this->out('manipulating game: '.$game->name);
-			//$game->avatars = $game->avatars;
+			$this->_spawnMobs($game);
 
 			if($game->save())
 			{
@@ -38,20 +39,33 @@ class Tick extends \lithium\console\Command {
 			}
 
 		}
-		//https://github.com/UnionOfRAD/lithium/issues/42
-		//var_dump($games->first()->avatars->first()->data());
-
 	}
 	
 	//#63
 	function _spawnMobs($game) {
-		$mobs = $game->mobs;
-		if($mobs->count < 3) {
-			//spawn a mob
-			$position = $game->map->freeHabitableField();
-			$mob = AgentFactory::createAgent('deer', array('position' => $position, 'units' => 5));
-			$mobs->add($mob);
+		$mobCount = Agents::count(
+			array(
+				'conditions' => array(
+					'game_id' => $game->_id,
+					'owner_id' => null
+				)
+			)
+		);
+
+		if($mobCount >= 3) {
+			return;
 		}
+
+		//spawn a mob
+		$position = $game->freeHabitableField();
+		$mob = Agents::create(array(
+			'game_id' => $game->_id,
+			'type' => 'army',
+			'subtype' => 'deer',
+			'units' => 5) +
+			$position
+		);
+		$mob->save();
 	}
 	
 	//#65

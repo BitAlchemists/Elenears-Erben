@@ -9,6 +9,7 @@
 
 namespace app\controllers;
 
+use app\models\Agents;
 use app\models\Games;
 use app\models\Avatars;
 use lithium\storage\Session;
@@ -52,18 +53,18 @@ class AvatarsController extends \lithium\action\Controller {
 			$avatar = Avatars::create(array(
 				'name' => $avatarname, 
 				'user_id' => Session::read('user._id'),
-				'game_id' => $gameId,
-				'units' => array(
-					array(
-						'type' => '0', 
-						'xPos' => 5, 
-						'yPos' => 1, 
-						'count' => 5)
-					)
-				)
-			);
+				'game_id' => $gameId
+			));
 
 			$avatar->save();
+
+			Agents::create(array(
+				'type' => 'army', 
+				'subtype' => 'hunters',
+				'xPos' => 5, 
+				'yPos' => 1, 
+				'units' => 5
+			))->save();
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
         	}
