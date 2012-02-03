@@ -7,10 +7,14 @@
  * @author        Tommi Enenkel, Daniel Fahlke
  */
  
-	if($avatar == null)
-	{
+	if($avatar == null) {
 		echo "Du hast noch keinen Avatar für dieses Spiel.";
-		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'games', 'action' => 'join', 'args' => array($game->_id)));
+		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'avatars', 'action' => 'add', 'args' => array($game->_id)));
+		echo "<br/>";
+	}
+	else {
+		echo "Möchtest Du Deinen Avatar löschen?";
+		echo $this->html->link('[Jetzt löschen]', array('controller' => 'avatars', 'action' => 'remove', 'args' => array($game->_id)));
 		echo "<br/>";
 	}
 ?>

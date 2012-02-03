@@ -2,7 +2,7 @@
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
- * @copyright     Copyright 2011, Elenears Erben (http://elenear.net)
+ * @copyright     Copyright 2011-2012, Elenears Erben (http://elenear.net)
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
@@ -10,6 +10,16 @@ namespace app\models;
 
 class Games extends \lithium\data\Model
 {
+
+	public $hasMany = array(
+		'Avatars' => array(
+			'class'      => 'Avatars',
+			'key'       => 'game_id',
+			'conditions' => array(),
+			'fields'     => array(),
+			'order'      => null,
+			'limit'      => null)
+	);
 
 	public static function __init($options = array()) {
 		parent::__init($options);
@@ -21,7 +31,6 @@ class Games extends \lithium\data\Model
 			//if the game is just being created, we add a map and avatars 
 			if(!isset($game->_id)) {
 				$game->map = $self::_generateMap();
-				$game->avatars = array();
 			}
 			
 			$params['entity'] = $game;
