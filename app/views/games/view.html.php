@@ -8,12 +8,12 @@
  */
 
 	if($avatar == null) {
-		echo "Du hast noch keinen Avatar für dieses Spiel.";
+		echo "Du hast noch keinen Avatar fÃ¼r dieses Spiel.";
 		echo $this->html->link('[Jetzt beitreten]', array('controller' => 'avatars', 'action' => 'join', 'args' => array($game->_id)));
 		echo "<br/>";
 	}
 	else {
-		echo "Möchtest Du Deinen Avatar löschen?";
+		echo "MÃ¶chtest Du Deinen Avatar lÃ¶schen?";
 		echo $this->html->link('[Jetzt loschen]', array('controller' => 'avatars', 'action' => 'leave', 'args' => array($avatar->_id)));
 		echo "<br/>";
 	}
