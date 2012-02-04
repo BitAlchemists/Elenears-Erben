@@ -96,6 +96,7 @@ class AvatarsController extends \lithium\action\Controller {
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
 		}
+		return array('confirmationFailed' => false);
 	}
 
 }
