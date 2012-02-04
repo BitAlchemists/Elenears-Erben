@@ -30,7 +30,7 @@ class AvatarsController extends \lithium\action\Controller {
 			$avatar = Avatars::first(
 				array(
 					'game_id' => $gameId,
-					'user_id' => $userId
+					'user_id' => Session::read('user._id')
 				)			
 			);
 			if($avatar != null) {
