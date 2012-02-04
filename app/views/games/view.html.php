@@ -88,8 +88,12 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 
 <h3>Avatare:</h3>
 <?php
-	foreach($game->avatars as $avatar)
-	{
-		echo "<p>".$h($avatar->name)." - ".$h($avatar->age)."</p>";
+	if( is_array($game->avatars) ){
+		foreach($game->avatars as $avatar)
+		{
+			echo "<p>".$h($avatar->name)." - ".$h($avatar->age)."</p>";
+		}
+	}else{
+		echo 'derzeit bevölkern keine Avatare diese Welt';
 	}
 ?>
