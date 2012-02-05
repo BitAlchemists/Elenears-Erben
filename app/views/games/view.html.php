@@ -97,3 +97,5 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		echo 'derzeit bevölkern keine Avatare diese Welt';
 	}
 ?>
+
+<div id="map"></div>
