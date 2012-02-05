@@ -37,6 +37,7 @@ use lithium\net\http\Media;
 			</h2>
 		</div>
 		<div id="content">
+			<?php echo $this->_render( 'element', 'messages' );?>
 			<?php echo $this->content(); ?>
 		</div>
 	</div>
