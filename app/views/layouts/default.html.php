@@ -19,7 +19,7 @@ use lithium\net\http\Media;
 	<script type="text/javascript">
 		var EE = {
 			basePaths : {
-				image : '<?php echo $this->path(Media::asset('', 'image')); ?>'
+				image : '<?php echo $this->path(Media::asset('/img/', 'image')); ?>'
 			}
 		};
 	</script>
