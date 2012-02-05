@@ -54,6 +54,13 @@ class Message extends \lithium\template\Helper{
 	}
 
 	/**
+	 * @param $message the debug Message or Variable to show
+	 */
+	public function addDebugMessage($message){
+		$this->addMessage($message, 'debug');
+	}
+
+	/**
 	 * returns all messages in storage
 	 * @return array messages which still need to get displayed
 	 */

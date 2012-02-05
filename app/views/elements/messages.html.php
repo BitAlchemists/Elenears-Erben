@@ -15,7 +15,11 @@ foreach($this->message->getMessages() as $message){
 	}else{
 		echo '<div class="message">';
 	}
-	echo $message['message'];
+	if( !is_string($message['message']) && $message['category'] == 'debug' ){
+		var_dump( $message['message'] );
+	}else{
+		echo $message['message'];
+	}
 	echo '</div>';
 }
 $this->message->clearMessages();
