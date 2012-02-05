@@ -31,7 +31,6 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 	$this->scripts($this->html->script('astar.js'));
 ?>
 	<script type="text/javascript"> 
-		var map1;
 
 		var mapData = { 
 			"xSize":10,
