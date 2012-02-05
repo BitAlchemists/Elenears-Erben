@@ -12,11 +12,13 @@ namespace app\controllers;
 use app\models\Agents;
 use app\models\Games;
 use app\models\Avatars;
+use app\extensions\helper\Message;
 use lithium\storage\Session;
  
 class AvatarsController extends \lithium\action\Controller {
 
 	public function join($gameId) {
+			$message = new Message();
         	if ($this->request->data) {
 			$avatarname = $this->request->data['avatarname'];
 			$game = Games::first($gameId);
@@ -34,8 +36,8 @@ class AvatarsController extends \lithium\action\Controller {
 				)			
 			);
 			if($avatar != null) {
-				echo "maeh 2<br/>";
-				var_dump($avatar->data());
+				$message->addErrorMessage('Du hast bereits einen Avatar');
+				$message->addDebugMessage($avatar->data());
 				//return $this->redirect('/');
 			}
 
@@ -46,6 +48,7 @@ class AvatarsController extends \lithium\action\Controller {
 			{
 				$avatarExists = true;
 				return compact('avatarExists');
+				$message->addErrorMessage('Ein Avatar mit diesem Namen existiert bereits');
 			}
 
 			//the avatar's name is free, we can use it
@@ -56,7 +59,9 @@ class AvatarsController extends \lithium\action\Controller {
 				'game_id' => $gameId
 			));
 
-			$avatar->save();
+			if( $avatar->save() ){
+				$message->addSuccessMessage('Es wurde erfolgreich ein Avatar für dich erschaffen');
+			}
 
 			Agents::create(array(
 				'type' => 'army', 
@@ -71,6 +76,7 @@ class AvatarsController extends \lithium\action\Controller {
 	}
 
 	public function leave($avatarId) {
+		$message = new Message();
 
 		if($this->request->data)
 		{
@@ -78,11 +84,13 @@ class AvatarsController extends \lithium\action\Controller {
 
 			//does this avatar exist?
 			if($avatar == null) {
+				$message->addErrorMessage('Dieser Avatar existierte nicht');
 				return $this->redirect('/');
 			}
 
 			// does this avatar belong to the user?
 			if($avatar->user_id != Session::read('user._id')) {
+				$message->addErrorMessage('Du kannst nur über deinen eigenen Avatar verfügen');
 				return $this->redirect('/');
 			}
 
@@ -92,7 +100,9 @@ class AvatarsController extends \lithium\action\Controller {
 
 			$gameId = $avatar->game_id;
 
-			$avatar->delete();
+			if( $avatar->delete() ){
+				$message->addSuccessMessage('Der Avatar wurde erfolgreich entfernt');
+			}
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
 		}
