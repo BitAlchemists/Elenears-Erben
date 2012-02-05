@@ -30,7 +30,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 	$this->scripts($this->html->script('graph.js'));
 	$this->scripts($this->html->script('astar.js'));
 ?>
-	<script type="text/javascript"> 
+	<script type="text/javascript">
 
 		var mapData = { 
 			"xSize":10,
@@ -45,7 +45,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		* @param director
 		*/
 		function createScenes(director) {
-			var mapView = new MapView(director);
+			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
 			var mapController = new MapController(mapView);
 			mapController.loadMap(mapData);
 			mapController.presentMap();
@@ -98,3 +98,4 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 ?>
 
 <div id="map"></div>
+<div id="map-info-container"></div>

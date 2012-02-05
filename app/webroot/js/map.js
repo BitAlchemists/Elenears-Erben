@@ -113,11 +113,13 @@ var ActorType = { FIELD : 1, UNIT : 2 };
 var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
 
 
-function MapView(director) {
-      	var scene = director.createScene();
+function MapView(director, infoContainerDom) {
+	var scene = director.createScene();
 	this.delegate = null;
 	this.director = director;
+	this.infoContainerDom = infoContainerDom;
 	this.map = null;
+	this.mapContainer = null;
 	var images = {};
 	this.fieldActors = null;
 	images.water = new CAAT.SpriteImage().initialize(director.getImage('water'),1,1);
@@ -154,8 +156,7 @@ function MapView(director) {
 	}
 
 	this.drawMap = function(map) {
-
-	        var mapContainer = new CAAT.ActorContainer().
+		var mapContainer = new CAAT.ActorContainer().
 			setLocation(0,0).
 			setSize(500,500);
 		scene.addChild(mapContainer);
@@ -177,7 +178,7 @@ function MapView(director) {
 		for(var i = 0; i < map.units.length; i++) {
 			this.drawUnit(map.units[i], mapContainer);
 		}
-
+		this.mapContainer = mapContainer;
 	};
 
 	this.createFieldActor= function(field, x, y) {
@@ -212,6 +213,28 @@ function MapView(director) {
 		this.fieldActors[y][x].setAlpha(alpha);
 	};
 
+	this.getUnitsFromField = function(x,y){
+		var actors = this.mapContainer.childrenList;
+		actors = jQuery.grep(actors,function(e){
+			return e.actorType == ActorType.UNIT && e.fieldPosition.x == x && e.fieldPosition.y == y;
+		});
+		return actors;
+	}
+
+	this.showFieldInfo = function(x,y){
+		var infoContainerDom = this.infoContainerDom
+		jQuery(infoContainerDom).html('');
+		jQuery(infoContainerDom).append('<h3>Feldübersicht</h3>');
+		jQuery(infoContainerDom).append('<div>x:'+x+' / y:'+y+'</div>');
+		jQuery(infoContainerDom).append('<h4>Einheiten</h4>');
+		jQuery.each(
+			this.getUnitsFromField(x,y),
+			function(i,e){
+				jQuery(infoContainerDom).append('actorType:'+e.actorType+'<br/>');
+			}
+		);
+	}
+
 	return this;
 }
 
@@ -225,7 +248,6 @@ function MapController(view) {
 
 	this.loadMap = function(map) {
 		this.map = map;
-
 		//calc the astarMap
 		astarMap = [];
 		for(var y = 0; y < map.fields.length; y++) {
@@ -255,6 +277,8 @@ function MapController(view) {
 
 
 	this.onSelectField = function ( e ) {
+		var position = e.source.fieldPosition;
+		view.showFieldInfo( position.x, position.y);
 		if(selection)	{
 			selection.deselect();
 		}
@@ -289,6 +313,8 @@ function MapController(view) {
 	}
 
 	this.onSelectUnit = function( e ) {
+		var position = e.source.fieldPosition;
+		view.showFieldInfo( position.x, position.y);
 		if ( selection ) {
 			selection.deselect();
 		}
@@ -300,3 +326,4 @@ function MapController(view) {
 
 	return this;
 }
+
