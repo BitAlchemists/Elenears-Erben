@@ -82,7 +82,7 @@ class AvatarsController extends \lithium\action\Controller {
 			}
 
 			// does this avatar belong to the user?
-			if($avatar->user_id != Session::read('user_id')) {
+			if($avatar->user_id != Session::read('user._id')) {
 				return $this->redirect('/');
 			}
 
