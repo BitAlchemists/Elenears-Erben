@@ -162,15 +162,15 @@ function MapView(director) {
 
 		this.fieldActors = [];
 
-		for(var y = 0; y < map.fields.length; y++) {
-			var fieldRow = map.fields[y];
-			this.fieldActors[y] = [];
-			for(var x = 0; x < fieldRow.length; x++) {
-				var field = fieldRow[x];
+		for(var x = 0; x < map.fields.length; x++) {
+			var fieldColumn = map.fields[x];
+			this.fieldActors[x] = [];
+			for(var y = 0; y < fieldColumn.length; y++) {
+				var field = fieldColumn[y];
 
 				var fieldActor = this.createFieldActor(field, x, y);
 				mapContainer.addChild(fieldActor);
-				this.fieldActors[y][x] = fieldActor;
+				this.fieldActors[x][y] = fieldActor;
 			}
 		}
 
@@ -209,7 +209,7 @@ function MapView(director) {
 			alpha = 0.5;
 		}
 
-		this.fieldActors[y][x].setAlpha(alpha);
+		this.fieldActors[x][y].setAlpha(alpha);
 	};
 
 	return this;
@@ -228,11 +228,11 @@ function MapController(view) {
 
 		//calc the astarMap
 		astarMap = [];
-		for(var y = 0; y < map.fields.length; y++) {
-			var fieldRow = map.fields[y];
-			astarMap[y] = [];
-			for(var x = 0; x < fieldRow.length; x++) {
-				var field = fieldRow[x];
+		for(var x = 0; x < map.fields.length; x++) {
+			var fieldColumn = map.fields[x];
+			astarMap[x] = [];
+			for(var y = 0; y < fieldColumn.length; y++) {
+				var field = fieldColumn[y];
 				var weight = 0;
 				
 				switch(field.type) {
@@ -244,7 +244,7 @@ function MapController(view) {
 					break;
 				}	
 
-				astarMap[y][x] = weight;
+				astarMap[x][y] = weight;
 			}
 		}
 	}
@@ -269,20 +269,20 @@ function MapController(view) {
 				if(currentRoute) {
 					for(var i = 0; i < currentRoute.length; i++) {
 						var node = currentRoute[i]
-						view.setHighlightField(node.y, node.x, false);
+						view.setHighlightField(node.x, node.y, false);
 					}
 				}
 				//find the new route
 
 				var graph = new Graph(astarMap);
-				var start = graph.nodes[selection.fieldPosition.y][selection.fieldPosition.x];
-				var end = graph.nodes[this.fieldPosition.y][this.fieldPosition.x];
+				var start = graph.nodes[selection.fieldPosition.x][selection.fieldPosition.y];
+				var end = graph.nodes[this.fieldPosition.x][this.fieldPosition.y];
 				currentRoute = astar.search(graph.nodes, start, end);
 
 				//highlight the new route
 					for(var i = 0; i < currentRoute.length; i++) {
 						var node = currentRoute[i]
-						view.setHighlightField(node.y, node.x, true);
+						view.setHighlightField(node.x, node.y, true);
 					}
 			}
 		}
