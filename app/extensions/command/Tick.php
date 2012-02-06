@@ -2,13 +2,14 @@
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
- * @copyright     Copyright 2011, Elenears Erben (http://elenear.net)
+ * @copyright     Copyright 2011-2012, Elenears Erben (http://elenear.net)
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
 namespace app\extensions\command;
 
 use app\models\Games;
+use app\models\Agents;
 /**
  * The EE Heart
  */
@@ -25,19 +26,8 @@ class Tick extends \lithium\console\Command {
 		
 		foreach($games as $key => $game)
 		{
-			$game->tickCount++;
-			$game->save();
-			$this->out("'".$game->name."' has now seen ".$game->tickCount." ticks.");
-	
 			$this->out('manipulating game: '.$game->name);
-			foreach($game->avatars as $avatar)
-			{
-				$this->out('manipulating avatar: '.$avatar->name);
-				$this->out('age: '.$avatar->age);
-				$avatar->age++;
-				$this->out('new age: '.$avatar->age);
-			}
-			//$game->avatars = $game->avatars;
+			$this->_spawnMobs($game);
 
 			if($game->save())
 			{
@@ -49,9 +39,44 @@ class Tick extends \lithium\console\Command {
 			}
 
 		}
-		//https://github.com/UnionOfRAD/lithium/issues/42
-		//var_dump($games->first()->avatars->first()->data());
+	}
+	
+	//#63
+	function _spawnMobs($game) {
+		$mobCount = Agents::count(
+			array(
+				'conditions' => array(
+					'game_id' => $game->_id,
+					'owner_id' => null
+				)
+			)
+		);
 
+		if($mobCount >= 3) {
+			return;
+		}
+
+		//spawn a mob
+		$position = $game->freeHabitableField();
+		$mob = Agents::create(array(
+			'game_id' => $game->_id,
+			'type' => 'army',
+			'subtype' => 'deer',
+			'units' => 5) +
+			$position
+		);
+		$mob->save();
+	}
+	
+	//#65
+	function _roamMobs($game) {
+		foreach($game->mobs as $key => $mob) {
+			$positions = $game->map->freeHabitableFields($mob->position);
+			$position = $positions[rnd(count($positions))];
+			$mob->orders->empty();
+			$order = OrderFactory::createOrder('move', array('position' => $position));
+			$mob->orders->add($order);
+		}
 	}
 }
 

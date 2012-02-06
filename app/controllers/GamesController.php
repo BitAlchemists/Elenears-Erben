@@ -2,29 +2,17 @@
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
- * @copyright     Copyright 2011, Elenears Erben (http://elenear.net)
+ * @copyright     Copyright 2011-2012, Elenears Erben (http://elenear.net)
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
 
 namespace app\controllers;
 
-/**
- * This controller is used for serving static pages by name, which are located in the `/views/pages`
- * folder.
- *
- * A Lithium application's default routing provides for automatically routing and rendering
- * static pages using this controller. The default route (`/`) will render the `home` template, as
- * specified in the `view()` action.
- *
- * Additionally, any other static templates in `/views/pages` can be called by name in the URL. For
- * example, browsing to `/pages/about` will render `/views/pages/about.html.php`, if it exists.
- *
- * Templates can be nested within directories as well, which will automatically be accounted for.
- * For example, browsing to `/pages/about/company` will render
- * `/views/pages/about/company.html.php`.
- */
+
 use app\models\Games;
+use app\models\Avatars;
+use app\models\Agents;
 use app\models\Users;
 use lithium\net\http\Router;
 use lithium\storage\Session;
@@ -49,11 +37,6 @@ class GamesController extends \lithium\action\Controller {
 			$this->redirect('Games::index');
 		}
 	}
-
-			//return $this->render(array('template' => join('/', $path)));
-
-		//return $this->render(array('layout' => false));
-
 	
 	public function remove($gameId){
 		if(!Session::read('user.isAdmin'))
@@ -64,7 +47,6 @@ class GamesController extends \lithium\action\Controller {
 		Games::remove(array('_id' => $gameId));
 		$this->redirect('Games::index');
 	}
-
 	
 	public function index()
 	{
@@ -74,64 +56,17 @@ class GamesController extends \lithium\action\Controller {
 	
 	public function view($gameId)
 	{
-		$avatar = $this->avatarForSessionUser($gameId);
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
+		$user_id = Session::read('user._id');
+		$avatar = Avatars::first(compact('user_id', 'game_id'));
+
+		$game = Games::first($gameId);
 		$map = $game->map->data->to('json');
 		
-		$visibleUnits = '[]';
-
-		if(isset($avatar))
-		{
-//var_dump($avatar->units->to('json'));
-			$visibleUnits = $avatar->units->to('json');
-		}
+		$visibleUnits = Agents::all()->to('json');
 
 		return compact('game', 'map', 'avatar', 'visibleUnits');
 	}
 	
-	public function join($gameId) {
-
-	
-        	if ($this->request->data) {
-			$avatarname = $this->request->data['avatarname'];
-			$game = Games::first(array('conditions' => array('_id' => $gameId)));
-			
-			//check if the avatarName is free
-			foreach($game->avatars as $avatar)
-			{
-				if($avatarname == $avatar->name)
-				{
-					$avatarExists = true;
-					return compact('avatarExists');
-				}
-			}
-			//the avatarName is free, we can use it
-
-			
-			$avatar = array('name' => $avatarname, 'userid' => Session::read('user._id'), 'units' => array(array('type' => '0', 'xPos' => 5, 'yPos' => 1, 'count' => 5)));
-			$avatars = $game->avatars->data();
-			$avatars[count($avatars)] = $avatar;
-			$game->avatars = $avatars;
-
-			$game->save();
-
-			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
-        	}
-		// Handle failed authentication attempts
-
-    }
-	
-	public function leave() {
-        Auth::clear('default');
-		Session::delete('username');
-        return $this->redirect('/');
-    }
-	
-	function avatarForSessionUser($gameId)
-	{
-		$userId = Session::read('user._id');
-		return Games::avatar(compact('userId', 'gameId'));
-	}
 
 }
 

@@ -2,7 +2,7 @@
 /**
  * Elenears Erben: Wir tragen das Licht weiter
  *
- * @copyright     Copyright 2011, Elenears Erben (http://elenear.net)
+ * @copyright     Copyright 2011-2012, Elenears Erben (http://elenear.net)
  * @license       http://creativecommons.org/licenses/by-sa/3.0/legalcode Creative Commons Attribution-ShareAlike 3.0
  * @author        Tommi Enenkel
  */
@@ -10,6 +10,31 @@ namespace app\models;
 
 class Games extends \lithium\data\Model
 {
+
+	public $hasMany = array(
+		'Avatars' => array(
+			'class'      => 'Avatars',
+			'key'       => 'game_id',
+			'conditions' => array(),
+			'fields'     => array(),
+			'order'      => null,
+			'limit'      => null),
+		'Agents' => array(
+			'class' => 'Agents',
+			'key'       => 'game_id',
+			'conditions' => array(),
+			'fields'     => array(),
+			'order'      => null,
+			'limit'      => null),
+		'Mobs' => array(
+			'class' => 'Agents',
+			'name' => 'Agents',
+			'key'       => 'game_id',
+			'conditions' => array('owner_id' => null),
+			'fields'     => array(),
+			'order'      => null,
+			'limit'      => null)
+	);
 
 	public static function __init($options = array()) {
 		parent::__init($options);
@@ -21,7 +46,6 @@ class Games extends \lithium\data\Model
 			//if the game is just being created, we add a map and avatars 
 			if(!isset($game->_id)) {
 				$game->map = $self::_generateMap();
-				$game->avatars = array();
 			}
 			
 			$params['entity'] = $game;
@@ -46,29 +70,28 @@ class Games extends \lithium\data\Model
 			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
 		));
 	}
-	
-	public static function avatar($params = array()) {
-		
-		$userId = $params['userId'];
-		$gameId = $params['gameId'];
-		if(!$userId || !$gameId)
-		{
-			return null;
-		}
-		
-		$game = Games::first(array('conditions' => array('_id' => $gameId)));
-		//var_dump($game->data());
 
-		foreach($game->avatars as $avatar)
-		{
-			if($avatar->userid == $userId)
-			{
-				return $avatar;
-			}
-		}
-		
-		return null;
+	public function freeHabitableField() {
+		$xPos = 5;
+		$yPos = 5;
+		return compact('xPos', 'yPos');
 	}
 }
+
+
+/*
+Games::finder('mobs', function($self, $params, $chain){
+
+    $defaults = array(
+        'owner_id' => null
+    );
+
+    // Merge with supplied params
+    $params['options']['conditions'] = $defaults + (array) $params['options']['conditions'];
+
+    // Do a bit of reformatting
+    return $chain->next($self, $params, $chain);
+});
+*/
 
 ?>

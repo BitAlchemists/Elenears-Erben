@@ -27,6 +27,7 @@
 			<h2>Wir tragen das Licht weiter.</h2>
 		</div>
 		<div id="content">
+			<?php echo $this->_render( 'element', 'messages' );?>
 			<?php echo $this->content(); ?>
 		</div>
 	</div>
