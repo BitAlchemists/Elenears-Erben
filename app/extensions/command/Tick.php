@@ -45,10 +45,8 @@ class Tick extends \lithium\console\Command {
 	function _spawnMobs($game) {
 		$mobCount = Agents::count(
 			array(
-				'conditions' => array(
-					'game_id' => $game->_id,
-					'owner_id' => null
-				)
+				'game_id' => $game->_id,
+				'owner_id' => null
 			)
 		);
 

@@ -62,7 +62,7 @@ class GamesController extends \lithium\action\Controller {
 		$game = Games::first($gameId);
 		$map = $game->map->data->to('json');
 		
-		$visibleUnits = Agents::all()->to('json');
+		$visibleUnits = Agents::all(array('game_id' => $gameId))->to('json');
 
 		return compact('game', 'map', 'avatar', 'visibleUnits');
 	}

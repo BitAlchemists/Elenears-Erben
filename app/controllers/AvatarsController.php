@@ -24,8 +24,8 @@ class AvatarsController extends \lithium\action\Controller {
 			$game = Games::first($gameId);
 
 			if($game == null) {
-				echo "maeh 1<br/>";
-				//return $this->redirect('/');
+				$message->addErrorMessage('Dieses Spiel existiert nicht');
+				return;
 			}			
 
 			//check if the player does have an avatar already
@@ -38,7 +38,7 @@ class AvatarsController extends \lithium\action\Controller {
 			if($avatar != null) {
 				$message->addErrorMessage('Du hast bereits einen Avatar');
 				$message->addDebugMessage($avatar->data());
-				//return $this->redirect('/');
+				return;
 			}
 
 			//check if the avatarName is free
@@ -49,6 +49,7 @@ class AvatarsController extends \lithium\action\Controller {
 				$avatarExists = true;
 				return compact('avatarExists');
 				$message->addErrorMessage('Ein Avatar mit diesem Namen existiert bereits');
+				return;
 			}
 
 			//the avatar's name is free, we can use it
@@ -68,7 +69,9 @@ class AvatarsController extends \lithium\action\Controller {
 				'subtype' => 'hunters',
 				'xPos' => 5, 
 				'yPos' => 1, 
-				'units' => 5
+				'units' => 5,
+				'game_id' => $gameId,
+				'owner_id' => $avatar->_id
 			))->save();
 
 			return $this->redirect(array('controller' => 'Games', 'action' => 'view', 'args' => array($gameId)));
@@ -100,7 +103,9 @@ class AvatarsController extends \lithium\action\Controller {
 
 			$gameId = $avatar->game_id;
 
-			if( $avatar->delete() ){
+			$conditions = array( 'game_id' => $gameId, '_id' => $avatar->_id );
+
+			if( Avatars::remove($conditions) ){
 				$message->addSuccessMessage('Der Avatar wurde erfolgreich entfernt');
 			}
 
