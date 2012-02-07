@@ -27,8 +27,9 @@ class Tick extends \lithium\console\Command {
 		foreach($games as $key => $game)
 		{
 			$this->out('manipulating game: '.$game->name);
-			//$this->_spawnMobs($game);
+			$this->_spawnMobs($game);
 			$this->_generateMobMovementOrders($game);
+			$this->_processOrders($game);
 
 			if($game->save())
 			{
@@ -80,13 +81,33 @@ class Tick extends \lithium\console\Command {
 			$position = array('xPos' => $mob->xPos, 'yPos' => $mob->yPos, 'this is a message for you');
 			$positions = $game->freeHabitablePositions($position);
 			$position = $positions[rand(0, count($positions) - 1)];
-			$mob->orders = array('move' => $position);
+			$mob->orders = array(array('type' => 'move', 'position' => $position));
 			$mob->save();
 		}
 	}
 
-	function _processAgentMovements($game) {
+	function _processOrders($game) {
+		$mobs = Agents::all(
+			array(
+				'game_id' => $game->_id,
+				'owner_id' => null
+			)
+		);
 
+		foreach($mobs as $mob) {
+			//$this->out("orders ".print_r($mob->orders, true));
+			if(isset($mob->orders) && $mob->orders->count()) {
+				$order = $mob->orders->first();
+				switch($order->type) {
+				case 'move':
+					//todo: validate targetPosition
+					$mob->xPos = $order->position->xPos;
+					$mob->yPos = $order->position->yPos;
+					break;
+				}
+			}
+			$mob->save();
+		}
 	}
 }
 

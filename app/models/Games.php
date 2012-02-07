@@ -88,19 +88,17 @@ class Games extends \lithium\data\Model
 		));
 	}
 
-	public function freeHabitableField() {
-		$positions = $this->freeHabitablePositions();
-		return $positions [rand(0, count($positions ) - 1)];
+	public function freeHabitableField($entity) {
+		$positions = $entity->freeHabitablePositions();
+		return $positions[rand(0, count($positions) - 1)];
 	}
 
-	public function freeHabitablePositions($position = null) {
+	public function freeHabitablePositions($entity, $position = null) {
 
 		$xOffset = 0;
 		$yOffset = 0;
-		$xSize = $this->map['xSize'];
-		$ySize = $this->map['ySize'];
-
-
+		$xSize = $entity->map['xSize'];
+		$ySize = $entity->map['ySize'];
 
 		$fields = array();
 
@@ -113,14 +111,14 @@ class Games extends \lithium\data\Model
 			$fields = array();
 
 			$possiblePositions = array();
-			$possiblePositions[] = array('xPos' => ($xPos - 1), 'yPos' => $y - 1);
-			$possiblePositions[] = array('xPos' => $xPos - 1, 'yPos' => $y + 1);
-			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $y - 1);
-			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $y + 1);
-			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $y);
+			$possiblePositions[] = array('xPos' => $xPos - 1, 'yPos' => $yPos);
+			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $yPos);
+			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos - 1);
+			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos + 1);
+			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos);
 
 			for($i = 0; $i < 5; $i++) {
-				$field = $this->map['data'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
+				$field = $entity->map['data'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
 				if(Games::_grasland($field)) {
 					$fields[] = $possiblePositions[$i];
 				}
@@ -131,7 +129,7 @@ class Games extends \lithium\data\Model
 		for($x = $xOffset; $x < $xOffset + $xSize; $x++) {
 			for($y = $yOffset; $y < $yOffset + $ySize; $y++) {
 
-				$field = $this->map['data'][$x][$y];
+				$field = $entity->map['data'][$x][$y];
 
 				if(Games::_grasland($field)) {
 					$fields[] = array('xPos' => $x, 'yPos' => $y);
