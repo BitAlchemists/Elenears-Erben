@@ -27,7 +27,8 @@ class Tick extends \lithium\console\Command {
 		foreach($games as $key => $game)
 		{
 			$this->out('manipulating game: '.$game->name);
-			$this->_spawnMobs($game);
+			//$this->_spawnMobs($game);
+			$this->_generateMobMovementOrders($game);
 
 			if($game->save())
 			{
@@ -67,14 +68,25 @@ class Tick extends \lithium\console\Command {
 	}
 	
 	//#65
-	function _roamMobs($game) {
-		foreach($game->mobs as $key => $mob) {
-			$positions = $game->map->freeHabitableFields($mob->position);
-			$position = $positions[rnd(count($positions))];
-			$mob->orders->empty();
-			$order = OrderFactory::createOrder('move', array('position' => $position));
-			$mob->orders->add($order);
+	function _generateMobMovementOrders($game) {
+		$mobs = Agents::all(
+			array(
+				'game_id' => $game->_id,
+				'owner_id' => null
+			)
+		);
+
+		foreach($mobs as $mob) {
+			$position = array('xPos' => $mob->xPos, 'yPos' => $mob->yPos, 'this is a message for you');
+			$positions = $game->freeHabitablePositions($position);
+			$position = $positions[rand(0, count($positions) - 1)];
+			$mob->orders = array('move' => $position);
+			$mob->save();
 		}
+	}
+
+	function _processAgentMovements($game) {
+
 	}
 }
 

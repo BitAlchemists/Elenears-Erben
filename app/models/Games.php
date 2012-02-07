@@ -71,7 +71,9 @@ class Games extends \lithium\data\Model
 	static function _generateMap()
 	{
 		$waterfield['type'] = 0;
-		$landfield['type'] = 1;
+		$waterfield = Games::_waterfield();
+		$landfield = Games::_grasland();
+
 		return array('xSize' => 10, 'ySize' => 10, 'data' => array(
 			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
 			array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
@@ -87,9 +89,73 @@ class Games extends \lithium\data\Model
 	}
 
 	public function freeHabitableField() {
-		$xPos = 5;
-		$yPos = 5;
-		return compact('xPos', 'yPos');
+		$positions = $this->freeHabitablePositions();
+		return $positions [rand(0, count($positions ) - 1)];
+	}
+
+	public function freeHabitablePositions($position = null) {
+
+		$xOffset = 0;
+		$yOffset = 0;
+		$xSize = $this->map['xSize'];
+		$ySize = $this->map['ySize'];
+
+
+
+		$fields = array();
+
+		//if we want the fields around $position, we change the parameters
+		if($position != null) {
+			$xPos = $position['xPos'];
+			$yPos = $position['yPos'];
+
+			$possibleFields = array();
+			$fields = array();
+
+			$possiblePositions = array();
+			$possiblePositions[] = array('xPos' => ($xPos - 1), 'yPos' => $y - 1);
+			$possiblePositions[] = array('xPos' => $xPos - 1, 'yPos' => $y + 1);
+			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $y - 1);
+			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $y + 1);
+			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $y);
+
+			for($i = 0; $i < 5; $i++) {
+				$field = $this->map['data'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
+				if(Games::_grasland($field)) {
+					$fields[] = $possiblePositions[$i];
+				}
+			}
+			return $fields;
+		}
+
+		for($x = $xOffset; $x < $xOffset + $xSize; $x++) {
+			for($y = $yOffset; $y < $yOffset + $ySize; $y++) {
+
+				$field = $this->map['data'][$x][$y];
+
+				if(Games::_grasland($field)) {
+					$fields[] = array('xPos' => $x, 'yPos' => $y);
+				}
+			}
+		}
+
+		return $fields;
+	}
+
+	static function _grasland($grasland) {
+		if(isset($grasland)) {
+			return $grasland['type'] == 1 ? true : false;
+		}
+
+		return array('type' => 1);
+	}
+
+	static function _waterfield($waterfield) {
+		if(isset($waterfield)) {
+			return $waterfield['type'] == 0 ? true : false;
+		}
+
+		return array('type' => 0);
 	}
 }
 
