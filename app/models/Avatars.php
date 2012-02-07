@@ -9,12 +9,27 @@
 namespace app\models;
 
 use app\models\Agents;
+use MongoId;
 
 class Avatars extends \lithium\data\Model
 {
 	public static function __init($options = array()) {
 		parent::__init($options);
 		$self = static::_instance(__CLASS__);
+
+		Avatars ::applyFilter('save', function($self, $params, $chain) {
+
+			$avatar = $params['entity'];
+
+			if(is_string($avatar->game_id)) {
+				$avatar->game_id = new MongoId($avatar->game_id);
+			}
+			if(is_string($avatar->user_id)) {
+				$avatar->user_id = new MongoId($avatar->user_id);
+			}
+			
+			return $chain->next($self, $params, $chain);
+		});
 
 		Avatars ::applyFilter('remove', function($self, $params, $chain) {
 

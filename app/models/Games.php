@@ -10,6 +10,7 @@ namespace app\models;
 
 use app\models\Avatars;
 use app\models\Agents;
+use MongoId;
 
 class Games extends \lithium\data\Model
 {
@@ -57,11 +58,7 @@ class Games extends \lithium\data\Model
 
 		Games::applyFilter('remove', function($self, $params, $chain) {
 
-			$conditions = array( 'game_id' => $params['conditions']['_id'] );
-
-			$message = new \app\extensions\helper\Message();
-			$debugString = var_export($conditions, true);
-			$message->addDebugMessage("params:{$debugString}");
+			$conditions = array( 'game_id' => new MongoId($params['conditions']['_id']) );
 
 			if(!Agents::remove($conditions)) { $message->addErrorMessage('Es konnten nicht alle Agents geloescht werden.'); };
 			if(!Avatars::remove($conditions)) { $message->addErrorMessage('Es konnten nicht alle Avatare geloescht werden.'); };
