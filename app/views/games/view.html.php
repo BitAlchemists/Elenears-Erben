@@ -23,7 +23,7 @@
 
 Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 <?php
-	$this->scripts($this->html->script('jquery-1.4.2.js'));
+	$this->scripts($this->html->script('jquery.js'));
 	//$this->scripts($this->html->script('jquery.event.drag-2.0.js'));
 	$this->scripts($this->html->script('caat.js'));
 	$this->scripts($this->html->script('map.js'));
