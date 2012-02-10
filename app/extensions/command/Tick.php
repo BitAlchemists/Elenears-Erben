@@ -100,11 +100,12 @@ class Tick extends \lithium\console\Command {
 				$order = $mob->orders->first();
 				switch($order->type) {
 				case 'move':
-					//todo: validate targetPosition
 					$mob->xPos = $order->position->xPos;
 					$mob->yPos = $order->position->yPos;
 					break;
 				}
+				//todo: replace this with a "remove first item" code
+				$mob->orders = array();
 			}
 			$mob->save();
 		}

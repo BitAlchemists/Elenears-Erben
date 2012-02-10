@@ -1,5 +1,6 @@
 ﻿app/resources/*
-/app/resources/tmp/cache/templates/*
+app/resources/tmp/cache/templates/*
+app/resources/tmp/cache/*
 app/libraries/
 *~
 

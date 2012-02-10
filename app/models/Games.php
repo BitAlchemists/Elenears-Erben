@@ -70,21 +70,20 @@ class Games extends \lithium\data\Model
 
 	static function _generateMap()
 	{
-		$waterfield['type'] = 0;
-		$waterfield = Games::_waterfield();
-		$landfield = Games::_grasland();
+		$w = Games::_waterfield();
+		$g = Games::_grasland();
 
 		return array('xSize' => 10, 'ySize' => 10, 'data' => array(
-			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
-			array($waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield),
-			array($waterfield,$waterfield,$waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield,$waterfield,$waterfield),
-			array($waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield),
-			array($waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield,$landfield ,$landfield ,$waterfield,$waterfield),
-			array($waterfield,$waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield,$waterfield),
-			array($waterfield,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$landfield ,$waterfield),
-			array($waterfield,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$waterfield),
-			array($landfield ,$landfield ,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$landfield ,$landfield ),
-			array($waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield,$waterfield),
+			array($w,$w,$w,$w,$w,$w,$w,$w,$w,$w),
+			array($w,$w,$w,$w,$g,$g,$w,$w,$w,$w),
+			array($w,$w,$w,$g,$g,$g,$g,$w,$w,$w),
+			array($w,$w,$w,$g,$w,$w,$g,$w,$w,$w),
+			array($w,$w,$g,$g,$w,$w,$g,$g,$w,$w),
+			array($w,$w,$g,$w,$w,$w,$w,$g,$w,$w),
+			array($w,$g,$g,$g,$g,$g,$g,$g,$g,$w),
+			array($w,$g,$w,$w,$w,$w,$w,$w,$g,$w),
+			array($g,$g,$w,$w,$w,$w,$w,$w,$g,$g),
+			array($w,$w,$w,$w,$w,$w,$w,$w,$w,$w),
 		));
 	}
 
@@ -111,13 +110,13 @@ class Games extends \lithium\data\Model
 			$fields = array();
 
 			$possiblePositions = array();
-			$possiblePositions[] = array('xPos' => $xPos - 1, 'yPos' => $yPos);
-			$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $yPos);
-			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos - 1);
-			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos + 1);
+			if($xPos - 1 >= 0)	$possiblePositions[] = array('xPos' => $xPos - 1, 'yPos' => $yPos);
+			if($xPos + 1 < $xSize)	$possiblePositions[] = array('xPos' => $xPos + 1, 'yPos' => $yPos);
+			if($yPos - 1 >= 0)	$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos - 1);
+			if($yPos + 1 < $ySize)	$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos + 1);
 			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos);
 
-			for($i = 0; $i < 5; $i++) {
+			for($i = 0; $i < count($possiblePositions); $i++) {
 				$field = $entity->map['data'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
 				if(Games::_grasland($field)) {
 					$fields[] = $possiblePositions[$i];
