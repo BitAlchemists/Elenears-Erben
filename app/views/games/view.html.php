@@ -26,9 +26,10 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 	$this->scripts($this->html->script('jquery.js'));
 	//$this->scripts($this->html->script('jquery.event.drag-2.0.js'));
 	$this->scripts($this->html->script('caat.js'));
-	$this->scripts($this->html->script('map.js'));
+	$this->scripts($this->html->script('jquerymx.js'));
 	$this->scripts($this->html->script('graph.js'));
 	$this->scripts($this->html->script('astar.js'));
+	$this->scripts($this->html->script('map.js'));
 ?>
 	<script type="text/javascript">
 
@@ -67,9 +68,9 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				 No images can be set too.
 				 */
 				[
-					{'id':'grasland', 	'url': EE.basePaths.image + 'field_grasland.png'},
-					{'id':'water', 	'url': EE.basePaths.image + 'field_water.png'},
-					{'id':'hunter',	'url': EE.basePaths.image + 'units/baddie_Ninja.png'}
+					{'id':'grasland', 	'url': EE.paths.image + 'field_grasland.png'},
+					{'id':'water', 	'url': EE.paths.image + 'field_water.png'},
+					{'id':'hunter',	'url': EE.paths.image + 'units/baddie_Ninja.png'}
 				],
 
 				/*
@@ -79,6 +80,21 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				createScenes
 			);
 
+$.fixture.on = false;
+
+$.Model('Todo',{
+  findAll: 'GET /todos.json',
+  findOne: 'GET /todos/{id}.json',
+  create:  'POST '+EE.paths.base+'agents/order',
+  update:  'PUT /todos/{id}.json',
+  destroy: 'DELETE /todos/{id}.json' 
+},{});
+
+// create a todo instance
+var todo = new Todo({name: "do the dishes"})
+
+// save it on the server
+todo.save(function(){alert('success');},function(){alert('fail');});
 
 		});
 
