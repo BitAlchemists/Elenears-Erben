@@ -15,7 +15,7 @@ class BattlesController extends \lithium\action\Controller {
 	const $time = 0.25;
 		
 		
-	public battle($party1, $party2)
+	public function battle($party1, $party2)
 	{
 		$log = 
 			"Begin of Battle<br/>".
@@ -72,12 +72,17 @@ class BattlesController extends \lithium\action\Controller {
 		
 		return log;
 	}
+
+	function _rand() {
+		return rand(0,1000) / 1000.;
+	}
 		
-	private string Encounter(ArmyBattleData armyAtt, ArmyBattleData armyDeff)
+	function _encounter($armyAtt, $armyDeff)
 	{
 		//Todo: add multiple maneuvers if BP are left
-		Random rand = new Random();
 		
+
+
 		List<TroopBattleData> attackingTroops = new List<TroopBattleData>();
 		List<TroopBattleData> defendingTroops = new List<TroopBattleData>();
 		
