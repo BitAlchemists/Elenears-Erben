@@ -114,34 +114,37 @@ class BattlesController extends \lithium\action\Controller {
 			$log .= $at['name']." - EDM: ".$at['edm']."<br/>";
 			//2.2.3
 			$at['pdp'] = $at['bp'] * $at['edm'];
-			$log .= $at['name']." - PDP: " + att.PotentialDamagePoints + Environment.NewLine;
+			$log .= $at['name']." - PDP: ".$at['pdp']."<br/>";
 			//2.2.4 obsolete
-			$at['pv']
-			att.ProportionValue = att.BattlePoints / att.PotentialDamagePoints;
-			//log += deff.Name + " - PV: " + att.EffectiveDamageMultiplier + Environment.NewLine;
+			$at['pv'] = $at['bp'] / $at['pdp'];
+			//log += deff.Name + " - PV: ".$at['edm']."<br/>";
 			//2.2.5
-			att.OpposingTroop.DamagePoints = Math.Min(att.OpposingTroop.LifePoints, att.PotentialDamagePoints);
-			log += $at['name']." - DP: " + att.DamagePoints + Environment.NewLine;
+			$at['dp'] = min($dt['lp'], $at['pdp']);
+			$log .= $at['name']." - DP: ".$at['dp']."<br/>";
 			//2.2.6
-			att.PotentialDamagePoints -= att.OpposingTroop.DamagePoints;
-			log += $at['name']." - remaining PDP: " + att.PotentialDamagePoints + Environment.NewLine;
+			$at['pdp'] -= $at['dp'];
+			$log .= $at['name']." - remaining PDP: ".$at['pdp']."<br/>";
 			//2.2.7
-			att.BattlePoints = att.PotentialDamagePoints / att.EffectiveDamageMultiplier;
-			log += $at['name']." - remaining BP: " + att.BattlePoints + Environment.NewLine;
+			$at['bp'] = $at['pdp'] * $at['pv'];
+			$log .= $at['name']." - remaining BP: ".$at['bp']."<br/>";
 		}
 		
 		//2.3 - Post-Maneuver
-		foreach (TroopBattleData deff in defendingTroops) {
-			double proportionValue = deff.DamagePoints / deff.LifePoints;
+		foreach ($maneuvers as $maneuver) {
+			$at = $maneuver['at'];
+			$dt = $maneuver['dt'];	
+ 
 			//2.3.1
-			deff.Troop.UnitCount -= (int)deff.DamagePoints;
-			log += $dt['name']." - remaining Peasants: " + deff.Troop.UnitCount + Environment.NewLine;
+			$dt['count'] -= $at['dp'];
+			$log .= $dt['name']." - remaining Peasants: ".$dt['count']."<br/>";
 			//2.3.2
-			deff.BattlePoints -= deff.BattlePoints * proportionValue;
-			log += $dt['name']." - remafffffffasdfining BP: " + deff.BattlePoints + Environment.NewLine;
+			//TE I am not sure if these two lines are correct, too tired now, look over it again
+			$pv = $at['dp'] / $dt['lp'];
+			$dt['bp'] -= $dt['bp'] * $pv;
+			$log .= $dt['name']." - remaining BP: ".$dt['bp']."<br/>";
 		}
 			
-		return log;
+		return $log;
 	}
 }
 ?>
