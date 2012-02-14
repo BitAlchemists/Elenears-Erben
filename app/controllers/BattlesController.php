@@ -48,13 +48,13 @@ class BattlesController extends \lithium\action\Controller {
 		//1 - Preconditions			
 		//1.1 - Calculate Battle Points
 		foreach ($armyAtt['troops'] as &$troop) {
-			$troop['bp'] = $troop['count'];
-			$log .= $troop['name']." - BP: ".$troop['bp']."<br/>";
+			$troop['ap'] = $troop['count'];
+			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
 		}
 
 		foreach ($armyDeff['troops'] as &$troop) {
-			$troop['bp'] = $troop['count'];
-			$log .= $troop['name']." - BP: ".$troop['bp']."<br/>";
+			$troop['ap'] = $troop['count'];
+			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
 		}
 		
 		//1.2 - Base Damage Multiplier Calculation
@@ -73,13 +73,15 @@ class BattlesController extends \lithium\action\Controller {
 			}
 		}
 
-		//2 - Encounters
-		$log .= $this->_encounter($armyAtt, $armyDeff);						
+		//2 - Ticks
+		$detailLog = $this->_tick($armyAtt, $armyDeff);						
 		//3 - Postconditions
 			
 		$log .= "<br/>End of Battle<br/>".
 			"Attacker Army: ".$armyAtt['troops'][0]['count']." Peasants<br/>".
 			"Defender Army: ".$armyDeff['troops'][0]['count']." Peasants<br/>";
+
+		$log .= "<br/>Details:<br/>".$detailLog;
 		
 		return compact('log', 'party1', 'party2');
 	}
@@ -88,9 +90,9 @@ class BattlesController extends \lithium\action\Controller {
 		return rand(0,1000) / 1000.;
 	}
 		
-	function _encounter(&$armyAtt, &$armyDeff)
+	function _tick(&$armyAtt, &$armyDeff)
 	{
-		//Todo: add multiple maneuvers if BP are left
+		//Todo: add multiple maneuvers if ap are left
 
 		//simulate AI move by manually assigning troops		
 		$maneuvers = array(
@@ -120,10 +122,10 @@ class BattlesController extends \lithium\action\Controller {
 			$at['edm'] = $at['bdm'] * $time * $luck;
 			$log .= $at['name']." - EDM: ".$at['edm']."<br/>";
 			//2.2.3
-			$at['pdp'] = $at['bp'] * $at['edm'];
+			$at['pdp'] = $at['ap'] * $at['edm'];
 			$log .= $at['name']." - PDP: ".$at['pdp']."<br/>";
 			//2.2.4 obsolete
-			$at['pv'] = $at['bp'] / $at['pdp'];
+			$at['pv'] = $at['ap'] / $at['pdp'];
 			//log += deff.Name + " - PV: ".$at['edm']."<br/>";
 			//2.2.5
 			$at['dp'] = min($dt['lp'], $at['pdp']);
@@ -132,8 +134,8 @@ class BattlesController extends \lithium\action\Controller {
 			$at['pdp'] -= $at['dp'];
 			$log .= $at['name']." - remaining PDP: ".$at['pdp']."<br/>";
 			//2.2.7
-			$at['bp'] = $at['pdp'] * $at['pv'];
-			$log .= $at['name']." - remaining BP: ".$at['bp']."<br/>";
+			$at['ap'] = $at['pdp'] * $at['pv'];
+			$log .= $at['name']." - remaining AP: ".$at['ap']."<br/>";
 		}
 		
 		//2.3 - Post-Maneuver
@@ -147,8 +149,8 @@ class BattlesController extends \lithium\action\Controller {
 			//2.3.2
 			//TE I am not sure if these two lines are correct, too tired now, look over it again
 			$pv = $at['dp'] / $dt['lp'];
-			$dt['bp'] -= $dt['bp'] * $pv;
-			$log .= $dt['name']." - remaining BP: ".$dt['bp']."<br/>";
+			$dt['ap'] -= $dt['ap'] * $pv;
+			$log .= $dt['name']." - remaining AP: ".$dt['ap']."<br/>";
 		}
 			
 		return $log;
