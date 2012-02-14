@@ -94,7 +94,7 @@ $.Model('Todo',{
 var todo = new Todo({name: "do the dishes"})
 
 // save it on the server
-todo.save(function(){alert('success');},function(){alert('fail');});
+//todo.save(function(){alert('success');},function(){alert('fail');});
 
 		});
 

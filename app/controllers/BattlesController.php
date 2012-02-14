@@ -11,26 +11,30 @@ namespace app\controllers;
 
  
 class BattlesController extends \lithium\action\Controller {
-
-	const $time = 0.25;
 		
-		
-	public function battle($party1, $party2)
+	public function simulate($party1, $party2)
 	{
+		if($this->request->data) {
+			$party1 = $this->request->data['party1'];
+			$party2 = $this->request->data['party2'];
+		}
+		
+		$party1 = $party1 ?: 100;
+		$party2 = $party2 ?: 100;
+
 		$log = 
 			"Begin of Battle<br/>".
 			"Attacker Army: ".$party1." Peasants<br/>".
 			"Defender Army: ".$party2." Peasants<br/><br/>";
 		
-		$log .= "time: ".$time."<br/><br/>";
-		
 		$armyAtt = array( 
 			'troops' => array(
 				array( 
 					'count' => $party1,
-					'name' => 'Army A' )
+					'name' => 'Army A'
 				)
-			);
+			)
+		);
 
 		$armyDeff = array( 
 			'troops' => array(
@@ -38,35 +42,37 @@ class BattlesController extends \lithium\action\Controller {
 					'count' => $party2,
 					'name' => 'Army Z'
 				)
-			); //todo: change name to unit type) );
+			)
+		); //todo: change name to unit type) );
 		
 		//1 - Preconditions			
 		//1.1 - Calculate Battle Points
-		foreach ($armyAtt['troops'] as $troop) {
+		foreach ($armyAtt['troops'] as &$troop) {
 			$troop['bp'] = $troop['count'];
 			$log .= $troop['name']." - BP: ".$troop['bp']."<br/>";
 		}
 
-		foreach ($armyDeff['troops'] as $troop) {
+		foreach ($armyDeff['troops'] as &$troop) {
 			$troop['bp'] = $troop['count'];
 			$log .= $troop['name']." - BP: ".$troop['bp']."<br/>";
 		}
 		
 		//1.2 - Base Damage Multiplier Calculation
-		foreach ($armyAtt['troops'] as $AT) { //AT = attacking troup
-			foreach ($armyDeff['troops'] as $DT) { //DT = defending troup
+		foreach ($armyAtt['troops'] as &$AT) { //AT = attacking troup
+			foreach ($armyDeff['troops'] as &$DT) { //DT = defending troup
 				$AT['bdm'] = 1; //fix to be AT-DM against DT // BDM = base damage multiplier
 				$log .= $AT['name']." - BDM: ".$AT['bdm']."<br/>";
 			}
 		}
 			
-		foreach ($armyDeff['troops'] as $AT) { //AT = attacking troup
-			foreach ($armyAtt['troops'] as $DT) { //DT = defending troup
+		foreach ($armyDeff['troops'] as &$AT) { //AT = attacking troup
+			foreach ($armyAtt['troops'] as &$DT) { //DT = defending troup
 				$AT['bdm'] = 1; //fix to be AT-DM against DT // BDM = base damage multiplier
 				$log .= $AT['name']." - BDM: ".$AT['bdm']."<br/>";
+	
 			}
 		}
-			
+
 		//2 - Encounters
 		$log .= $this->_encounter($armyAtt, $armyDeff);						
 		//3 - Postconditions
@@ -75,39 +81,40 @@ class BattlesController extends \lithium\action\Controller {
 			"Attacker Army: ".$armyAtt['troops'][0]['count']." Peasants<br/>".
 			"Defender Army: ".$armyDeff['troops'][0]['count']." Peasants<br/>";
 		
-
+		return compact('log', 'party1', 'party2');
 	}
 
 	function _rand() {
 		return rand(0,1000) / 1000.;
 	}
 		
-	function _encounter($armyAtt, $armyDeff)
+	function _encounter(&$armyAtt, &$armyDeff)
 	{
 		//Todo: add multiple maneuvers if BP are left
 
 		//simulate AI move by manually assigning troops		
 		$maneuvers = array(
-			array('at' => $armyAtt['troops'][0], 'dt' => $armyDeff['troops'][0]),
-			array('at' => $armyDeff['troops'][0], 'dt' => $armyAtt['troops'][0])
+			array('at' => &$armyAtt['troops'][0], 'dt' => &$armyDeff['troops'][0]),
+			array('at' => &$armyDeff['troops'][0], 'dt' => &$armyAtt['troops'][0])
 		);
 		
-		$log = "";
+		$time = 0.25;
+		$log = "time: ".$time."<br/><br/>";
 				
 		//2.2 Maneuvers
-		foreach ($maneuvers as $maneuver) {
+		foreach ($maneuvers as &$maneuver) {
 			//2.2.1
 			$maneuver['dt']['lp'] = $maneuver['dt']['count'];
 			$log .= $maneuver['dt']['name']." - LP: ".$maneuver['dt']['lp']."<br/>";
 		}
 			
-		foreach ($maneuvers as $maneuver) {
-			$at = $maneuver['at'];
-			$dt = $maneuver['dt'];			
+		foreach ($maneuvers as &$maneuver) {
+			$at = &$maneuver['at'];
+			$dt = &$maneuver['dt'];	
 
 			$log .= $at['name']." attacking ".$dt['name']."<br/>";
 			
-			$luck = 0.95 + $this->_rand * 0.1;
+			$luck = 0.95 + $this->_rand() * 0.1;
 			$log .= $at['name']." - luck: ".$luck."<br/>";
 			//2.2.2
 			$at['edm'] = $at['bdm'] * $time * $luck;
@@ -130,9 +137,9 @@ class BattlesController extends \lithium\action\Controller {
 		}
 		
 		//2.3 - Post-Maneuver
-		foreach ($maneuvers as $maneuver) {
-			$at = $maneuver['at'];
-			$dt = $maneuver['dt'];	
+		foreach ($maneuvers as &$maneuver) {
+			$at = &$maneuver['at'];
+			$dt = &$maneuver['dt'];	
  
 			//2.3.1
 			$dt['count'] -= $at['dp'];
