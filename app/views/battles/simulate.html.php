@@ -9,6 +9,8 @@
 
 ?>
 
+<?= $this->html->link('Wie funktioniert das? --> Doku', 'http://goo.gl/cRQ2Q');?>
+
 <?=$this->form->create(); ?>
 	<?=$this->form->field('party1', array('label' => 'Armee A', 'value' => $party1)); ?>
 	<?=$this->form->field('party2', array('label' => 'Armee Z', 'value' => $party2)); ?>
