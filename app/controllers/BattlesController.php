@@ -11,7 +11,9 @@ namespace app\controllers;
 
  
 class BattlesController extends \lithium\action\Controller {
-		
+	
+	public $publicActions = array('simulate');
+	
 	public function simulate($party1, $party2)
 	{
 		if($this->request->data) {
