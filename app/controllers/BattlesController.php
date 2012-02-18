@@ -76,7 +76,11 @@ class BattlesController extends \lithium\action\Controller {
 		}
 
 		//2 - Ticks
-		$detailLog = $this->_tick($armyAtt, $armyDeff);						
+		$detailLog = "";
+		while($armyAtt['troops'][0]['count'] > 0 && $armyDeff['troops'][0]['count'] > 0) {
+			$detailLog .= $this->_tick($armyAtt, $armyDeff);						
+ 		}
+
 		//3 - Postconditions
 			
 		$log .= "<br/>End of Battle<br/>".
@@ -146,7 +150,7 @@ class BattlesController extends \lithium\action\Controller {
 			$dt = &$maneuver['dt'];	
  
 			//2.3.1
-			$dt['count'] -= $at['dp'];
+			$dt['count'] = floor($dt['count'] - $at['dp']);
 			$log .= $dt['name']." - remaining Peasants: ".$dt['count']."<br/>";
 			//2.3.2
 			//TE I am not sure if these two lines are correct, too tired now, look over it again
