@@ -47,19 +47,8 @@ class BattlesController extends \lithium\action\Controller {
 			)
 		); //todo: change name to unit type) );
 		
-		//1 - Preconditions			
-		//1.1 - Calculate Battle Points
-		foreach ($armyAtt['troops'] as &$troop) {
-			$troop['ap'] = $troop['count'];
-			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
-		}
-
-		foreach ($armyDeff['troops'] as &$troop) {
-			$troop['ap'] = $troop['count'];
-			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
-		}
-		
-		//1.2 - Base Damage Multiplier Calculation
+		//1 - Preconditions					
+		//1.1 - Base Damage Multiplier Calculation
 		foreach ($armyAtt['troops'] as &$AT) { //AT = attacking troup
 			foreach ($armyDeff['troops'] as &$DT) { //DT = defending troup
 				$AT['bdm'] = 1; //fix to be AT-DM against DT // BDM = base damage multiplier
@@ -77,13 +66,15 @@ class BattlesController extends \lithium\action\Controller {
 
 		//2 - Ticks
 		$detailLog = "";
+		$ticks = 0;
 		while($armyAtt['troops'][0]['count'] > 0 && $armyDeff['troops'][0]['count'] > 0) {
-			$detailLog .= $this->_tick($armyAtt, $armyDeff);						
+			$detailLog .= $this->_tick($armyAtt, $armyDeff)."<br/>";						
+			$ticks++;
  		}
 
 		//3 - Postconditions
 			
-		$log .= "<br/>End of Battle<br/>".
+		$log .= "<br/>End of Battle - duration: {$ticks} ticks<br/>".
 			"Attacker Army: ".$armyAtt['troops'][0]['count']." Peasants<br/>".
 			"Defender Army: ".$armyDeff['troops'][0]['count']." Peasants<br/>";
 
@@ -98,16 +89,29 @@ class BattlesController extends \lithium\action\Controller {
 		
 	function _tick(&$armyAtt, &$armyDeff)
 	{
+		$time = 0.25;
+		$log = "battle tick<br/>";
+		$log .= "time: ".$time."<br/><br/>";
+
 		//Todo: add multiple maneuvers if ap are left
+
+		//1. Pre-Conditions
+		foreach ($armyAtt['troops'] as &$troop) {
+			$troop['ap'] = $troop['count'];
+			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
+		}
+
+		foreach ($armyDeff['troops'] as &$troop) {
+			$troop['ap'] = $troop['count'];
+			$log .= $troop['name']." - AP: ".$troop['ap']."<br/>";
+		}
+
 
 		//simulate AI move by manually assigning troops		
 		$maneuvers = array(
 			array('at' => &$armyAtt['troops'][0], 'dt' => &$armyDeff['troops'][0]),
 			array('at' => &$armyDeff['troops'][0], 'dt' => &$armyAtt['troops'][0])
 		);
-		
-		$time = 0.25;
-		$log = "time: ".$time."<br/><br/>";
 				
 		//2.2 Maneuvers
 		foreach ($maneuvers as &$maneuver) {
