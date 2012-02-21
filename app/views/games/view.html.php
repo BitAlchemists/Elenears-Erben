@@ -28,8 +28,12 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 	$this->scripts($this->html->script('caat.js'));
 	$this->scripts($this->html->script('jquerymx.js'));
 	$this->scripts($this->html->script('graph.js'));
-	$this->scripts($this->html->script('astar.js'));
+	$this->scripts($this->html->script('astar.js')); //required by map.js
+
+	$this->scripts($this->html->script('CAATBootstrap.js'));
 	$this->scripts($this->html->script('map.js'));
+	$this->scripts($this->html->script('agent.js'));
+
 ?>
 	<script type="text/javascript">
 
@@ -68,7 +72,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				 No images can be set too.
 				 */
 				[
-					{'id':'grasland', 	'url': EE.paths.image + 'field_grasland.png'},
+					{'id':'grasland', 'url': EE.paths.image + 'field_grasland.png'},
 					{'id':'water', 	'url': EE.paths.image + 'field_water.png'},
 					{'id':'hunter',	'url': EE.paths.image + 'units/baddie_Ninja.png'}
 				],
