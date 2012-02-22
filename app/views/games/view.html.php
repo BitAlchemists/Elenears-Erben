@@ -37,12 +37,12 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 ?>
 	<script type="text/javascript">
 
-		var mapData = { 
-			"xSize":10,
-			"ySize":10,
-			"fields":<?php echo($map); ?>,
-			"units":<?php echo($visibleUnits); ?>
-		};
+
+$.fixture.on = false;
+
+$.Model('Map',{
+  findOne: 'GET '+EE.paths.base+'maps/view/{id}.json',
+},{});
 
 		/**
 		* This function will be called to let you define new scenes that will be
@@ -52,8 +52,10 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		function createScenes(director) {
 			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
 			var mapController = new MapController(mapView);
-			mapController.loadMap(mapData);
-			mapController.presentMap();
+Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
+			mapController.loadMap(map);
+			mapController.presentMap();	
+}, function(){alert("help");});
 		};
 
 		jQuery(document).ready(function(){
@@ -84,6 +86,7 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				createScenes
 			);
 
+/*
 $.fixture.on = false;
 
 $.Model('Todo',{
@@ -99,7 +102,7 @@ var todo = new Todo({name: "do the dishes"})
 
 // save it on the server
 //todo.save(function(){alert('success');},function(){alert('fail');});
-
+*/
 		});
 
 
