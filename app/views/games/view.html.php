@@ -38,12 +38,6 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 	<script type="text/javascript">
 
 
-$.fixture.on = false;
-
-$.Model('Map',{
-  findOne: 'GET '+EE.paths.base+'maps/view/{id}.json',
-},{});
-
 		/**
 		* This function will be called to let you define new scenes that will be
 		* shown after the splash screen.
@@ -52,10 +46,10 @@ $.Model('Map',{
 		function createScenes(director) {
 			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
 			var mapController = new MapController(mapView);
-Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
-			mapController.loadMap(map);
-			mapController.presentMap();	
-}, function(){alert("help");});
+			Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
+				mapController.loadMap(map);
+				mapController.presentMap();	
+			}, function(){alert("could not load map");});
 		};
 
 		jQuery(document).ready(function(){

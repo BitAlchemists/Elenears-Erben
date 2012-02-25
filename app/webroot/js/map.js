@@ -12,6 +12,9 @@
 var ActorType = { FIELD : 1, UNIT : 2 };
 var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
 
+$.Model('Map',{
+  findOne: 'GET '+EE.paths.base+'maps/view/{id}.json',
+},{});
 
 function MapView(director, infoContainerDom) {
 	var scene = director.createScene();

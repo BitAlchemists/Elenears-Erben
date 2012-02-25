@@ -99,3 +99,5 @@ CAAT.modules.initialization.init= function( width, height, runHere, imagesURL, o
         }
     );
 };
+
+$.fixture.on = false;

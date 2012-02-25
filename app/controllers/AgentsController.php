@@ -18,6 +18,18 @@ class AgentsController extends \lithium\action\Controller {
 			return new Response();
 		}
 	}
+
+	public function view()
+	{
+		$gameId = $this->request->params['id'];
+		if($gameId == null)
+		{
+			return new Response();
+		}
+		
+		$units = Agents::all(array('game_id' => $gameId));
+		return compact('units');
+	}
 }
 
 ?>
