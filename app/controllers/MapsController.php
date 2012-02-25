@@ -29,6 +29,7 @@ class MapsController extends \lithium\action\Controller {
 		$xSize = 10;
 		$ySize = 10;
 		$fields = Games::first($gameId)->map->data;
-		return compact('xSize', 'ySize', 'fields');
+		$units = Agents::all(array('game_id' => $gameId));
+		return compact('xSize', 'ySize', 'fields', 'units');
 	}
 }

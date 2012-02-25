@@ -50,6 +50,11 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 				mapController.loadMap(map);
 				mapController.presentMap();	
 			}, function(){alert("could not load map");});
+
+			Agent.findAll({id: "<?php echo($game->_id)?>"}, function(agents){
+				mapController.loadAgents(agents);
+				mapController.presentMap();
+			}, function(){alert("could not load agents");});
 		};
 
 		jQuery(document).ready(function(){

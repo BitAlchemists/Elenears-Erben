@@ -28,7 +28,7 @@ class AgentsController extends \lithium\action\Controller {
 		}
 		
 		$units = Agents::all(array('game_id' => $gameId));
-		return compact('units');
+		return $units->to('array');
 	}
 }
 

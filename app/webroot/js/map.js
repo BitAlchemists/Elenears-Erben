@@ -13,7 +13,7 @@ var ActorType = { FIELD : 1, UNIT : 2 };
 var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
 
 $.Model('Map',{
-  findOne: 'GET '+EE.paths.base+'maps/view/{id}.json',
+  findOne: 'GET '+EE.paths.base+'maps/view/{id}.json'
 },{});
 
 function MapView(director, infoContainerDom) {
@@ -78,11 +78,14 @@ function MapView(director, infoContainerDom) {
 			}
 		}
 
-		for(var i = 0; i < map.units.length; i++) {
-			this.drawUnit(map.units[i], mapContainer);
-		}
 		this.mapContainer = mapContainer;
 	};
+
+	this.drawAgents = function(agents) {
+		for(var i = 0; i < agents.length; i++) {
+			this.drawUnit(agents[i], this.mapContainer);
+		}
+	}
 
 	this.createFieldActor= function(field, x, y) {
 		var fieldActor = new CAAT.Actor().
@@ -145,7 +148,10 @@ function MapController(view) {
 	this.view = view;
 	view.delegate = this;
 	var astarMap = null;
-	this.map = null;
+
+	this.map = null;	
+	this.agents = null;
+
 	var selection = null;
 	var currentRoute = null;
 
@@ -172,11 +178,16 @@ function MapController(view) {
 				astarMap[x][y] = weight;
 			}
 		}
-	}
+	};
 	
+	this.loadAgents = function(agents) {
+		this.agents = agents;
+	};
+
 	this.presentMap = function() {
 		this.view.drawMap(this.map);
-	}
+		this.view.drawAgents(this.agents);
+	};
 
 
 	this.onSelectField = function ( e ) {
