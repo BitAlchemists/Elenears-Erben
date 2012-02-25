@@ -58,13 +58,8 @@ class GamesController extends \lithium\action\Controller {
 	{
 		$user_id = Session::read('user._id');
 		$avatar = Avatars::first(compact('user_id', 'game_id'));
-
 		$game = Games::first($gameId);
-		$map = $game->map->data->to('json');
-		
-		$visibleUnits = Agents::all(array('game_id' => $gameId))->to('json');
-
-		return compact('game', 'map', 'avatar', 'visibleUnits');
+		return compact('game', 'avatar');
 	}
 	
 
