@@ -57,7 +57,7 @@ class Tick extends \lithium\console\Command {
 		}
 
 		//spawn a mob
-		$position = $game->freeHabitableField();
+		$position = $game->map->freeHabitableField();
 		$mob = Agents::create(array(
 			'game_id' => $game->_id,
 			'type' => 'army',
@@ -79,7 +79,9 @@ class Tick extends \lithium\console\Command {
 
 		foreach($mobs as $mob) {
 			$position = array('xPos' => $mob->xPos, 'yPos' => $mob->yPos, 'this is a message for you');
-			$positions = $game->freeHabitablePositions($position);
+			$this->out("will it blend?");
+			$positions = $game->map->freeHabitablePositions($position);
+			$this->out("yes");
 			$position = $positions[rand(0, count($positions) - 1)];
 			$mob->orders = array(array('type' => 'move', 'position' => $position));
 			$mob->save();

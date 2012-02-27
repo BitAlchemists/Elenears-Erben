@@ -22,18 +22,19 @@ class Maps extends \lithium\data\Model
 		Maps::applyFilter('create', function($self, $params, $chain) {
 			$map = $chain->next($self, $params, $chain);
 			$map->_generate();
+			var_dump($map);
 			return $map;
 		});
 	}
 
-	function _generate()
+	function _generate($entity)
 	{
 		$w = Maps::_waterfield();
 		$g = Maps::_grasland();
 
-		$this->xSize = 10;
-		$this->ySize = 10;
-		$this->fields =  array(
+		$entity->xSize = 10;
+		$entity->ySize = 10;
+		$entity->fields =  array(
 			array($w,$w,$w,$w,$w,$w,$w,$w,$w,$w),
 			array($w,$w,$w,$w,$g,$g,$w,$w,$w,$w),
 			array($w,$w,$w,$g,$g,$g,$g,$w,$w,$w),

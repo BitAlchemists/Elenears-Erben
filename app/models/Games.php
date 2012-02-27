@@ -50,7 +50,7 @@ class Games extends \lithium\data\Model
 			
 			//if the game is just being created, we add a map and avatars 
 			if(!isset($game->_id)) {
-				$game->map = Maps::generateMap();
+				$game->map = Maps::create();
 			}
 			
 			$params['entity'] = $game;

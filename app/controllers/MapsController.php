@@ -11,9 +11,6 @@ namespace app\controllers;
 
 
 use app\models\Games;
-use app\models\Avatars;
-use app\models\Agents;
-use lithium\storage\Session;
 
  
 class MapsController extends \lithium\action\Controller {
@@ -28,8 +25,7 @@ class MapsController extends \lithium\action\Controller {
 		
 		$xSize = 10;
 		$ySize = 10;
-		$fields = Games::first($gameId)->map->data;
-		$units = Agents::all(array('game_id' => $gameId));
-		return compact('xSize', 'ySize', 'fields', 'units');
+		$fields = Games::first($gameId)->map->fields;
+		return compact('xSize', 'ySize', 'fields');
 	}
 }
