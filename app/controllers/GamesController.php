@@ -33,7 +33,7 @@ class GamesController extends \lithium\action\Controller {
 			$gamename = $this->request->data['gamename'];			
 			$game = Games::create(array('name' => $gamename)); 
 			$game->save();
-			//$this->redirect('Games::index');
+			$this->redirect('Games::index');
 		}
 	}
 	

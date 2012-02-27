@@ -21,7 +21,7 @@ class Tick extends \lithium\console\Command {
 	 * @return void
 	 */
 	public function run() {	
-		$games = Games::all();
+		$games = Games::find('all', array('with' => 'map'));
 		$this->out($games->count().' games live');
 		
 		foreach($games as $key => $game)
@@ -41,6 +41,7 @@ class Tick extends \lithium\console\Command {
 			}
 
 		}
+		$this->out("done");
 	}
 	
 	//#63

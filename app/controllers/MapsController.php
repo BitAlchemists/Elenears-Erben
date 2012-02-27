@@ -10,7 +10,7 @@
 namespace app\controllers;
 
 
-use app\models\Games;
+use app\models\Maps;
 
  
 class MapsController extends \lithium\action\Controller {
@@ -25,7 +25,7 @@ class MapsController extends \lithium\action\Controller {
 		
 		$xSize = 10;
 		$ySize = 10;
-		$fields = Games::first($gameId)->map->fields;
+		$fields = Maps::first(array('game_id' => $gameId))->fields;
 		return compact('xSize', 'ySize', 'fields');
 	}
 }

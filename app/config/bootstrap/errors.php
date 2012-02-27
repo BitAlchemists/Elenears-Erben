@@ -10,6 +10,8 @@ use lithium\core\ErrorHandler;
 use lithium\action\Response;
 use lithium\net\http\Media;
 
+ini_set("display_errors", 1);
+
 ErrorHandler::apply('lithium\action\Dispatcher::run', array(), function($info, $params) {
 	$response = new Response(array(
 		'request' => $params['request'],

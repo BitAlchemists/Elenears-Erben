@@ -185,8 +185,8 @@ function MapController(view) {
 	};
 
 	this.presentMap = function() {
-		this.view.drawMap(this.map);
-		this.view.drawAgents(this.agents);
+		if(this.map)		this.view.drawMap(this.map);
+		if(this.agents)	this.view.drawAgents(this.agents);
 	};
 
 

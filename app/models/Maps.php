@@ -22,7 +22,6 @@ class Maps extends \lithium\data\Model
 		Maps::applyFilter('create', function($self, $params, $chain) {
 			$map = $chain->next($self, $params, $chain);
 			$map->_generate();
-			var_dump($map);
 			return $map;
 		});
 	}

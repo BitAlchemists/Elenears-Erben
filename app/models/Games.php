@@ -41,20 +41,32 @@ class Games extends \lithium\data\Model
 			'limit'      => null)
 	);
 
+	public $hasOne = array(
+		'map' => array('name' => 'Maps', 'key' => 'game_id')
+	);
+
 	public static function __init($options = array()) {
 		parent::__init($options);
 		$self = static::_instance(__CLASS__);
 		
 		Games::applyFilter('save', function($self, $params, $chain) {
+
+			$created = false;
+			$game = $params['entity'];
+			if(!isset($game->_id)) {
+				$created = true;
+			}
+
+			$result = $chain->next($self, $params, $chain);
+
 			$game = $params['entity'];
 			
-			//if the game is just being created, we add a map and avatars 
-			if(!isset($game->_id)) {
-				$game->map = Maps::create();
+			//if the game is just being created, we add a map
+			if($created) {
+				Maps::create(array('game_id' => $game->_id))->save();
 			}
-			
-			$params['entity'] = $game;
-			return $chain->next($self, $params, $chain);
+
+			return $result;
 		});
 
 		Games::applyFilter('remove', function($self, $params, $chain) {
