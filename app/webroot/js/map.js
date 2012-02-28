@@ -30,8 +30,7 @@ function MapView(director, infoContainerDom) {
 	images.hunter = new CAAT.SpriteImage().initialize(director.getImage('hunter'),1,1);
 	var astarMap = null;	
 
-	var fieldLength = 50;
-
+	this.fieldLength = 50;
 
 	var setFieldStyle = function(actor, field) {
 
@@ -81,33 +80,16 @@ function MapView(director, infoContainerDom) {
 		this.mapContainer = mapContainer;
 	};
 
-	this.drawAgents = function(agents) {
-		for(var i = 0; i < agents.length; i++) {
-			this.drawUnit(agents[i], this.mapContainer);
-		}
-	}
-
 	this.createFieldActor= function(field, x, y) {
 		var fieldActor = new CAAT.Actor().
-			setLocation(x*fieldLength, y*fieldLength).
-			setSize(fieldLength, fieldLength);
+			setLocation(x*this.fieldLength, y*this.fieldLength).
+			setSize(this.fieldLength, this.fieldLength);
 		setFieldStyle(fieldActor, field);
 		fieldActor.mouseClick = this.delegate.onSelectField;
 		fieldActor.mouseEnter = this.delegate.onHoverField;
 		fieldActor.actorType = ActorType.FIELD;
 		fieldActor.fieldPosition = new FieldPosition(x, y);
 		return fieldActor;
-	};
-
-	this.drawUnit = function(unit, container) {
-		var unitActor = new CAAT.Actor().
-			setLocation(unit.xPos * fieldLength, unit.yPos * fieldLength).
-			setBackgroundImage(images.hunter.getRef(), true).
-			setAlpha(0.8);
-		container.addChild(unitActor);
-		unitActor.mouseClick = this.delegate.onSelectUnit;
-		unitActor.actorType = ActorType.UNIT;
-		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
 	};
 
 	this.setHighlightField = function(x,y,highlight) {
