@@ -49,15 +49,19 @@ class Maps extends \lithium\data\Model
 
 	public function freeHabitableField($entity) {
 		$positions = $entity->freeHabitablePositions();
-		return $positions[rand(0, count($positions) - 1)];
+		$count = count($positions);
+		if($count > 0) {
+			return $positions[rand(0, $count - 1)];
+		}
+		return null;
 	}
 
 	public function freeHabitablePositions($entity, $position = null) {
 
 		$xOffset = 0;
 		$yOffset = 0;
-		$xSize = $entity->map['xSize'];
-		$ySize = $entity->map['ySize'];
+		$xSize = $entity['xSize'];
+		$ySize = $entity['ySize'];
 
 		$fields = array();
 
@@ -77,7 +81,7 @@ class Maps extends \lithium\data\Model
 			$possiblePositions[] = array('xPos' => $xPos, 'yPos' => $yPos);
 
 			for($i = 0; $i < count($possiblePositions); $i++) {
-				$field = $entity->map['data'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
+				$field = $entity['fields'][$possiblePositions[$i]['xPos']][$possiblePositions[$i]['yPos']];
 				if(Maps::_grasland($field)) {
 					$fields[] = $possiblePositions[$i];
 				}

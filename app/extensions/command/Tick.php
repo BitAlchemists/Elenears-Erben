@@ -9,6 +9,7 @@
 namespace app\extensions\command;
 
 use app\models\Games;
+use app\models\Maps;
 use app\models\Agents;
 /**
  * The EE Heart
@@ -21,7 +22,7 @@ class Tick extends \lithium\console\Command {
 	 * @return void
 	 */
 	public function run() {	
-		$games = Games::find('all', array('with' => 'map'));
+		$games = Games::all();
 		$this->out($games->count().' games live');
 		
 		foreach($games as $key => $game)
@@ -57,8 +58,16 @@ class Tick extends \lithium\console\Command {
 			return;
 		}
 
+		$map = Maps::first(array('game_id' => $game->_id));
+
 		//spawn a mob
-		$position = $game->map->freeHabitableField();
+		$position = $map->freeHabitableField();
+		
+		if($position == null) {
+			$this->out("can't spawn mob. no free position available");
+			return;
+		}
+
 		$mob = Agents::create(array(
 			'game_id' => $game->_id,
 			'type' => 'army',
@@ -71,6 +80,9 @@ class Tick extends \lithium\console\Command {
 	
 	//#65
 	function _generateMobMovementOrders($game) {
+
+		$map = Maps::first(array('game_id' => $game->_id));
+
 		$mobs = Agents::all(
 			array(
 				'game_id' => $game->_id,
@@ -80,9 +92,7 @@ class Tick extends \lithium\console\Command {
 
 		foreach($mobs as $mob) {
 			$position = array('xPos' => $mob->xPos, 'yPos' => $mob->yPos, 'this is a message for you');
-			$this->out("will it blend?");
-			$positions = $game->map->freeHabitablePositions($position);
-			$this->out("yes");
+			$positions = $map->freeHabitablePositions($position);
 			$position = $positions[rand(0, count($positions) - 1)];
 			$mob->orders = array(array('type' => 'move', 'position' => $position));
 			$mob->save();
