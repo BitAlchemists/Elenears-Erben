@@ -92,6 +92,23 @@ function MapView(director, infoContainerDom) {
 		return fieldActor;
 	};
 
+	this.drawAgents = function(agents) {
+		for(var i = 0; i < agents.length; i++) {
+			this.drawUnit(agents[i], this.mapContainer);
+		}
+	}
+
+	this.drawUnit = function(unit, container) {
+		var unitActor = new CAAT.Actor().
+			setLocation(unit.xPos * this.fieldLength, unit.yPos * this.fieldLength).
+			setBackgroundImage(images.hunter.getRef(), true).
+			setAlpha(0.8);
+		container.addChild(unitActor);
+		unitActor.mouseClick = this.delegate.onSelectUnit;
+		unitActor.actorType = ActorType.UNIT;
+		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
+	};
+
 	this.setHighlightField = function(x,y,highlight) {
 		var alpha = 1.0;
 		if(highlight) {
@@ -132,7 +149,6 @@ function MapController(view) {
 	var astarMap = null;
 
 	this.map = null;	
-	this.agents = null;
 
 	var selection = null;
 	var currentRoute = null;
@@ -162,13 +178,11 @@ function MapController(view) {
 		}
 	};
 	
-	this.loadAgents = function(agents) {
-		this.agents = agents;
-	};
 
 	this.presentMap = function() {
-		if(this.map)		this.view.drawMap(this.map);
-		if(this.agents)	this.view.drawAgents(this.agents);
+		if(this.map) {
+			this.view.drawMap(this.map);
+		}
 	};
 
 

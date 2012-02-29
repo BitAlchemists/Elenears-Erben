@@ -2,15 +2,13 @@ $.Model('Agent',{
   findAll: 'GET '+EE.paths.base+'agents/view/{id}.json',
 },{});
 
-function AgentView() {
-
-	this.drawAgents = function(agents) {
+$.Class('AgentsRenderer',{
+	drawAgents : function(agents) {
 		for(var i = 0; i < agents.length; i++) {
 			this.drawUnit(agents[i], this.mapContainer);
 		}
-	}
-
-	this.drawUnit = function(unit, container) {
+	},
+	drawUnit : function(unit, container) {
 		var unitActor = new CAAT.Actor().
 			setLocation(unit.xPos * this.fieldLength, unit.yPos * this.fieldLength).
 			setBackgroundImage(images.hunter.getRef(), true).
@@ -19,7 +17,23 @@ function AgentView() {
 		unitActor.mouseClick = this.delegate.onSelectUnit;
 		unitActor.actorType = ActorType.UNIT;
 		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
-	};
+	}
+},{});
 
-	return this;
-}
+$.Class('AgentsController',{
+
+},{
+	agents : function(agents) {
+		if(agents) {
+			this.agents = agents;
+			return;
+		}
+		
+		return this.agents;
+	},
+	presentAgents : function(mapView) {
+		if(this.agents) {
+			mapView.drawAgents(this.agents);
+		}
+	}
+});

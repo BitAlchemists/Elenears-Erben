@@ -46,14 +46,14 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		function createScenes(director) {
 			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
 			var mapController = new MapController(mapView);
+			var agentsController = new AgentsController();
 			Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
 				mapController.loadMap(map);
 				mapController.presentMap();	
 			}, function(){alert("could not load map");});
-
 			Agent.findAll({id: "<?php echo($game->_id)?>"}, function(agents){
-				mapController.loadAgents(agents);
-				mapController.presentMap();
+				agentsController.agents(agents);
+				agentsController.presentAgents(mapView);
 			}, function(){alert("could not load agents");});
 		};
 
