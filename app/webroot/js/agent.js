@@ -3,20 +3,22 @@ $.Model('Agent',{
 },{});
 
 $.Class('AgentsRenderer',{
-	drawAgents : function(agents) {
+	drawAgents : function(agents, mapView) {
 		for(var i = 0; i < agents.length; i++) {
-			this.drawUnit(agents[i], this.mapContainer);
+			this.drawUnit(agents[i], mapView.mapContainer);
 		}
 	},
 	drawUnit : function(unit, container) {
+		var fieldLength = EE.style.map.fieldLength;
 		var unitActor = new CAAT.Actor().
-			setLocation(unit.xPos * this.fieldLength, unit.yPos * this.fieldLength).
-			setBackgroundImage(images.hunter.getRef(), true).
+			setLocation(unit.xPos * fieldLength, unit.yPos * fieldLength).
+			setBackgroundImage(EE.style.map.images.hunter.getRef(), true).
 			setAlpha(0.8);
 		container.addChild(unitActor);
-		unitActor.mouseClick = this.delegate.onSelectUnit;
+		//unitActor.mouseClick = this.delegate.onSelectUnit;
 		unitActor.actorType = ActorType.UNIT;
 		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
+		container.setZOrder(unitActor, 100);
 	}
 },{});
 
@@ -33,7 +35,7 @@ $.Class('AgentsController',{
 	},
 	presentAgents : function(mapView) {
 		if(this.agents) {
-			mapView.drawAgents(this.agents);
+			AgentsRenderer.drawAgents(this.agents, mapView);
 		}
 	}
 });

@@ -47,6 +47,15 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
 			var mapController = new MapController(mapView);
 			var agentsController = new AgentsController();
+			
+			EE.style = EE.style || {};
+			EE.style.map = EE.style.map || {};
+			EE.style.map.images = EE.style.map.images || {};
+			EE.style.map.images.water = new CAAT.SpriteImage().initialize(director.getImage('water'),1,1);
+			EE.style.map.images.grasland = new CAAT.SpriteImage().initialize(director.getImage('grasland'),1,1);
+			EE.style.map.images.hunter = new CAAT.SpriteImage().initialize(director.getImage('hunter'),1,1);
+			EE.style.map.fieldLength = 50;
+			
 			Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
 				mapController.loadMap(map);
 				mapController.presentMap();	
