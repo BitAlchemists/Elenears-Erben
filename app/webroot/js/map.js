@@ -16,21 +16,43 @@ $.Model('Map',{
   findOne: 'GET '+EE.paths.base+'maps/view/{id}.json'
 },{});
 
-function MapView(director, infoContainerDom) {
-	var scene = director.createScene();
-	this.delegate = null;
-	this.director = director;
-	this.infoContainerDom = infoContainerDom;
-	this.map = null;
-	this.mapContainer = null;
-	this.fieldActors = null;
-	var astarMap = null;	
-	this.mapContainer = new CAAT.ActorContainer().
-		setLocation(0,0).
-		setSize(500,500);
-	scene.addChild(this.mapContainer);
+$.Class('FieldsRenderer', {
+	init : function(director) {
+		this.scene = director.createScene();
+		this.mapContainer = new CAAT.ActorContainer().
+			setLocation(0,0).
+			setSize(500,500);
+		this.scene.addChild(this.mapContainer);
+	},
+	renderMap : function(map) {
+		this.fieldActors = []; //we store our fields in this matrix to use them later
 
-	var setFieldStyle = function(actor, field) {
+		for(var x = 0; x < map.fields.length; x++) {
+			var fieldColumn = map.fields[x];
+			this.fieldActors[x] = [];
+			for(var y = 0; y < fieldColumn.length; y++) {
+				var field = fieldColumn[y];
+
+				var fieldActor = this.createFieldActor(field, x, y);
+				this.mapContainer.addChild(fieldActor);
+				this.mapContainer.setZOrder(fieldActor, 0);
+				this.fieldActors[x][y] = fieldActor;
+			}
+		}
+	},
+	createFieldActor : function(field, x, y) {
+		var fieldLength = EE.style.map.fieldLength;
+		var fieldActor = new CAAT.Actor().
+			setLocation(x*fieldLength, y*fieldLength).
+			setSize(fieldLength, fieldLength);
+		this.setFieldStyle(fieldActor, field);
+		fieldActor.mouseClick = this.callback('delegateOnSelectField');
+		fieldActor.mouseEnter = this.callback('delegateOnHoverField');
+		fieldActor.actorType = ActorType.FIELD; //this will tell visitors about the type of the field
+		fieldActor.fieldPosition = new FieldPosition(x, y); //we set the field position to allow visitors extract information
+		return fieldActor;
+	},
+	setFieldStyle : function(actor, field) {
 
 		var imagimageeName = null;
 
@@ -53,56 +75,37 @@ function MapView(director, infoContainerDom) {
 		}
 
 		actor.setBackgroundImage(image.getRef(),true);
-	}
-
-	this.drawMap = function(map) {
-		this.fieldActors = [];
-
-		for(var x = 0; x < map.fields.length; x++) {
-			var fieldColumn = map.fields[x];
-			this.fieldActors[x] = [];
-			for(var y = 0; y < fieldColumn.length; y++) {
-				var field = fieldColumn[y];
-
-				var fieldActor = this.createFieldActor(field, x, y);
-				this.mapContainer.addChild(fieldActor);
-				this.mapContainer.setZOrder(fieldActor, 0);
-				this.fieldActors[x][y] = fieldActor;
-			}
+	},
+	visitor : function(visitor) {
+		if(visitor) {
+			this.visitor = visitor;
+			return;
 		}
-	};
-
-	this.createFieldActor= function(field, x, y) {
-		var fieldLength = EE.style.map.fieldLength;
-		var fieldActor = new CAAT.Actor().
-			setLocation(x*fieldLength, y*fieldLength).
-			setSize(fieldLength, fieldLength);
-		setFieldStyle(fieldActor, field);
-		fieldActor.mouseClick = this.delegate.onSelectField;
-		fieldActor.mouseEnter = this.delegate.onHoverField;
-		fieldActor.actorType = ActorType.FIELD;
-		fieldActor.fieldPosition = new FieldPosition(x, y);
-		return fieldActor;
-	};
-
-	this.setHighlightField = function(x,y,highlight) {
-		var alpha = 1.0;
-		if(highlight) {
-			alpha = 0.5;
-		}
-
-		this.fieldActors[x][y].setAlpha(alpha);
-	};
-
-	this.getUnitsFromField = function(x,y){
-		var actors = this.mapContainer.childrenList;
-		actors = jQuery.grep(actors,function(e){
-			return e.actorType == ActorType.UNIT && e.fieldPosition.x == x && e.fieldPosition.y == y;
-		});
-		return actors;
+		return visitor;
+	},
+	delegateOnHoverField : function(e) {
+		this.visitor.onHoverField(e);
+	},
+	delegateOnSelectField : function(e) {
+		this.visitor.onSelectField(e);
 	}
+});
 
-	this.showFieldInfo = function(x,y){
+$.Class('LoggingMapVisitor',{
+	init : function(infoContainerDom, fieldsRenderer) {
+		this.infoContainerDom = infoContainerDom;
+		this.fieldsRenderer = fieldsRenderer;
+	},
+	onSelectField : function(e) {
+		var position = e.source.fieldPosition;
+		console.log(position);
+	},
+	onHoverField : function(e) {
+		var position = e.source.fieldPosition;
+		this.showFieldInfo( position.x, position.y);
+		console.log(position);
+	},
+	showFieldInfo : function(x,y){
 		var infoContainerDom = this.infoContainerDom
 		jQuery(infoContainerDom).html('');
 		jQuery(infoContainerDom).append('<h3>Feldübersicht</h3>');
@@ -114,14 +117,37 @@ function MapView(director, infoContainerDom) {
 				jQuery(infoContainerDom).append('actorType:'+e.actorType+'<br/>');
 			}
 		);
+	},
+	getUnitsFromField : function(x,y){
+		var actors = this.fieldsRenderer.mapContainer.childrenList;
+		actors = jQuery.grep(actors,function(e){
+			return e.actorType == ActorType.UNIT && e.fieldPosition.x == x && e.fieldPosition.y == y;
+		});
+		return actors;
 	}
+});
+
+function MapView(director, infoContainerDom) {
+	
+	this.setHighlightField = function(x,y,highlight) {
+		var alpha = 1.0;
+		if(highlight) {
+			alpha = 0.5;
+		}
+
+		this.fieldActors[x][y].setAlpha(alpha);
+	};
+
+
+
+
 
 	return this;
 }
 
-function MapController(view) {
-	this.view = view;
-	view.delegate = this;
+function MapController(fieldsRenderer) {
+	this.fieldsRenderer = fieldsRenderer;
+	fieldsRenderer.delegate = this;
 	var astarMap = null;
 
 	this.map = null;	
@@ -155,16 +181,16 @@ function MapController(view) {
 	};
 	
 
-	this.presentMap = function() {
+	this.presentFields = function() {
 		if(this.map) {
-			this.view.drawMap(this.map);
+			this.fieldsRenderer.renderMap(this.map, this.view);
 		}
 	};
 
 
 	this.onSelectField = function ( e ) {
 		var position = e.source.fieldPosition;
-		view.showFieldInfo( position.x, position.y);
+		
 		if(selection)	{
 			selection.deselect();
 		}

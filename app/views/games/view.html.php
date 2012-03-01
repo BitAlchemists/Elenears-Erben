@@ -44,8 +44,9 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		* @param director
 		*/
 		function createScenes(director) {
-			var mapView = new MapView(director, jQuery('#map-info-container').get(0));
-			var mapController = new MapController(mapView);
+			var fieldsRenderer = new FieldsRenderer(director);
+			fieldsRenderer.visitor = new LoggingMapVisitor(jQuery('#map-info-container').get(0), fieldsRenderer);
+			var mapController = new MapController(fieldsRenderer);
 			var agentsController = new AgentsController();
 			
 			EE.style = EE.style || {};
@@ -58,11 +59,11 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 			
 			Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
 				mapController.loadMap(map);
-				mapController.presentMap();	
+				mapController.presentFields();	
 			}, function(){alert("could not load map");});
 			Agent.findAll({id: "<?php echo($game->_id)?>"}, function(agents){
 				agentsController.agents(agents);
-				agentsController.presentAgents(mapView);
+				agentsController.presentAgents(fieldsRenderer);
 			}, function(){alert("could not load agents");});
 		};
 
