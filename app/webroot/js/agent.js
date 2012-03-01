@@ -3,22 +3,24 @@ $.Model('Agent',{
 },{});
 
 $.Class('AgentsRenderer',{
-	renderAgents : function(agents, mapView) {
+	renderAgents : function(agents, fieldsRenderer) {
+		fieldsRenderer.agentActors = [];
 		for(var i = 0; i < agents.length; i++) {
-			this.drawUnit(agents[i], mapView.mapContainer);
+			var agentActor = this.createAgentActor(agents[i]);
+			fieldsRenderer.mapContainer.addChild(agentActor);
+			fieldsRenderer.mapContainer.setZOrder(agentActor, 100);
+			fieldsRenderer.agentActors.push(agentActor);
 		}
 	},
-	drawUnit : function(unit, container) {
+	createAgentActor : function(unit) {
 		var fieldLength = EE.style.map.fieldLength;
-		var unitActor = new CAAT.Actor().
+		var agentActor = new CAAT.Actor().
 			setLocation(unit.xPos * fieldLength, unit.yPos * fieldLength).
 			setBackgroundImage(EE.style.map.images.hunter.getRef(), true).
 			setAlpha(0.8);
-		container.addChild(unitActor);
-		//unitActor.mouseClick = this.delegate.onSelectUnit;
-		//unitActor.actorType = ActorType.UNIT;
-		unitActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
-		container.setZOrder(unitActor, 100);
+		agentActor.actorType = ActorType.AGENT;
+		agentActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
+		return agentActor;
 	}
 },{});
 
@@ -31,9 +33,9 @@ $.Class('AgentsController',{
 		
 		return this.agents;
 	},
-	presentAgents : function(mapView) {
+	presentAgents : function(fieldsRenderer) {
 		if(this.agents) {
-			AgentsRenderer.renderAgents(this.agents, mapView);
+			AgentsRenderer.renderAgents(this.agents, fieldsRenderer);
 		}
 	}
 });

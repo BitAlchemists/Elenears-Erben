@@ -9,7 +9,7 @@
 
 
 
-//var ActorType = { FIELD : 1, UNIT : 2 };
+var ActorType = { FIELD : 1, AGENT : 2 }; //TE TODO: should we dissolve this enum?
 var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
 
 $.Model('Map',{
@@ -52,7 +52,7 @@ $.Class('FieldsRenderer', {
 			setLocation(x*fieldLength, y*fieldLength).
 			setSize(fieldLength, fieldLength);
 		this.setFieldStyle(fieldActor, field);
-//		fieldActor.actorType = ActorType.FIELD; //this will tell visitors about the type of the field	
+		fieldActor.actorType = ActorType.FIELD; //this will tell visitors about the type of the field	
 		return fieldActor;
 	},
 	createInterActor : function(x, y) {
@@ -107,42 +107,6 @@ $.Class('FieldsRenderer', {
 	}
 });
 
-$.Class('LoggingMapVisitor',{
-	init : function(infoContainerDom, fieldsRenderer) {
-		this.infoContainerDom = infoContainerDom;
-		this.fieldsRenderer = fieldsRenderer;
-	},
-	onSelectField : function(e) {
-		var position = e.source.fieldPosition;
-		console.log(position);
-	},
-	onHoverField : function(e) {
-		var position = e.source.fieldPosition;
-		this.showFieldInfo( position.x, position.y);
-		console.log(position);
-	},
-	showFieldInfo : function(x,y){
-		var infoContainerDom = this.infoContainerDom
-		jQuery(infoContainerDom).html('');
-		jQuery(infoContainerDom).append('<h3>Feldübersicht</h3>');
-		jQuery(infoContainerDom).append('<div>x:'+x+' / y:'+y+'</div>');
-		jQuery(infoContainerDom).append('<h4>Einheiten</h4>');
-		jQuery.each(
-			this.getUnitsFromField(x,y),
-			function(i,e){
-				jQuery(infoContainerDom).append('actorType:'+e.actorType+'<br/>');
-			}
-		);
-	},
-	getUnitsFromField : function(x,y){
-		var actors = this.fieldsRenderer.mapContainer.childrenList;
-		actors = jQuery.grep(actors,function(e){
-			return e.actorType == ActorType.UNIT && e.fieldPosition.x == x && e.fieldPosition.y == y;
-		});
-		return actors;
-	}
-});
-
 function MapView(director, infoContainerDom) {
 	
 	this.setHighlightField = function(x,y,highlight) {
@@ -152,12 +116,11 @@ function MapView(director, infoContainerDom) {
 
 function MapController(fieldsRenderer) {
 	this.fieldsRenderer = fieldsRenderer;
-	fieldsRenderer.delegate = this;
+	this.fieldsRenderer.visitor = new DefaultMapVisitor(fieldsRenderer);
 	var astarMap = null;
 
 	this.map = null;	
 
-	var selection = null;
 	var currentRoute = null;
 
 	this.loadMap = function(map) {
@@ -193,19 +156,9 @@ function MapController(fieldsRenderer) {
 	};
 
 
-	this.onSelectField = function ( e ) {
-		var position = e.source.fieldPosition;
-		
-		if(selection)	{
-			selection.deselect();
-		}
-		this.deselect = function() { };
-		selection = this;
-	};
-
 	this.onHoverField = function ( e ) {
 		if(selection) {
-			if(selection.actorType == ActorType.UNIT) {
+			if(selection.actorType == ActorType.AGENT) {
 				//unhighlight the current route
 				if(currentRoute) {
 					for(var i = 0; i < currentRoute.length; i++) {
@@ -244,3 +197,92 @@ function MapController(fieldsRenderer) {
 	return this;
 }
 
+$.Class('MapVisitor', {
+	init : function(fieldsRenderer) {
+		this.fieldsRenderer = fieldsRenderer;
+	},
+	onSelectField : function(e) {
+
+	},
+	onHoverField : function(e) {
+	
+	}
+});
+
+MapVisitor('DefaultMapVisitor', {
+	init : function(fieldRenderer) {
+		console.log('DefaultMapVisitor now active');
+		this._super(fieldRenderer);
+	},
+	onSelectField : function(e) {
+		var agents = this.fieldsRenderer.agentActors;
+		agents = jQuery.grep(agents,function(cmp){
+			return e.source.fieldPosition.x == cmp.fieldPosition.x && e.source.fieldPosition.y == cmp.fieldPosition.y;
+		});
+		//TE - we will need to add agent selection by the user later on here
+		//TE TODO: check if the agent belongs to the user
+		if(agents.length > 0) {
+			//we selected an agent. hand control over to the AgentMapVisitor
+			this.fieldRenderer = new AgentMapVisitor(this.fieldRenderer, agents[0]);
+		}
+	}
+});
+
+MapVisitor('AgentMapVisitor', {
+	init : function(fieldRenderer, agent) {
+		console.log('AgentMapVisitor now active');
+		this.agent = agent;
+		this.selectAgent(this.agent, true);
+		this._super(fieldRenderer);
+	},
+	onSelectField : function(e) {
+		var agents = this.fieldsRenderer.agentActors;
+		agents = jQuery.grep(agents,function(cmp){
+			return e.source.fieldPosition.x == cmp.fieldPosition.x && e.source.fieldPosition.y == cmp.fieldPosition.y;
+		});
+
+		//if the user selects nothing, we deselect the agent
+		if(agents.length == 0) {
+			this.selectAgent(this.agent, false);
+			this.fieldRenderer = new DefaultMapVisitor(this.fieldRenderer);
+		}
+		else{
+			//the user selected another agent
+			alert('a heroic battle sweeps over the fields');
+		}
+	},
+	selectAgent : function(agent, select) {
+		agent.setAlpha(select ? 1.0 : 0.8);
+	}
+});
+
+MapVisitor('LoggingMapVisitor',{
+	init : function(infoContainerDom, fieldsRenderer) {
+		this.infoContainerDom = infoContainerDom;
+		this._super(fieldsRenderer);
+	},
+	onHoverField : function(e) {
+		var position = e.source.fieldPosition;
+		this.showFieldInfo( position.x, position.y);
+	},
+	showFieldInfo : function(x,y){
+		var infoContainerDom = this.infoContainerDom
+		jQuery(infoContainerDom).html('');
+		jQuery(infoContainerDom).append('<h3>Feldübersicht</h3>');
+		jQuery(infoContainerDom).append('<div>x:'+x+' / y:'+y+'</div>');
+		jQuery(infoContainerDom).append('<h4>Einheiten</h4>');
+		jQuery.each(
+			this.getAgentsFromField(x,y),
+			function(i,e){
+				jQuery(infoContainerDom).append('actorType:'+e.actorType+'<br/>');
+			}
+		);
+	},
+	getAgentsFromField : function(x,y){
+		var actors = this.fieldsRenderer.mapContainer.childrenList;
+		agents = jQuery.grep(actors,function(e){
+			return e.actorType == ActorType.AGENT && e.fieldPosition.x == x && e.fieldPosition.y == y;
+		});
+		return agents;
+	}
+});
