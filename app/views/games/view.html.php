@@ -45,7 +45,6 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		*/
 		function createScenes(director) {
 			var fieldsRenderer = new FieldsRenderer(director);
-			fieldsRenderer.visitor = new LoggingMapVisitor(jQuery('#map-info-container').get(0), fieldsRenderer);
 			var mapController = new MapController(fieldsRenderer);
 			var agentsController = new AgentsController();
 			

@@ -9,7 +9,7 @@
 
 
 
-var ActorType = { FIELD : 1, UNIT : 2 };
+//var ActorType = { FIELD : 1, UNIT : 2 };
 var FieldPosition = function(x, y){ this.x = x; this.y = y; return this; };
 
 $.Model('Map',{
@@ -23,6 +23,7 @@ $.Class('FieldsRenderer', {
 			setLocation(0,0).
 			setSize(500,500);
 		this.scene.addChild(this.mapContainer);
+		this.loggingVisitor = new LoggingMapVisitor(jQuery('#map-info-container').get(0), this);
 	},
 	renderMap : function(map) {
 		this.fieldActors = []; //we store our fields in this matrix to use them later
@@ -37,6 +38,11 @@ $.Class('FieldsRenderer', {
 				this.mapContainer.addChild(fieldActor);
 				this.mapContainer.setZOrder(fieldActor, 0);
 				this.fieldActors[x][y] = fieldActor;
+				
+				//we also create an invisible actor that provides the actors that the user can interact with
+				var interActor = this.createInterActor(x, y);
+				this.mapContainer.addChild(interActor);
+				this.mapContainer.setZOrder(interActor, 200);
 			}
 		}
 	},
@@ -46,11 +52,19 @@ $.Class('FieldsRenderer', {
 			setLocation(x*fieldLength, y*fieldLength).
 			setSize(fieldLength, fieldLength);
 		this.setFieldStyle(fieldActor, field);
-		fieldActor.mouseClick = this.callback('delegateOnSelectField');
-		fieldActor.mouseEnter = this.callback('delegateOnHoverField');
-		fieldActor.actorType = ActorType.FIELD; //this will tell visitors about the type of the field
-		fieldActor.fieldPosition = new FieldPosition(x, y); //we set the field position to allow visitors extract information
+//		fieldActor.actorType = ActorType.FIELD; //this will tell visitors about the type of the field	
 		return fieldActor;
+	},
+	createInterActor : function(x, y) {
+		var fieldLength = EE.style.map.fieldLength;
+		var interActor = new CAAT.Actor().
+			setLocation(x*fieldLength, y*fieldLength).
+			setSize(fieldLength, fieldLength);
+		interActor.mouseClick = this.callback('delegateOnSelectField');
+		interActor.mouseEnter = this.callback('delegateOnHoverField');
+		interActor.fieldPosition = new FieldPosition(x, y); //we set the field position to allow visitors extract information
+
+		return interActor;
 	},
 	setFieldStyle : function(actor, field) {
 
@@ -84,9 +98,11 @@ $.Class('FieldsRenderer', {
 		return visitor;
 	},
 	delegateOnHoverField : function(e) {
+		this.loggingVisitor.onHoverField(e);
 		this.visitor.onHoverField(e);
 	},
 	delegateOnSelectField : function(e) {
+		this.loggingVisitor.onSelectField(e);
 		this.visitor.onSelectField(e);
 	}
 });
@@ -130,19 +146,8 @@ $.Class('LoggingMapVisitor',{
 function MapView(director, infoContainerDom) {
 	
 	this.setHighlightField = function(x,y,highlight) {
-		var alpha = 1.0;
-		if(highlight) {
-			alpha = 0.5;
-		}
-
-		this.fieldActors[x][y].setAlpha(alpha);
+		this.fieldActors[x][y].setAlpha(highlight ? 0.5 : 1.0);
 	};
-
-
-
-
-
-	return this;
 }
 
 function MapController(fieldsRenderer) {
