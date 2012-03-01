@@ -198,8 +198,8 @@ function MapController(fieldsRenderer) {
 }
 
 $.Class('MapVisitor', {
-	init : function(fieldsRenderer) {
-		this.fieldsRenderer = fieldsRenderer;
+	init : function(fieldRenderer) {
+		this.fieldRenderer = fieldRenderer;
 	},
 	onSelectField : function(e) {
 
@@ -215,7 +215,7 @@ MapVisitor('DefaultMapVisitor', {
 		this._super(fieldRenderer);
 	},
 	onSelectField : function(e) {
-		var agents = this.fieldsRenderer.agentActors;
+		var agents = this.fieldRenderer.agentActors;
 		agents = jQuery.grep(agents,function(cmp){
 			return e.source.fieldPosition.x == cmp.fieldPosition.x && e.source.fieldPosition.y == cmp.fieldPosition.y;
 		});
@@ -223,7 +223,7 @@ MapVisitor('DefaultMapVisitor', {
 		//TE TODO: check if the agent belongs to the user
 		if(agents.length > 0) {
 			//we selected an agent. hand control over to the AgentMapVisitor
-			this.fieldRenderer = new AgentMapVisitor(this.fieldRenderer, agents[0]);
+			this.fieldRenderer.visitor = new AgentMapVisitor(this.fieldRenderer, agents[0]);
 		}
 	}
 });
@@ -236,7 +236,7 @@ MapVisitor('AgentMapVisitor', {
 		this._super(fieldRenderer);
 	},
 	onSelectField : function(e) {
-		var agents = this.fieldsRenderer.agentActors;
+		var agents = this.fieldRenderer.agentActors;
 		agents = jQuery.grep(agents,function(cmp){
 			return e.source.fieldPosition.x == cmp.fieldPosition.x && e.source.fieldPosition.y == cmp.fieldPosition.y;
 		});
@@ -244,7 +244,7 @@ MapVisitor('AgentMapVisitor', {
 		//if the user selects nothing, we deselect the agent
 		if(agents.length == 0) {
 			this.selectAgent(this.agent, false);
-			this.fieldRenderer = new DefaultMapVisitor(this.fieldRenderer);
+			this.fieldRenderer.visitor = new DefaultMapVisitor(this.fieldRenderer);
 		}
 		else{
 			//the user selected another agent
@@ -279,9 +279,9 @@ MapVisitor('LoggingMapVisitor',{
 		);
 	},
 	getAgentsFromField : function(x,y){
-		var actors = this.fieldsRenderer.mapContainer.childrenList;
+		var actors = this.fieldRenderer.agentActors;
 		agents = jQuery.grep(actors,function(e){
-			return e.actorType == ActorType.AGENT && e.fieldPosition.x == x && e.fieldPosition.y == y;
+			return e.fieldPosition.x == x && e.fieldPosition.y == y;
 		});
 		return agents;
 	}
