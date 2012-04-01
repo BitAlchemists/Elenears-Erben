@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="true"
+		 backupStaticAttributes="false"
+		bootstrap="phpunit_tests/bootstrap.php"
+		cacheTokens="true"
+		colors="false"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		forceCoversAnnotation="false"
+		mapTestClassNameToCoveredClassName="false"
+		printerClass="PHPUnit_TextUI_ResultPrinter"
+		processIsolation="false"
+		stopOnError="false"
+		stopOnFailure="false"
+		stopOnIncomplete="false"
+		stopOnSkipped="false"
+		testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+		strict="false"
+		verbose="false">
+
+	<testsuites>
+		<testsuite name="Integration">
+			<directory suffix=".php">phpunit_tests/integration</directory>
+		</testsuite>
+	</testsuites>
+
+
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">phpunit_tests/integration</directory>
+			<directory suffix=".php">models</directory>
+		</whitelist>
+	</filter>
+
+	<logging>
+		<log type="coverage-html" target="phpunit_tests/log/report" charset="UTF-8"
+			 yui="true" highlight="false"
+			 lowUpperBound="35" highLowerBound="70"/>
+		<log type="coverage-clover" target="phpunit_tests/log/coverage.xml"/>
+		<log type="coverage-php" target="phpunit_tests/log/coverage.serialized"/>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+		<log type="json" target="phpunit_tests/log/logfile.json"/>
+		<log type="tap" target="phpunit_tests/log/logfile.tap"/>
+		<log type="junit" target="phpunit_tests/log/logfile.xml" logIncompleteSkipped="false"/>
+		<log type="testdox-html" target="phpunit_tests/log/testdox.html"/>
+		<log type="testdox-text" target="phpunit_tests/log/testdox.txt"/>
+	</logging>
+
+</phpunit>
