@@ -33,9 +33,13 @@ class Avatars extends \lithium\data\Model
 
 		Avatars ::applyFilter('remove', function($self, $params, $chain) {
 
+
 			$agentsConditions = array(
 				'game_id' => $params['conditions']['game_id'],
-				'owner_id' => $params['conditions']['_id']);
+			);
+			if( isset( $params['conditions']['_id'] ) ){
+				$agentsConditions['owner_id'] = $params['conditions']['_id'];
+			}
 			Agents::remove($agentsConditions);
 			
 			return $chain->next($self, $params, $chain);
