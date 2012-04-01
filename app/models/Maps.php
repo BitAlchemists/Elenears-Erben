@@ -103,16 +103,16 @@ class Maps extends \lithium\data\Model
 		return $fields;
 	}
 
-	static function _grasland($grasland) {
-		if(isset($grasland)) {
+	static function _grasland($grasland = null) {
+		if(!is_null($grasland)) {
 			return $grasland['type'] == 1 ? true : false;
 		}
 
 		return array('type' => 1);
 	}
 
-	static function _waterfield($waterfield) {
-		if(isset($waterfield)) {
+	static function _waterfield($waterfield = null) {
+		if(!is_null($waterfield)) {
 			return $waterfield['type'] == 0 ? true : false;
 		}
 
