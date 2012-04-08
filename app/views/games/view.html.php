@@ -44,9 +44,12 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 		* @param director
 		*/
 		function createScenes(director) {
+			var cycle = 1 * 1000 * 60;
 			var fieldsRenderer = new FieldsRenderer(director);
 			var mapController = new MapController(fieldsRenderer);
 			var agentsController = new AgentsController();
+			AgentsRenderer.setLifetime(cycle + 1000);
+			fieldsRenderer.setLifetime(cycle + 1000);
 			
 			EE.style = EE.style || {};
 			EE.style.map = EE.style.map || {};
@@ -55,15 +58,20 @@ Euer Kartenzeichner hat Euch die neueste Karte der Welt schicken lassen:<br/>
 			EE.style.map.images.grasland = new CAAT.SpriteImage().initialize(director.getImage('grasland'),1,1);
 			EE.style.map.images.hunter = new CAAT.SpriteImage().initialize(director.getImage('hunter'),1,1);
 			EE.style.map.fieldLength = 50;
-			
-			Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
-				mapController.loadMap(map);
-				mapController.presentFields();	
-			}, function(){alert("could not load map");});
-			Agent.findAll({id: "<?php echo($game->_id)?>"}, function(agents){
-				agentsController.agents(agents);
-				agentsController.presentAgents(fieldsRenderer);
-			}, function(){alert("could not load agents");});
+
+			loadModels = function(){
+				Map.findOne({id: "<?php echo($game->_id)?>"}, function(map){
+					mapController.loadMap(map);
+					mapController.presentFields();
+				}, function(){alert("could not load map");});
+				Agent.findAll({id: "<?php echo($game->_id)?>"}, function(agents){
+					agentsController.loadAgents(agents);
+					agentsController.presentAgents(fieldsRenderer);
+				}, function(){alert("could not load agents");});
+			}
+			loadModels();
+
+			setInterval(loadModels,cycle);
 		};
 
 		jQuery(document).ready(function(){
@@ -127,6 +135,5 @@ var todo = new Todo({name: "do the dishes"})
 		echo 'derzeit bevölkern keine Avatare diese Welt';
 	}
 ?>
-
 <div id="map"></div>
 <div id="map-info-container"></div>

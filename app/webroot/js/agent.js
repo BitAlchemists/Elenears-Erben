@@ -1,5 +1,5 @@
 $.Model('Agent',{
-  findAll: 'GET '+EE.paths.base+'agents/view/{id}.json',
+  findAll: 'GET '+EE.paths.base+'agents/view/{id}.json'
 },{});
 
 $.Class('AgentsRenderer',{
@@ -7,6 +7,9 @@ $.Class('AgentsRenderer',{
 		fieldsRenderer.agentActors = [];
 		for(var i = 0; i < agents.length; i++) {
 			var agentActor = this.createAgentActor(agents[i]);
+			agentActor.
+				setFrameTime(fieldsRenderer.scene.time,this.lifetime).
+				setDiscardable(true)
 			fieldsRenderer.mapContainer.addChild(agentActor);
 			fieldsRenderer.mapContainer.setZOrder(agentActor, 100);
 			fieldsRenderer.agentActors.push(agentActor);
@@ -21,11 +24,14 @@ $.Class('AgentsRenderer',{
 		agentActor.actorType = ActorType.AGENT;
 		agentActor.fieldPosition = new FieldPosition(unit.xPos, unit.yPos);
 		return agentActor;
+	},
+	setLifetime : function( lifetime ){
+		this.lifetime = lifetime;
 	}
 },{});
 
 $.Class('AgentsController',{
-	agents : function(agents) {
+	loadAgents : function(agents) {
 		if(agents) {
 			this.agents = agents;
 			return;

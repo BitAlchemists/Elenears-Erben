@@ -35,12 +35,18 @@ $.Class('FieldsRenderer', {
 				var field = fieldColumn[y];
 
 				var fieldActor = this.createFieldActor(field, x, y);
+				fieldActor.
+					setFrameTime(this.scene.time,this.lifetime).
+					setDiscardable(true);
 				this.mapContainer.addChild(fieldActor);
 				this.mapContainer.setZOrder(fieldActor, 0);
 				this.fieldActors[x][y] = fieldActor;
 				
 				//we also create an invisible actor that provides the actors that the user can interact with
 				var interActor = this.createInterActor(x, y);
+				interActor.
+					setFrameTime(this.scene.time,this.lifetime).
+					setDiscardable(true);
 				this.mapContainer.addChild(interActor);
 				this.mapContainer.setZOrder(interActor, 200);
 			}
@@ -89,6 +95,9 @@ $.Class('FieldsRenderer', {
 		}
 
 		actor.setBackgroundImage(image.getRef(),true);
+	},
+	setLifetime : function(lifetime){
+		this.lifetime = lifetime;
 	},
 	visitor : function(visitor) {
 		if(visitor) {
