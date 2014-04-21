@@ -1,15 +1,15 @@
-[submodule "libraries/lithium"]
-	path = libraries/lithium
+[submodule "php_lithium/libraries/lithium"]
+	path = php_lithium/libraries/lithium
 	url = git://github.com/UnionOfRAD/lithium.git
-[submodule "app/libraries/li3_bot"]
-	path = app/libraries/li3_bot
+[submodule "php_lithium/app/libraries/li3_bot"]
+	path = php_lithium/app/libraries/li3_bot
 	url = https://github.com/UnionOfRAD/li3_bot.git
-[submodule "app/libraries/li3_docs"]
-	path = app/libraries/li3_docs
+[submodule "php_lithium/app/libraries/li3_docs"]
+	path = php_lithium/app/libraries/li3_docs
 	url = git://github.com/UnionOfRAD/li3_docs.git
-[submodule "libraries/caat"]
-	path = libraries/caat
+[submodule "php_lithium/libraries/caat"]
+	path = php_lithium/libraries/caat
 	url = git://github.com/hyperandroid/CAAT.git
-[submodule "libraries/javascript-astar"]
-	path = libraries/javascript-astar
+[submodule "php_lithium/libraries/javascript-astar"]
+	path = php_lithium/libraries/javascript-astar
 	url = git://github.com/bgrins/javascript-astar.git

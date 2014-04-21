@@ -1,1 +1,0 @@
-../../../libraries/JavaScriptMVC/jquery-1.6.4.js

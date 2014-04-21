@@ -1,0 +1,1 @@
+../../../libraries/javascript-astar/astar.js

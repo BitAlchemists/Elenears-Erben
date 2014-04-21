@@ -1,1 +1,0 @@
-../../../libraries/JavaScriptMVC/jquerymx-3.2.custom.js
